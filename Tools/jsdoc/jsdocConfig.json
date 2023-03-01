@@ -1,0 +1,48 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": ["./Source"],
+        "exclude": [
+            "./Source/Assets",
+            "./Source/Shaders",
+            "./Source/ThirdParty",
+            "./Source/Widgets",
+            "./Source/Workers",
+            "./Source/WorkersES6"
+        ],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": [],
+    "opts": {
+        "template": "./templates/jaguarjs",
+        "encoding": "utf8",
+        "destination": "./Build/Documentation",
+        "recurse": true
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": false
+        },
+        "applicationName": "VRGlobe",
+        "disqus": "",
+        "googleAnalytics": "",
+        "openGraph": {
+            "title": "",
+            "type": "website",
+            "image": "",
+            "site_name": "",
+            "url": ""
+        },
+        "meta": {
+            "title": "",
+            "description": "",
+            "keyword": ""
+        },
+        "linenums": false
+    }
+}

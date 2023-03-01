@@ -1,0 +1,13 @@
+.DS_Store
+node_modules
+/dist
+/Build
+Source/Workers
+Source/Shaders/*.js
+Source/Cesium.js
+
+package-lock.json
+
+# Editor directories and files
+.vscode
+yarn.lock

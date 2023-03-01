@@ -1,0 +1,44 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8" />
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <script src="../Build/VRGlobe/VRGlobe.js"></script>
+    <link rel="stylesheet" href="../Build/VRGlobe/Widgets/widgets.css" />
+    <title>Cesium打包后文件测试代码</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+    <script>
+        // Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlNDYwZDg5OS1iYjQ2LTQyNjEtYTgyYS0wOTMwZTRiOTViZmMiLCJpZCI6NTQyNCwiaWF0IjoxNjc1NzU5MTI5fQ.8Vf2LXy0DY44BEs9RzTh0WN1RWK8F-I2hykYNxk46YQ";
+        window.Space_BASEURL = "http://127.0.0.1:5500/Build/VRGlobe/"
+        var space = new VRGlobe.Space('main');
+
+    </script>
+</body>
+
+</html>
