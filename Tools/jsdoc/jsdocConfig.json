@@ -3,14 +3,10 @@
         "allowUnknownTags": true
     },
     "source": {
-        "include": ["./Source"],
+        "include": ["./WebAPI"],
         "exclude": [
-            "./Source/Assets",
-            "./Source/Shaders",
-            "./Source/ThirdParty",
-            "./Source/Widgets",
-            "./Source/Workers",
-            "./Source/WorkersES6"
+            "./WebAPI/VRGlobe.js",
+            "./WebAPI/ThirdParty/"
         ],
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"
@@ -23,10 +19,10 @@
         "recurse": true
     },
     "templates": {
-        "cleverLinks": false,
-        "monospaceLinks": false,
+        "cleverLinks": true,
+        "monospaceLinks": true,
         "default": {
-            "outputSourceFiles": false
+            "outputSourceFiles": true
         },
         "applicationName": "VRGlobe",
         "disqus": "",

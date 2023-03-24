@@ -69,7 +69,7 @@ DeveloperError.prototype.toString = function () {
  */
 DeveloperError.throwInstantiationError = function () {
   throw new DeveloperError(
-    "This function defines an interface and should not be called directly."
+    "此函数定义接口，不应直接调用!"
   );
 };
 export default DeveloperError;

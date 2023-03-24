@@ -890,6 +890,18 @@ Cartesian3.fromDegrees = function (
   return Cartesian3.fromRadians(longitude, latitude, height, ellipsoid, result);
 };
 
+Cartesian3.fromPosition = function(position){
+  return Cartesian3.fromDegrees(position.longitude, position.latitude, position.altitude);
+}
+
+Cartesian3.fromPositions = function(positions){
+  const points = new Array();
+  positions.forEach(position =>{
+    points.push(Cartesian3.fromPosition(position));
+  });
+  return points;
+}
+
 let scratchN = new Cartesian3();
 let scratchK = new Cartesian3();
 const wgs84RadiiSquared = new Cartesian3(

@@ -17,7 +17,7 @@
     <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
     <script src="../Build/VRGlobe/VRGlobe.js"></script>
     <link rel="stylesheet" href="../Build/VRGlobe/Widgets/widgets.css" />
-    <title>Cesium打包后文件测试代码</title>
+    <title>VRGlobe打包后文件测试代码</title>
     <style>
         html,
         body,
@@ -37,6 +37,27 @@
         // Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlNDYwZDg5OS1iYjQ2LTQyNjEtYTgyYS0wOTMwZTRiOTViZmMiLCJpZCI6NTQyNCwiaWF0IjoxNjc1NzU5MTI5fQ.8Vf2LXy0DY44BEs9RzTh0WN1RWK8F-I2hykYNxk46YQ";
         window.Space_BASEURL = "http://127.0.0.1:5500/Build/VRGlobe/"
         var space = new VRGlobe.Space('main');
+
+        let pointGeojson;
+        VRGlobe.Resource.fetchJson({
+            url: 'http://127.0.0.1:129/SDKData/Point.json'
+        }).then(data => {
+            pointGeojson = data;
+        });
+
+        let lineStringGeojson;
+        VRGlobe.Resource.fetchJson({
+            url: 'http://127.0.0.1:129/SDKData/Polyline.json'
+        }).then(data => {
+            lineStringGeojson = data;
+        });
+
+        let polygonGeojson;
+        VRGlobe.Resource.fetchJson({
+            url: 'http://127.0.0.1:129/SDKData/Polygon.json'
+        }).then(data => {
+            polygonGeojson = data;
+        });
 
     </script>
 </body>

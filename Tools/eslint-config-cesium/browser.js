@@ -1,19 +1,19 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  extends: "./index.js",
+  extends: './index.js',
   env: {
     browser: true,
-    es6: true,
+    es6: true
   },
   parserOptions: {
     ecmaVersion: 2015,
-    sourceType: "module",
+    sourceType: 'module'
   },
   rules: {
-    "no-implicit-globals": "error",
-    "no-var": "error",
-    "prefer-const": "error",
-    "prefer-template": "error",
-  },
+    'no-implicit-globals': 'error',
+    'no-var': 'error',
+    'prefer-const': 'error',
+    'prefer-template': 'error'
+  }
 };

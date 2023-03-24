@@ -57,7 +57,7 @@ function swapCesiumCredit(creditDisplay) {
   creditDisplay._previousCesiumCredit = currentCredit;
 }
 
-const delimiterClassName = "cesium-credit-delimiter";
+const delimiterClassName = "spaceMain-delimiter";
 
 function createDelimiterElement(delimiter) {
   const delimiterElement = document.createElement("span");
@@ -143,11 +143,11 @@ function styleLightboxContainer(that) {
   if (width !== that._lastViewportWidth) {
     if (width < mobileWidth) {
       lightboxCredits.className =
-        "cesium-credit-lightbox cesium-credit-lightbox-mobile";
+        "spaceMain-lightbox spaceMain-lightbox-mobile";
       lightboxCredits.style.marginTop = "0";
     } else {
       lightboxCredits.className =
-        "cesium-credit-lightbox cesium-credit-lightbox-expanded";
+        "spaceMain-lightbox spaceMain-lightbox-expanded";
       lightboxCredits.style.marginTop = `${Math.floor(
         (height - lightboxCredits.clientHeight) * 0.5
       )}px`;
@@ -176,7 +176,7 @@ function addStyle(selector, styles) {
 
 function appendCss() {
   let style = "";
-  style += addStyle(".cesium-credit-lightbox-overlay", {
+  style += addStyle(".spaceMain-lightbox-overlay", {
     display: "none",
     "z-index": "1", //must be at least 1 to draw over top other Cesium widgets
     position: "absolute",
@@ -187,7 +187,7 @@ function appendCss() {
     "background-color": "rgba(80, 80, 80, 0.8)",
   });
 
-  style += addStyle(".cesium-credit-lightbox", {
+  style += addStyle(".spaceMain-lightbox", {
     "background-color": "#303336",
     color: textColor,
     position: "relative",
@@ -196,32 +196,32 @@ function appendCss() {
   });
 
   style += addStyle(
-    ".cesium-credit-lightbox > ul > li a, .cesium-credit-lightbox > ul > li a:visited",
+    ".spaceMain-lightbox > ul > li a, .spaceMain-lightbox > ul > li a:visited",
     {
       color: textColor,
     }
   );
 
-  style += addStyle(".cesium-credit-lightbox > ul > li a:hover", {
+  style += addStyle(".spaceMain-lightbox > ul > li a:hover", {
     color: highlightColor,
   });
 
-  style += addStyle(".cesium-credit-lightbox.cesium-credit-lightbox-expanded", {
+  style += addStyle(".spaceMain-lightbox.spaceMain-lightbox-expanded", {
     border: "1px solid #444",
     "border-radius": "5px",
     "max-width": "370px",
   });
 
-  style += addStyle(".cesium-credit-lightbox.cesium-credit-lightbox-mobile", {
+  style += addStyle(".spaceMain-lightbox.spaceMain-lightbox-mobile", {
     height: "100%",
     width: "100%",
   });
 
-  style += addStyle(".cesium-credit-lightbox-title", {
+  style += addStyle(".spaceMain-lightbox-title", {
     padding: "20px 20px 0 20px",
   });
 
-  style += addStyle(".cesium-credit-lightbox-close", {
+  style += addStyle(".spaceMain-lightbox-close", {
     "font-size": "18pt",
     cursor: "pointer",
     position: "absolute",
@@ -230,41 +230,41 @@ function appendCss() {
     color: textColor,
   });
 
-  style += addStyle(".cesium-credit-lightbox-close:hover", {
+  style += addStyle(".spaceMain-lightbox-close:hover", {
     color: highlightColor,
   });
 
-  style += addStyle(".cesium-credit-lightbox > ul", {
+  style += addStyle(".spaceMain-lightbox > ul", {
     margin: "0",
     padding: "12px 20px 12px 40px",
     "font-size": "13px",
   });
 
-  style += addStyle(".cesium-credit-lightbox > ul > li", {
+  style += addStyle(".spaceMain-lightbox > ul > li", {
     "padding-bottom": "6px",
   });
 
-  style += addStyle(".cesium-credit-lightbox > ul > li *", {
+  style += addStyle(".spaceMain-lightbox > ul > li *", {
     padding: "0",
     margin: "0",
   });
 
-  style += addStyle(".cesium-credit-expand-link", {
+  style += addStyle(".spaceMain-expand-link", {
     "padding-left": "5px",
     cursor: "pointer",
     "text-decoration": "underline",
     color: textColor,
   });
-  style += addStyle(".cesium-credit-expand-link:hover", {
+  style += addStyle(".spaceMain-expand-link:hover", {
     color: highlightColor,
   });
 
-  style += addStyle(".cesium-credit-text", {
+  style += addStyle(".spaceMain-text", {
     color: textColor,
   });
 
   style += addStyle(
-    ".cesium-credit-textContainer *, .cesium-credit-logoContainer *",
+    ".spaceMain-textContainer *, .spaceMain-logoContainer *",
     {
       display: "inline",
     }
@@ -298,11 +298,11 @@ function CreditDisplay(container, delimiter, viewport) {
   viewport = defaultValue(viewport, document.body);
 
   const lightbox = document.createElement("div");
-  lightbox.className = "cesium-credit-lightbox-overlay";
+  lightbox.className = "spaceMain-lightbox-overlay";
   viewport.appendChild(lightbox);
 
   const lightboxCredits = document.createElement("div");
-  lightboxCredits.className = "cesium-credit-lightbox";
+  lightboxCredits.className = "spaceMain-lightbox";
   lightbox.appendChild(lightboxCredits);
 
   function hideLightbox(event) {
@@ -314,31 +314,31 @@ function CreditDisplay(container, delimiter, viewport) {
   lightbox.addEventListener("click", hideLightbox, false);
 
   const title = document.createElement("div");
-  title.className = "cesium-credit-lightbox-title";
+  title.className = "spaceMain-lightbox-title";
   title.textContent = "Data provided by:";
   lightboxCredits.appendChild(title);
 
   const closeButton = document.createElement("a");
   closeButton.onclick = this.hideLightbox.bind(this);
   closeButton.innerHTML = "&times;";
-  closeButton.className = "cesium-credit-lightbox-close";
+  closeButton.className = "spaceMain-lightbox-close";
   lightboxCredits.appendChild(closeButton);
 
   const creditList = document.createElement("ul");
   lightboxCredits.appendChild(creditList);
 
   const cesiumCreditContainer = document.createElement("div");
-  cesiumCreditContainer.className = "cesium-credit-logoContainer";
+  cesiumCreditContainer.className = "spaceMain-logoContainer";
   cesiumCreditContainer.style.display = "inline";
   container.appendChild(cesiumCreditContainer);
 
   const screenContainer = document.createElement("div");
-  screenContainer.className = "cesium-credit-textContainer";
+  screenContainer.className = "spaceMain-textContainer";
   screenContainer.style.display = "inline";
   container.appendChild(screenContainer);
 
   const expandLink = document.createElement("a");
-  expandLink.className = "cesium-credit-expand-link";
+  expandLink.className = "spaceMain-expand-link";
   expandLink.onclick = this.showLightbox.bind(this);
   expandLink.textContent = "Data attribution";
   container.appendChild(expandLink);
