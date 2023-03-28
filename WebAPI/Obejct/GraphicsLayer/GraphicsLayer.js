@@ -1,7 +1,5 @@
 import createGuid from '../../../Source/Core/createGuid.js';
 import defaultValue from '../../../Source/Core/defaultValue.js';
-import defined from '../../../Source/Core/defined.js';
-import DeveloperError from '../../../Source/Core/DeveloperError.js';
 import PrimitiveCollection from '../../../Source/Scene/PrimitiveCollection.js';
 import AnnotationStyle from '../../Style/AnnotationStyle.js';
 import AttributeTable from '../AttributeTable/AttributeTable.js';
@@ -32,7 +30,6 @@ class GraphicsLayer {
         return graphic;
     }
 
-    
 }
 
 export default GraphicsLayer;

@@ -63,6 +63,9 @@ function addPolylines(features, collection, style) {
             });
         } else if (feature._geometry instanceof LineStringGeometry) {
             collection.add(Object.assign({
+                loop: style.loop,
+                width: style.width,
+                material: material,
                 positions: Cartesian3.fromPositions(feature._geometry.positions)
             }, style));
         }
