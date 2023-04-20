@@ -11,6 +11,7 @@ import DeveloperError from '../../Source/Core/DeveloperError.js';
 import formatXml from '../ThirdParty/jsonxml/formatXml.js';
 import JKL from '../ThirdParty/jsonxml/jkl.js';
 import XML from '../ThirdParty/jsonxml/xml.js';
+import TopoJSON from './Parse/TopoJSON.js';
 
 
 function wks2json(data) {
@@ -43,6 +44,14 @@ function json2wks(json) {
     }
 }
 
+// function topojson2img(data, options) {
+//     try {
+//         return TopoJSON.toIMG()
+//     } catch (e) {
+//         throw new DeveloperError(e);
+//     }
+// }
+
 /**
  * 三维场景中支持的格式
  * @namespace
@@ -59,7 +68,11 @@ class Format {
      * @type {Number}
      * @constant
      */
-    static WKS = 1001;
+    static WKS = 1010;
+
+    static TOPOJSON = 1001;
+
+    static IMG = 2001;
 
     /**
      * 判断三维场景是否支持该格式的数据
@@ -98,6 +111,11 @@ class Format {
                         return json2wks(data);
                 }
                 break;
+            // case Format.TOPOJSON:
+            //     switch (toFormat) {
+            //         case Format.IMG:
+            //             return topojson2img(data);
+            //     }
         }
         throw new DeveloperError("不支持转换的格式类型!");
     }

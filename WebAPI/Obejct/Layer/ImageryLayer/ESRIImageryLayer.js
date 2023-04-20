@@ -1,13 +1,13 @@
-import Cartesian3 from '../../../Source/Core/Cartesian3.js';
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import defined from '../../../Source/Core/defined.js';
-import GeographicProjection from '../../../Source/Core/GeographicProjection.js';
-import GeographicTilingScheme from '../../../Source/Core/GeographicTilingScheme.js';
-import Rectangle from '../../../Source/Core/Rectangle.js';
-import RuntimeError from '../../../Source/Core/RuntimeError.js';
-import TileProviderError from '../../../Source/Core/TileProviderError.js';
-import WebMercatorProjection from '../../../Source/Core/WebMercatorProjection.js';
-import WebMercatorTilingScheme from '../../../Source/Core/WebMercatorTilingScheme.js';
+import Cartesian3 from '../../../../Source/Core/Cartesian3.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
+import defined from '../../../../Source/Core/defined.js';
+import GeographicProjection from '../../../../Source/Core/GeographicProjection.js';
+import GeographicTilingScheme from '../../../../Source/Core/GeographicTilingScheme.js';
+import Rectangle from '../../../../Source/Core/Rectangle.js';
+import RuntimeError from '../../../../Source/Core/RuntimeError.js';
+import TileProviderError from '../../../../Source/Core/TileProviderError.js';
+import WebMercatorProjection from '../../../../Source/Core/WebMercatorProjection.js';
+import WebMercatorTilingScheme from '../../../../Source/Core/WebMercatorTilingScheme.js';
 import ImageryProvider from './ImageryProvider.js';
 
 /**

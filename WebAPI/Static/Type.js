@@ -129,6 +129,13 @@ class Type {
      */
     static TERRAINSEELEVEL = 1000201;
 
+    /**
+     * QuantizedMesh类型地形
+     * @type {Number}
+     * @constant
+     */
+    static TERRAINQUANTIZED = 1000202;
+
     static POINT = 1000011;
     static POLYGON = 1000013;
     static LINESTRING = 1000014;

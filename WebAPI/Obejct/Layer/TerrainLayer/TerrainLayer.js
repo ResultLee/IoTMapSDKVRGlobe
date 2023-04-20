@@ -1,6 +1,6 @@
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import DeveloperError from '../../../Source/Core/DeveloperError';
-import Type from '../../Static/Type.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
+import DeveloperError from '../../../../Source/Core/DeveloperError.js';
+import Type from '../../../Static/Type.js';
 import QuantizedTerrainLayer from './QuantizedTerrainLayer.js';
 import SeaLevelTerrainLayer from './SeaLevelTerrainLayer.js';
 
@@ -21,19 +21,19 @@ class TerrainLayer {
      * @param {Object} options 创建Quantized地形图层({@link QuantizedTerrainLayer})和海平面地形图层({@link SeaLevelTerrainLayer})，若是海平面图层该参数可选
      * @example
      * 1.创建Quantized地形图层对象
-    const layer = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAIN, {
+    const layer = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINQUANTIZED, {
         url: "https://yoururl"
     });
      * 2.创建基础海平面地形图层对象
-    const layer = new VRGlobe.TerrainLayer(Cesium.Type.TERRAINSEELEVEL);
+    const layer = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINSEELEVEL);
      * @returns {QuantizedTerrainLayer | SeaLevelTerrainLayer}
      */
     constructor(type, options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
         switch (type) {
-            case Type.TERRAIN:
-                // let layer = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAIN, {
+            case Type.TERRAINQUANTIZED:
+                // let layer = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINQUANTIZED, {
                 //     url: "https://www.supermapol.com/realspace/services/3D-stk_terrain/rest/realspace/datas/info/data/path"
                 // });
                 return new QuantizedTerrainLayer(options);

@@ -39,10 +39,11 @@ class Project {
      */
     openProject(url) {
         Check.typeOf.string('WKS工程文件地址', url);
-        Loader.loadJson(url, Format.WKS).then(data => {
-            this.info = data;
-            // TODO: 根据WKS中保存的节点数据依次向场景中添加图层
-        });
+        // TODO: 完善WKS加载相关方法
+        // Loader.loadJson(url, Format.WKS).then(data => {
+        //     this.info = data;
+        //     // TODO: 根据WKS中保存的节点数据依次向场景中添加图层
+        // });
     }
 
     // TODO: 添加保存场景信息到工程文件方法

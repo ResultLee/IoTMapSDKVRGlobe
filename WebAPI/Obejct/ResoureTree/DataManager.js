@@ -6,7 +6,7 @@
  * @Description:
  */
 
-import ImageryLayerCollection from '../ImageryLayer/ImageryLayerCollection.js';
+import ImageryLayerCollection from '../Layer/ImageryLayer/ImageryLayerCollection.js';
 
 /**
  * 资源树数据管理对象

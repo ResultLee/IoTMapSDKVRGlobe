@@ -1,12 +1,12 @@
-import createGuid from '../../../Source/Core/createGuid.js';
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import defer from '../../../Source/Core/defer.js';
-import defined from '../../../Source/Core/defined.js';
-import DeveloperError from '../../../Source/Core/DeveloperError.js';
-import Event from '../../../Source/Core/Event.js';
-import Resource from '../../../Source/Core/Resource.js';
-import WebMercatorTilingScheme from '../../../Source/Core/WebMercatorTilingScheme.js';
-import ImageryStyle from '../../Style/ImageryStyle.js';
+import createGuid from '../../../../Source/Core/createGuid.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
+import defer from '../../../../Source/Core/defer.js';
+import defined from '../../../../Source/Core/defined.js';
+import DeveloperError from '../../../../Source/Core/DeveloperError.js';
+import Event from '../../../../Source/Core/Event.js';
+import Resource from '../../../../Source/Core/Resource.js';
+import WebMercatorTilingScheme from '../../../../Source/Core/WebMercatorTilingScheme.js';
+import ImageryStyle from '../../../Style/ImageryStyle.js';
 
 /**
  * 影像图层接口,不要直接实例化
@@ -41,7 +41,8 @@ class ImageryProvider {
         this._tileWidth = defaultValue(options.tileWidth, 256);
         this._tileHeight = defaultValue(options.tileHeight, 256);
         this._tilingScheme = defaultValue(options.tilingScheme, new WebMercatorTilingScheme());
-        this._rectangle = this._tilingScheme.rectangle;
+        // 验证范围
+        this._rectangle = defaultValue(options.rectangle, this._tilingScheme.rectangle);
 
         this._resource = Resource.createIfNeeded(url);
 

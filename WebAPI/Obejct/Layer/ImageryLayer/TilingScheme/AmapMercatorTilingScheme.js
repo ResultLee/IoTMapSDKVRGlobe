@@ -1,8 +1,8 @@
-import Cartesian2 from '../../../../Source/Core/Cartesian2';
-import Cartographic from '../../../../Source/Core/Cartographic.js';
-import CesiumMath from '../../../../Source/Core/Math.js';
-import WebMercatorProjection from '../../../../Source/Core/WebMercatorProjection.js';
-import WebMercatorTilingScheme from '../../../../Source/Core/WebMercatorTilingScheme.js';
+import Cartesian2 from '../../../../../Source/Core/Cartesian2';
+import Cartographic from '../../../../../Source/Core/Cartographic.js';
+import CesiumMath from '../../../../../Source/Core/Math.js';
+import WebMercatorProjection from '../../../../../Source/Core/WebMercatorProjection.js';
+import WebMercatorTilingScheme from '../../../../../Source/Core/WebMercatorTilingScheme.js';
 import CoordTransform from './CoordTransform.js';
 
 /**

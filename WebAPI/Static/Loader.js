@@ -13,6 +13,14 @@ function loadData(url) {
         });
 }
 
+function loadJson(url) {
+    return Resource
+        .fetchJson({ url })
+        .catch(error => {
+            throw new DeveloperError(error);
+        });
+}
+
 /**
  * 场景对象加载静态方法
  * @namespace
@@ -34,16 +42,18 @@ class Loader {
      * 以Json格式加载数据
      * @async
      * @param {String} url 需要加载的数据的url地址
-     * @param {Format} [format] 需要加载的数据格式
      * @returns {Promise} 请求数据的Promise
      */
-    static async loadJson(url, format) {
-        let data = await loadData(url);
-        switch (format) {
-            case Format.WKS:
-                return data = this.parseJsonFrom(data, Format.WKS);
-        }
-        return JSON.parse(data);
+    static async loadJson(url) {
+        Check.typeOf.string('加载数据的URL地址为空!', url);
+        // switch (format) {
+        //     case Format.WKS:
+        //         return data = this.parseJsonFrom(data, Format.WKS);
+        //     case Format.TOPOJSON:
+        //         return data = Parse.TopoJson(url);
+        // }
+        // return JSON.parse(data);
+        return await loadJson(url);
     }
 
     /**

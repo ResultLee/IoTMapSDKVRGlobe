@@ -1,13 +1,13 @@
-import defaultValue from '../../../Source/Core/defaultValue';
-import defined from '../../../Source/Core/defined';
-import GeographicTilingScheme from '../../../Source/Core/GeographicTilingScheme';
-import Default from '../../Static/Default';
-import TopoJSON from '../../Static/Parse/TopoJSON';
+import defaultValue from '../../../Source/Core/defaultValue.js';
+import defined from '../../../Source/Core/defined.js';
+import GeographicTilingScheme from '../../../Source/Core/GeographicTilingScheme.js';
+import Default from '../../Static/Default.js';
+import TopoJSON from '../../Static/Parse/TopoJSON.js';
 import UrlTileImageryLayer from '../ImageryLayer/UrlTileImageryLayer.js';
 
 const templateRegex = /{[^}]+}/g;
 
- class FeatureLayer extends UrlTileImageryLayer {
+class VectorTileLayer extends UrlTileImageryLayer {
     constructor(url, options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
         options.tilingScheme = defaultValue(
@@ -23,7 +23,6 @@ const templateRegex = /{[^}]+}/g;
         this.strokeColor = defaultValue(options.strokeColor, 'rgba(3, 104, 255, 0)');
 
         this.ready = true;
-
     }
 
     requestImage(x, y, level, request) {
@@ -36,7 +35,7 @@ const templateRegex = /{[^}]+}/g;
             });
         }
 
-        return new Promise(resolve => {
+        return new Promise(function (resolve, reject) {
             try {
                 const resource = that._resource;
                 const url = resource.getUrlComponent(true);
@@ -81,4 +80,4 @@ const templateRegex = /{[^}]+}/g;
     }
 }
 
-export default FeatureLayer;
+export default VectorTileLayer;

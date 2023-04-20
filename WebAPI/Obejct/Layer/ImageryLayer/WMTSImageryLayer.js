@@ -1,11 +1,11 @@
-import combine from '../../../Source/Core/combine.js';
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import defined from '../../../Source/Core/defined.js';
-import DeveloperError from '../../../Source/Core/DeveloperError.js';
-import TimeDynamicImagery from '../../../Source/Scene/TimeDynamicImagery.js';
+import combine from '../../../../Source/Core/combine.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
+import defined from '../../../../Source/Core/defined.js';
+import DeveloperError from '../../../../Source/Core/DeveloperError.js';
+import TimeDynamicImagery from '../../../../Source/Scene/TimeDynamicImagery.js';
 import UrlTileImageryLayer from './UrlTileImageryLayer.js';
-import Rectangle from '../../../Source/Core/Rectangle.js';
-import WebMercatorTilingScheme from '../../../Source/Core/WebMercatorTilingScheme.js';
+import Rectangle from '../../../../Source/Core/Rectangle.js';
+import WebMercatorTilingScheme from '../../../../Source/Core/WebMercatorTilingScheme.js';
 
 function loadImage(imageryProvider, col, row, level, request, interval) {
     const labels = imageryProvider._tileMatrixLabels;

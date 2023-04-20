@@ -1,0 +1,80 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8" />
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <script src="../../Build/VRGlobe/VRGlobe.js"></script>
+    <link rel="stylesheet" href="../../Build/VRGlobe/Widgets/widgets.css" />
+    <title>影像瓦片图层(ImageryLayer)</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <body>
+        <div id="main"></div>
+        <script>
+            window.Space_BASEURL = window.location.origin + "/Build/VRGlobe/";
+            var space = new VRGlobe.Space('main');
+
+
+            // 创建高德矢量注记瓦片地图
+            let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPCVA);
+
+            // 创建高德影像瓦片地图
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPIMG);
+
+            // 高德矢量瓦片地图
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPVEC);
+
+            // 创建坐标系为BD-09坐标系百度标注的地图
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDCVA);
+
+            // 创建坐标系为BD-09坐标系百度矢量的地图
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDVEC);
+
+            // 创建坐标系为BD-09坐标系百度影像的地图
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDIMG);
+
+            // 创建ESRI矢量地图MapServer服务
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG);
+
+            // 创建ESRI影像地图MapServer服务
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIVEC);
+
+            // 创建腾讯影像瓦片地图
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYTENCENTIMG);
+
+            // 创建腾讯矢量瓦片地图
+            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYTENCENTVEC);
+            
+            space.__v.scene.imageryLayers.addImageryProvider(layer);
+
+        </script>
+    </body>
+</body>
+
+</html>

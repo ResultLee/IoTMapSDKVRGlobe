@@ -1,10 +1,10 @@
 
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import defined from '../../../Source/Core/defined.js';
-import GeographicTilingScheme from '../../../Source/Core/GeographicTilingScheme.js';
-import Rectangle from '../../../Source/Core/Rectangle.js';
-import WebMercatorProjection from '../../../Source/Core/WebMercatorProjection.js';
-import TimeDynamicImagery from '../../../Source/Scene/TimeDynamicImagery.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
+import defined from '../../../../Source/Core/defined.js';
+import GeographicTilingScheme from '../../../../Source/Core/GeographicTilingScheme.js';
+import Rectangle from '../../../../Source/Core/Rectangle.js';
+import WebMercatorProjection from '../../../../Source/Core/WebMercatorProjection.js';
+import TimeDynamicImagery from '../../../../Source/Scene/TimeDynamicImagery.js';
 import ImageryProvider from './ImageryProvider.js';
 
 const templateRegex = /{[^}]+}/g;

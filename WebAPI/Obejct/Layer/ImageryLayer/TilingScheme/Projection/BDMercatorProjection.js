@@ -370,10 +370,10 @@ class BDMercatorProjection {
    * @returns {number}
    */
   getRange(v, a, b) {
-    if (a != null) {
+    if (a !== null) {
       v = Math.max(v, a);
     }
-    if (b != null) {
+    if (b !== null) {
       v = Math.min(v, b);
     }
     return v;

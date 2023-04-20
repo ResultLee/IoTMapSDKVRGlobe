@@ -1,0 +1,194 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8" />
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <script src="../Build/VRGlobe/VRGlobe.js"></script>
+    <link rel="stylesheet" href="../Build/VRGlobe/Widgets/widgets.css" />
+    <title>VRGlobe矢量图层</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+    <script>
+        window.Space_BASEURL = "http://127.0.0.1:5500/Build/VRGlobe/"
+        var space = new VRGlobe.Space('main', {
+            imageryProvider: new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIVEC)
+        });
+
+        const maximumLevel = 15;
+        // const maximumLevel = 7;
+        const maximumScreenSpaceError = 64;
+
+        const baseTileUrl = 'http://192.168.1.114:9963/tile/cqdk1128/';
+        const tilesetType = '/tileset.json';
+
+        const baseTopoJsonUrl = 'http://127.0.0.1:129/Data/ChongQing/TopoJson/ChongQing_';
+        const topojsonType = '/EPSG_4326_{z}/{x}_{reverseY}.topojson';
+
+        const data = {
+            500101: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(107.8710700610001, 30.395032414000035, 108.90274556131759, 31.005089444287357),
+            },
+            500102: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.94514942100007, 29.36278025000009, 107.69682249800006, 30.001415905000044),
+            },
+            500103: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.47822065500013, 29.53355040000005, 106.53294960000015, 29.55520800000002),
+            },
+            500104: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.38871207200009, 29.345919371999994, 106.52392440000008, 29.4945970174103),
+            },
+            500105: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.4496475801086, 29.563466400000053, 106.88597008606445, 29.681574574479935),
+            },
+            500106: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.24757203643547, 29.494703327214047, 106.48493710348416, 29.753482361453905),
+            },
+            500107: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.24835997121433, 29.261408833000115, 106.54514402996838, 29.563241300396893),
+            },
+            500108: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.53530014132122, 29.460314093000115, 106.79530498396005, 29.617102283662796),
+            },
+            500109: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.30304708538907, 29.655283497875168, 106.68360280996761, 30.085008935442453),
+            },
+            500110: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.38033307189038, 28.454715693000026, 107.04413877411717, 29.191711823750463),
+            },
+            500111: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(105.46857703157171, 29.37486239306399, 106.03120853613459, 29.863543565000022),
+            },
+            500112: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.44839584565429, 29.580062399999992, 106.97714387699999, 30.117779823891553),
+            },
+            500113: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.4375007199254, 29.130528844784866, 106.99676738000004, 29.768726226000055),
+            },
+            500114: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(108.48356433700003, 29.07642600000005, 109.15871584761804, 31.568847758087273),
+            },
+            500115: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.85119344600017, 29.71708782600006, 107.45220191300008, 30.223141673000022),
+            },
+            500116: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(105.82556291859187, 28.538631426000087, 106.60282496300009, 29.453259588223236),
+            },
+            500117: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(105.96271827200003, 29.848755349, 106.672268032, 30.38179203100005),
+            },
+            500118: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(105.62571835400006, 28.937936222000065, 106.08381442700005, 29.57288421609082),
+            },
+            500119: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.7856201800001, 28.77721284784706, 107.43548866, 29.499344650000054),
+            },
+            500120: {
+                rectangle: VRGlobe.Rectangle.fromDegrees(106.03986460200011, 29.282408732000107, 106.36222937400011, 29.88485386800004),
+            },
+        }
+
+        var viewer = space.__v;
+
+        viewer.terrainProvider = new VRGlobe.TerrainLayer(
+            VRGlobe.Type.TERRAIN, {
+            url: "http://192.168.1.115:8888/Terrain/terrain"
+        });
+        viewer.scene.imageryLayers.addImageryProvider(
+            new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
+        );
+        viewer.scene.imageryLayers.addImageryProvider(
+            new VRGlobe.TileCoordinatesImageryProvider()
+        );
+
+        viewer.scene.debugShowFramesPerSecond = true;
+
+        var points = viewer.scene.primitives.add(new VRGlobe.PointPrimitiveCollection());
+        var point = points.add({
+            pixelSize: 10,
+            color: VRGlobe.Color.RED,
+            position: VRGlobe.Cartesian3.fromDegrees(108.40, 30.59),
+        });
+
+        function addTopoJson(url, rectangle) {
+            return viewer.scene.imageryLayers.addImageryProvider(
+                new VRGlobe.VectorTileLayer(url, {
+                    rectangle: rectangle,
+                    minimumLevel: 8,
+                    maximumLevel: maximumLevel,
+                    fillColor: 'rgba(3, 104, 255, 1)',
+                    strokeColor: 'rgba(30, 242, 220, 0)',
+                })
+            );
+        }
+
+        function addTileset(url) {
+            const tileset = viewer.scene.primitives.add(
+                new VRGlobe.Cesium3DTileset({
+                    url: url,
+                    maximumMemoryUsage: 0,
+                    maximumScreenSpaceError: maximumScreenSpaceError,
+                })
+            );
+
+            tileset.style = new VRGlobe.Cesium3DTileStyle({
+                color: {
+                    conditions: [
+                        ['${land_type} === 10000', 'rgba(230, 152, 0, 1)'],
+                        ['${land_type} === 40000', 'rgba(30, 242, 220, 1)'],
+                        ['${land_type} === 20000', 'rgba(76, 230, 0, 1)'],
+                        ['true', 'rgba(3, 104, 255, 1)']
+                    ]
+                }
+            });
+            return tileset;
+        }
+
+        function addData(index) {
+            const config = data[index];
+            addTileset(baseTileUrl + index + tilesetType);
+            addTopoJson(baseTopoJsonUrl + index + topojsonType, config.rectangle);
+        }
+
+        function addAllData() {
+            addTileset('http://192.168.1.114:9963/tile/cqdk1128/tileset.json');
+            addTopoJson(baseTopoJsonUrl + 'All' + topojsonType, VRGlobe.Rectangle.fromDegrees(105.46857703157171, 28.454715693000026, 109.15871584761804, 31.568847758087273));
+        }
+
+
+        addAllData();
+
+        // for (var index in data) {
+        //     addData(index);
+        // }
+
+        // addData(500101);
+
+    </script>
+</body>
+
+</html>

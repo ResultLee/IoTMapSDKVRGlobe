@@ -1,8 +1,8 @@
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import DeveloperError from '../../../Source/Core/DeveloperError.js';
-import Ellipsoid from '../../../Source/Core/Ellipsoid.js';
-import Event from '../../../Source/Core/Event.js';
-import GeographicTilingScheme from '../../../Source/Core/GeographicTilingScheme.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
+import DeveloperError from '../../../../Source/Core/DeveloperError.js';
+import Ellipsoid from '../../../../Source/Core/Ellipsoid.js';
+import Event from '../../../../Source/Core/Event.js';
+import GeographicTilingScheme from '../../../../Source/Core/GeographicTilingScheme.js';
 
 const heightmapTerrainQuality = 0.25;
 

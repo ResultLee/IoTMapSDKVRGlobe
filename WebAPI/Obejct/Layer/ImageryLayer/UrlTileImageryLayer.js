@@ -1,8 +1,8 @@
-import combine from '../../../Source/Core/combine.js';
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import defined from '../../../Source/Core/defined.js';
-import CesiumMath from '../../../Source/Core/Math.js';
-import Rectangle from '../../../Source/Core/Rectangle.js';
+import combine from '../../../../Source/Core/combine.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
+import defined from '../../../../Source/Core/defined.js';
+import CesiumMath from '../../../../Source/Core/Math.js';
+import Rectangle from '../../../../Source/Core/Rectangle.js';
 import ImageryProvider from './ImageryProvider.js';
 
 const templateRegex = /{[^}]+}/g;
