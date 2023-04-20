@@ -287,10 +287,7 @@ Camera.TRANSFORM_2D_INVERSE = Matrix4.inverseTransformation(
  * @type Rectangle
  */
 Camera.DEFAULT_VIEW_RECTANGLE = Rectangle.fromDegrees(
-  -95.0,
-  -20.0,
-  -70.0,
-  90.0
+  73.5, 0.0, 135.0, 70.0
 );
 
 /**
@@ -441,7 +438,7 @@ Camera.prototype._updateCameraChanged = function () {
       areaPercentage =
         1.0 -
         ((rightX - leftX) * (topY - bottomY)) /
-          ((areaRef.right - areaRef.left) * (areaRef.top - areaRef.bottom));
+        ((areaRef.right - areaRef.left) * (areaRef.top - areaRef.bottom));
     }
 
     if (areaPercentage > percentageChanged) {
