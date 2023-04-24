@@ -1,20 +1,8 @@
-// import createGuid from "../../Core/createGuid.js";
-// import defaultValue from "../../Core/defaultValue.js";
+import GeometryProvider from '../GeometryProvider';
 
-import createGuid from '../../../../Source/Core/createGuid.js';
-import defaultValue from '../../../../Source/Core/defaultValue.js';
-
-class MultiGeometry {
-    constructor(coordinates, options) {
-        options = defaultValue(options, defaultValue.EMPTY_OBJECT);
-
-        this.id = createGuid();
-        this.name = options.name;
-
-        this._geometrys = [];
-        this._coordinates = coordinates;
-
-        this._show = defaultValue(options.show, true);
+class MultiGeometry extends GeometryProvider {
+    constructor(positions, options) {
+        super(positions, options);
     }
 }
 

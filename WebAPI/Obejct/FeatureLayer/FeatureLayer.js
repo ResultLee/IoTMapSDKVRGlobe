@@ -3,7 +3,8 @@ import defined from '../../../Source/Core/defined';
 import GeographicTilingScheme from '../../../Source/Core/GeographicTilingScheme';
 import Default from '../../Static/Default';
 import TopoJSON from '../../Static/Parse/TopoJSON';
-import UrlTileImageryLayer from '../ImageryLayer/UrlTileImageryLayer.js';
+import UrlTileImageryLayer from '../Layer/ImageryLayer/UrlTileImageryLayer';
+
 
 const templateRegex = /{[^}]+}/g;
 

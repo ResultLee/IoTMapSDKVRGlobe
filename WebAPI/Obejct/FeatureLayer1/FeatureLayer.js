@@ -29,7 +29,7 @@ import PolygonStyle from '../../Style/PolygonStyle/PolygonStyle.js';
 import AttributeTable from '../AttributeTable/AttributeTable.js';
 import MultiLineStringGeometry from '../Geometry/MultiGeometry/MultiLineStringGeometry.js';
 import MultiPolygonGeometry from '../Geometry/MultiGeometry/MultiPolygonGeometry.js';
-import LineStringGeometry from '../Geometry/SingleGeometry/LineStringGeometry.js';
+import SingleLineStringGeometry from '../Geometry/SingleGeometry/SingleLineStringGeometry.js';
 import { default as PolygonGeometry1 } from '../Geometry/SingleGeometry/PolygonGeometry.js';
 import Annotation from '../Units/Annotation.js';
 import Feature from './Feature.js';
@@ -61,7 +61,7 @@ function addPolylines(features, collection, style) {
                     positions: Cartesian3.fromPositions(position)
                 });
             });
-        } else if (feature._geometry instanceof LineStringGeometry) {
+        } else if (feature._geometry instanceof SingleLineStringGeometry) {
             collection.add(Object.assign({
                 loop: style.loop,
                 width: style.width,

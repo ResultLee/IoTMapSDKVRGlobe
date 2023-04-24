@@ -1,3 +1,4 @@
+import Cartesian3 from '../../../Source/Core/Cartesian3.js';
 import Check from '../../../Source/Core/Check.js';
 import Color from '../../../Source/Core/Color.js';
 import defaultValue from '../../../Source/Core/defaultValue.js';
@@ -16,7 +17,7 @@ class PointStyle {
             defaultValue(options.outlineColor, Color.TRANSPARENT)
         );
 
-        this._update = false;
+        this._update = true;
     }
 
     /**
@@ -61,14 +62,24 @@ class PointStyle {
         this._update = true;
     }
 
-    getStyle() {
+    _getStyle(position) {
         return {
             type: this._type,
             color: this._color,
             pixelSize: this._pixelSize,
+            outlineColor: this._outlineColor,
             outlineWidth: this._outlineWidth,
-            outlineColor: this._outlineColor
+            position: Cartesian3.fromPosition(position)
         };
+    }
+
+    clone() {
+        return new PointStyle({
+            color: this._color,
+            pixelSize: this._pixelSize,
+            outlineColor: this._outlineColor,
+            outlineWidth: this._outlineWidth
+        });
     }
 }
 

@@ -43,6 +43,58 @@
             space.__v.scene.imageryLayers.addImageryProvider(
                 new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
             );
+
+            // var layer;
+            // VRGlobe.GraphicsLayer.fromGeojson(
+            //     VRGlobe.Type.GEOJSONPOINT,
+            //     'http://127.0.0.1:129/SDKData/point.json'
+            // ).then(graphicsLayer => {
+            //     layer = graphicsLayer;
+            //     space.__v.scene.primitives.add(layer);
+            // });
+
+
+            // var layer;
+            // VRGlobe.GraphicsLayer.fromGeojson(
+            //     VRGlobe.Type.GEOJSONLINESTRING,
+            //     'http://127.0.0.1:129/SDKData/Polyline.json'
+            // ).then(graphicsLayer => {
+            //     layer = graphicsLayer;
+            //     space.__v.scene.primitives.add(layer);
+            // });
+
+
+            // var layer;
+            // VRGlobe.GraphicsLayer.fromGeojson(
+            //     VRGlobe.Type.GEOJSONMULTILINESTRING,
+            //     'http://127.0.0.1:129/SDKData/Polyline.json'
+            // ).then(graphicsLayer => {
+            //     layer = graphicsLayer;
+            //     space.__v.scene.primitives.add(layer);
+            // });
+
+
+            var layer;
+            VRGlobe.GraphicsLayer.fromGeojson(
+                VRGlobe.Type.GEOJSONPOLYGON,
+                'http://127.0.0.1:129/SDKData/Polygon.json'
+            ).then(graphicsLayer => {
+                layer = graphicsLayer;
+                space.__v.scene.primitives.add(layer);
+                console.log(layer);
+            });
+
+
+            // var layer;
+            // VRGlobe.GraphicsLayer.fromGeojson(
+            //     VRGlobe.Type.GEOJSONMULTIPOLYGON,
+            //     // 'http://127.0.0.1:129/SDKData/Polygon.json'
+            //     'http://127.0.0.1:129/SDKData/MultiPolygon.json'
+            // ).then(graphicsLayer => {
+            //     layer = graphicsLayer;
+            //     space.__v.scene.primitives.add(layer);
+            //     console.log(layer);
+            // });
         </script>
     </body>
 </body>

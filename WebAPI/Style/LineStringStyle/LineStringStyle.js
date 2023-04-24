@@ -1,7 +1,9 @@
+import Cartesian3 from '../../../Source/Core/Cartesian3.js';
 import Check from '../../../Source/Core/Check.js';
 import Color from '../../../Source/Core/Color.js';
 import defaultValue from '../../../Source/Core/defaultValue.js';
 import DeveloperError from '../../../Source/Core/DeveloperError.js';
+import Material from '../../../Source/Scene/Material.js';
 import Style from '../../Static/Style.js';
 
 class LineStringStyle {
@@ -17,7 +19,7 @@ class LineStringStyle {
             defaultValue(options.outlineColor, Color.TRANSPARENT)
         );
 
-        this._update = false;
+        this._update = true;
     }
 
     /**
@@ -70,15 +72,29 @@ class LineStringStyle {
         this._update = true;
     }
 
-    getStyle() {
+    _getStyle(positions) {
+        const material = Material.fromType('PolylineOutline');
+
+        material.uniforms.color = this._color;
+        material.uniforms.outlineColor = this._outlineColor;
+        material.uniforms.outlineWidth = this._outlineWidth;
+
         return {
             loop: this._loop,
-            type: this._type,
+            width: this._width,
+            material: material,
+            positions: Cartesian3.fromPositions(positions)
+        };
+    }
+
+    clone() {
+        return new LineStringStyle({
+            loop: this._loop,
             color: this._color,
             width: this._width,
-            outlineWidth: this._outlineWidth,
-            outlineColor: this._outlineColor
-        };
+            outlineColor: this._outlineColor,
+            outlineWidth: this._outlineWidth
+        });
     }
 }
 

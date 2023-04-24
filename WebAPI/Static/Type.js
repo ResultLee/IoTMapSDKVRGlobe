@@ -15,12 +15,19 @@ function isType(type, value) {
  * @namespace
  */
 class Type {
-    /**
-     * 树节点
-     * @type {Number}
-     * @constant
-     */
-    static TREENODE = 1000001;
+    // /**
+    //  * 树节点
+    //  * @type {Number}
+    //  * @constant
+    //  */
+    // static TREENODE = 1000001;
+
+    static POINT = 1000001;
+    static POLYLINE = 1000002;
+    static POLYGON = 1000003;
+
+
+
     /**
      * 影像服务地图
      * @type {Number}
@@ -136,11 +143,28 @@ class Type {
      */
     static TERRAINQUANTIZED = 1000202;
 
-    static POINT = 1000011;
-    static POLYGON = 1000013;
-    static LINESTRING = 1000014;
-    static MULTIPOLYGON = 1000015;
-    static MULTILINESTRING = 1000016;
+    static GRAPHICS = 1000300;
+    static GRAPHICSPOINT = 1000301;
+    static GRAPHICSLINESTRING = 1000302;
+    static GRAPHICSMULTILINESTRING = 1000303;
+    static GRAPHICSPOLYGON = 1000304;
+    static GRAPHICSMULTIPOLYGON = 1000305;
+
+
+    static GEOJSON = 1000400;
+    static GEOJSONPOINT = 1000401;
+    static GEOJSONPOLYGON = 1000402;
+    static GEOJSONLINESTRING = 1000403;
+    static GEOJSONMULTIPOLYGON = 1000404;
+    static GEOJSONMULTILINESTRING = 1000405;
+
+    static GEOMETRY = 1000500;
+    static GEOMETRYPOINT = 1000501;
+    static GEOMETRYLINESTRING = 1000502;
+    static GEOMETRYMULTILINESTRING = 1000503;
+    static GEOMETRYPOLYGON = 1000504;
+    static GEOMETRYMULTIPOLYGON = 1000505;
+
 
 
     /**
@@ -149,7 +173,6 @@ class Type {
      * @returns {Boolean} 若是影像图层则为true，反之则为false
      */
     static isImagerLayer(value) {
-        // return 0 < type - this.IMAGERY && type - this.IMAGERY < 100;
         return isType(this.IMAGERY, value);
     }
 
@@ -162,23 +185,8 @@ class Type {
         return isType(this.TERRAIN, value);
     }
 
-
-    static getFeatureType(type) {
-        return Type[type.toLocaleUpperCase()];
-    }
-
-    static isPoint(type) {
-        return this.getFeatureType(type) === Type.POINT;
-    }
-
-    static isLineString(type) {
-        return this.getFeatureType(type) === Type.LINESTRING ||
-            this.getFeatureType(type) === Type.MULTILINESTRING;
-    }
-
-    static isPolygon(type) {
-        return this.getFeatureType(type) === Type.POLYGON ||
-            this.getFeatureType(type) === Type.MULTIPOLYGON;
+    static isGeoJSON(value) {
+        return isType(this.GEOJSON, value);
     }
 }
 

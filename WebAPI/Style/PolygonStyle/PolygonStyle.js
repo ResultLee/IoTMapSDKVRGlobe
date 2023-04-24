@@ -1,8 +1,26 @@
+import Cartesian3 from '../../../Source/Core/Cartesian3.js';
 import Check from '../../../Source/Core/Check.js';
 import Color from '../../../Source/Core/Color.js';
+import ColorGeometryInstanceAttribute from '../../../Source/Core/ColorGeometryInstanceAttribute.js';
 import defaultValue from '../../../Source/Core/defaultValue.js';
 import DeveloperError from '../../../Source/Core/DeveloperError.js';
+import GeometryInstance from '../../../Source/Core/GeometryInstance.js';
+import PolygonGeometry from '../../../Source/Core/PolygonGeometry.js';
+import PolygonHierarchy from '../../../Source/Core/PolygonHierarchy.js';
+import PolygonOutlineGeometry from '../../../Source/Core/PolygonOutlineGeometry.js';
+import VertexFormat from '../../../Source/Core/VertexFormat.js';
+import PerInstanceColorAppearance from '../../../Source/Scene/PerInstanceColorAppearance.js';
+import Primitive from '../../../Source/Scene/Primitive.js';
 import Style from '../../Static/Style.js';
+
+function createPolygonHierarchy(positions) {
+    const holes = new Array();
+    const linearRing = Cartesian3.fromPositions(positions[0]);
+    for (let i = 1; i < positions.length; i++) {
+        holes.push(new PolygonHierarchy(Cartesian3.fromPositions(positions[i])));
+    }
+    return new PolygonHierarchy(linearRing, holes);
+}
 
 class PolygonStyle {
     constructor(options) {
@@ -18,7 +36,7 @@ class PolygonStyle {
             defaultValue(options.outlineColor, Color.RED)
         );
 
-        this._update = false;
+        this._update = true;
     }
 
     /**
@@ -79,16 +97,50 @@ class PolygonStyle {
         this._update = true;
     }
 
-    getStyle() {
-        return {
-            type: this._type,
+    _getStyle(positions) {
+        const appearance = new PerInstanceColorAppearance();
+        const polygonHierarchy = createPolygonHierarchy(positions);
+        const fillStyle = this._fill ? new Primitive({
+            appearance: appearance,
+            geometryInstances: new GeometryInstance({
+                geometry: PolygonGeometry.createGeometry(new PolygonGeometry({
+                    height: this._height,
+                    polygonHierarchy: polygonHierarchy,
+                    perPositionHeight: this._perPositionHeight,
+                    vertexFormat: VertexFormat.POSITION_AND_COLOR
+                })),
+                attributes: {
+                    color: ColorGeometryInstanceAttribute.fromColor(this._fillColor)
+                }
+            })
+        }) : undefined;
+
+        const outlineStyle = this._outline ? new Primitive({
+            appearance: appearance,
+            geometryInstances: new GeometryInstance({
+                geometry: PolygonOutlineGeometry.createGeometry(new PolygonOutlineGeometry({
+                    height: this._height,
+                    polygonHierarchy: polygonHierarchy,
+                    perPositionHeight: this._perPositionHeight,
+                    vertexFormat: VertexFormat.POSITION_AND_COLOR
+                })),
+                attributes: {
+                    color: ColorGeometryInstanceAttribute.fromColor(this._outlineColor)
+                }
+            })
+        }) : undefined;
+
+        return { fillStyle, outlineStyle };
+    }
+
+    clone() {
+        return new PolygonStyle({
             fill: this._fill,
             height: this._height,
             outline: this._outline,
             fillColor: this._fillColor,
-            outlineColor: this._outlineColor,
-            perPositionHeight: this._perPositionHeight
-        };
+            perPositionHeight: this._outlineColor
+        });
     }
 }
 

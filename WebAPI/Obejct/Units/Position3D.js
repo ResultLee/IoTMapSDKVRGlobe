@@ -27,6 +27,14 @@ class Position3D {
     static fromCoordinates(coordinates) {
         return new Position3D(coordinates[0], coordinates[1], coordinates[2]);
     }
+
+    static fromCoordinatesArray(coordinates) {
+        const positions = new Array();
+        for (const coordinate of coordinates) {
+            positions.push(Position3D.fromCoordinates(coordinate));
+        }
+        return positions;
+    }
 }
 
 export default Position3D;

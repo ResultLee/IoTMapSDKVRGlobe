@@ -1,3 +1,4 @@
+import Position3D from "../../WebAPI/Obejct/Units/Position3D.js";
 import Cartesian3 from "./Cartesian3.js";
 import Check from "./Check.js";
 import defaultValue from "./defaultValue.js";
@@ -182,6 +183,14 @@ Cartographic.toCartesian = function (cartographic, ellipsoid, result) {
     result
   );
 };
+
+Cartographic.toPosition = function (cartographic) {
+  return new Position3D(
+    CesiumMath.toDegrees(cartographic.longitude),
+      CesiumMath.toDegrees(cartographic.latitude), 
+      CesiumMath.toDegrees(cartographic.height)
+    );
+}
 
 /**
  * Duplicates a Cartographic instance.

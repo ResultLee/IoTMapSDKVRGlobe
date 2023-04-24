@@ -63,6 +63,10 @@ class Format {
      * @constant
      */
     static JSON = 1000;
+
+    static GEOJSON = 1001;
+    static TOPOJSON = 1002;
+
     /**
      * VRGlobeSDK中工程缓存WKS格式
      * @type {Number}
@@ -70,7 +74,6 @@ class Format {
      */
     static WKS = 1010;
 
-    static TOPOJSON = 1001;
 
     static IMG = 2001;
 

@@ -114,10 +114,10 @@
 
         var viewer = space.__v;
 
-        viewer.terrainProvider = new VRGlobe.TerrainLayer(
-            VRGlobe.Type.TERRAIN, {
-            url: "http://192.168.1.115:8888/Terrain/terrain"
-        });
+        // viewer.terrainProvider = new VRGlobe.TerrainLayer(
+        //     VRGlobe.Type.TERRAIN, {
+        //     url: "http://192.168.1.115:8888/Terrain/terrain"
+        // });
         viewer.scene.imageryLayers.addImageryProvider(
             new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
         );
@@ -136,7 +136,8 @@
 
         function addTopoJson(url, rectangle) {
             return viewer.scene.imageryLayers.addImageryProvider(
-                new VRGlobe.VectorTileLayer(url, {
+                // new VRGlobe.VctorTileLayer(url, {
+                new VRGlobe.FeatureLayer(url, {
                     rectangle: rectangle,
                     minimumLevel: 8,
                     maximumLevel: maximumLevel,

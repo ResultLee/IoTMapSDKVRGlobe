@@ -83,7 +83,7 @@ class GraphicProvider {
     }
 
     _updateGraphic(frameState, graphic) {
-        DeveloperError.throwInstantiationError();
+        throw DeveloperError.throwInstantiationError();
     }
 
     update(frameState) {

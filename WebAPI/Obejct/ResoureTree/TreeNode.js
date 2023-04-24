@@ -18,7 +18,7 @@ class TreeNode {
     constructor(options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
         this.id = defaultValue(options.id, createGuid());
-        this.type = Type.TREENODE;
+        // this.type = Type.TREENODE;
         this.name = defaultValue(options.name, '');
         this.parentId = defaultValue(options.parentId, undefined);
         this.children = defaultValue(options.children, new Array());

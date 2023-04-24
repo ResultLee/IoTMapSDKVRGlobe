@@ -1,9 +1,7 @@
 import Cartesian3 from '../../../../Source/Core/Cartesian3.js';
-import defaultValue from '../../../../Source/Core/defaultValue.js';
-import CesiumMath from '../../../../Source/Core/Math.js';
+import Cartographic from '../../../../Source/Core/Cartographic.js';
 import Rectangle from '../../../../Source/Core/Rectangle.js';
-import Position3D from '../../Units/Position3D.js';
-import LineStringGeometry from '../SingleGeometry/LineStringGeometry.js';
+import SingleLineStringGeometry from '../SingleGeometry/SingleLineStringGeometry.js';
 import MultiGeometry from './MultiGeometry.js';
 
 function isMultiLineString(array) {
@@ -12,20 +10,19 @@ function isMultiLineString(array) {
         num++;
         array = array[0];
     }
-    return num > 2;
+    return num > 1;
 }
 
 class MultiLineStringGeometry extends MultiGeometry {
-    constructor(coordinates, options) {
-        coordinates = defaultValue(coordinates, new Array());
-        super(coordinates, options);
+    constructor(positions, options) {
+        super(positions, options);
 
-        for (let i = 0; i < coordinates.length; i++) {
-            const coordinate = coordinates[i];
-            if (isMultiLineString(coordinate)) {
-                this.addGeometry(new MultiLineStringGeometry(coordinate, options));
+        this._geometrys = new Array();
+        for (const position of this._positions) {
+            if (isMultiLineString(position)) {
+                this._geometrys.push(new MultiLineStringGeometry(position, options));
             } else {
-                this.addGeometry(new LineStringGeometry(coordinate, options));
+                this._geometrys.push(new SingleLineStringGeometry(position, options));
             }
         }
     }
@@ -35,20 +32,11 @@ class MultiLineStringGeometry extends MultiGeometry {
         this._geometrys.forEach(geometry => {
             centers.push(Cartesian3.fromPosition(geometry.center));
         });
-        const point = Rectangle.center(Rectangle.fromCartesianArray(centers));
-        return new Position3D(CesiumMath.toDegrees(point.longitude), CesiumMath.toDegrees(point.latitude), CesiumMath.toDegrees(point.height));
+        return Cartographic.toPosition(Rectangle.center(Rectangle.fromCartesianArray(centers)));
     }
 
     get positions() {
-        const positions = new Array();
-        this._geometrys.forEach(geometry => {
-            positions.push(geometry.positions);
-        });
-        return positions;
-    }
-
-    addGeometry(geometry) {
-        this._geometrys.push(geometry);
+        return this._positions;
     }
 }
 
