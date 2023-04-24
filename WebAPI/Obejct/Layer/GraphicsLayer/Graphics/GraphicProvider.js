@@ -63,9 +63,6 @@ class GraphicProvider {
         //         alpha: 1.0
         //     })
         // }))
-
-
-
         this._style = style;
         this._update = true;
     }
@@ -75,8 +72,22 @@ class GraphicProvider {
         this._update = true;
     }
 
+    _updateGraphic() {
+        throw DeveloperError.throwInstantiationError();
+    }
+
     update(frameState) {
-        DeveloperError.throwInstantiationError();
+        if (!this._show || !defined(this._style)) {
+            return;
+        }
+
+        if (this._update && this._style) {
+            this._updateGraphic();
+            this._update = false;
+        }
+        if (defined(this._graphic)) {
+            this._graphic.update(frameState);
+        }
     }
 }
 

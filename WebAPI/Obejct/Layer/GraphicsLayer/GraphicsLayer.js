@@ -7,11 +7,8 @@ import Resource from '../../../../Source/Core/Resource.js';
 import Format from '../../../Static/Format.js';
 import Type from '../../../Static/Type.js';
 import GeoJSON from '../../../Static/Parse/GeoJSON.js';
-import AnnotationStyle from '../../../Style/AnnotationStyle.js';
 import LineStringStyle from '../../../Style/LineStringStyle/LineStringStyle.js';
 import PointStyle from '../../../Style/PointStyle/PointStyle.js';
-import AttributeTable from '../../AttributeTable/AttributeTable.js';
-import Annotation from '../../Units/Annotation.js';
 import GraphicProvider from './Graphics/GraphicProvider.js';
 import PolygonStyle from '../../../Style/PolygonStyle/PolygonStyle.js';
 

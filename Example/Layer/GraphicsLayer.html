@@ -57,7 +57,7 @@
             // var layer;
             // VRGlobe.GraphicsLayer.fromGeojson(
             //     VRGlobe.Type.GEOJSONLINESTRING,
-            //     'http://127.0.0.1:129/SDKData/Polyline.json'
+            //     'http://127.0.0.1:129/SDKData/LineString.json'
             // ).then(graphicsLayer => {
             //     layer = graphicsLayer;
             //     space.__v.scene.primitives.add(layer);
@@ -67,34 +67,33 @@
             // var layer;
             // VRGlobe.GraphicsLayer.fromGeojson(
             //     VRGlobe.Type.GEOJSONMULTILINESTRING,
-            //     'http://127.0.0.1:129/SDKData/Polyline.json'
+            //     'http://127.0.0.1:129/SDKData/MultiLineString.json'
             // ).then(graphicsLayer => {
             //     layer = graphicsLayer;
             //     space.__v.scene.primitives.add(layer);
             // });
 
 
-            var layer;
-            VRGlobe.GraphicsLayer.fromGeojson(
-                VRGlobe.Type.GEOJSONPOLYGON,
-                'http://127.0.0.1:129/SDKData/Polygon.json'
-            ).then(graphicsLayer => {
-                layer = graphicsLayer;
-                space.__v.scene.primitives.add(layer);
-                console.log(layer);
-            });
-
-
             // var layer;
             // VRGlobe.GraphicsLayer.fromGeojson(
-            //     VRGlobe.Type.GEOJSONMULTIPOLYGON,
-            //     // 'http://127.0.0.1:129/SDKData/Polygon.json'
-            //     'http://127.0.0.1:129/SDKData/MultiPolygon.json'
+            //     VRGlobe.Type.GEOJSONPOLYGON,
+            //     'http://127.0.0.1:129/SDKData/Polygon.json'
             // ).then(graphicsLayer => {
             //     layer = graphicsLayer;
             //     space.__v.scene.primitives.add(layer);
             //     console.log(layer);
             // });
+
+
+            var layer;
+            VRGlobe.GraphicsLayer.fromGeojson(
+                VRGlobe.Type.GEOJSONMULTIPOLYGON,
+                'http://127.0.0.1:129/SDKData/MultiPolygon.json'
+            ).then(graphicsLayer => {
+                layer = graphicsLayer;
+                space.__v.scene.primitives.add(layer);
+                console.log(layer);
+            });
         </script>
     </body>
 </body>

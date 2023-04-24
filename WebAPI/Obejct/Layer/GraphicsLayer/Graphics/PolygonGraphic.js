@@ -14,36 +14,20 @@ class PolygonGraphic extends GraphicProvider {
         this._update = true;
     }
 
-    update(frameState) {
-        if (!this._show || !defined(this._style)) {
-            return;
-        }
-
-        if (this._update && this._style) {
-            if (defined(this._graphic)) {
-                this._graphic.removeAll();
-            }
-
-            let styles;
-            switch (this._style._type) {
-                case Style.POLYGONSTYLE:
-                    this._graphic = new PrimitiveCollection();
-                    styles = this._style._getStyle(this._geometry._positions);
-                    for (const index in styles) {
-                        if (defined(styles[index])) {
-                            this._graphic.add(styles[index]);
-                        }
+    _updateGraphic() {
+        let styles;
+        switch (this._style._type) {
+            case Style.POLYGONSTYLE:
+                this._graphic = new PrimitiveCollection();
+                styles = this._style._getStyle(this._geometry._positions);
+                for (const index in styles) {
+                    if (defined(styles[index])) {
+                        this._graphic.add(styles[index]);
                     }
-                    break;
-                default:
-                    throw new DeveloperError(`PolygonGraphic不支持${this._style._type}图层样式!`);
-            }
-
-            this._update = false;
-        }
-
-        if (defined(this._graphic)) {
-            this._graphic.update(frameState);
+                }
+                break;
+            default:
+                throw new DeveloperError(`PolygonGraphic不支持${this._style._type}图层样式!`);
         }
     }
 

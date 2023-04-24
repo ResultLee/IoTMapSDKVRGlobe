@@ -14,29 +14,14 @@ class PointGraphic extends GraphicProvider {
         this._update = true;
     }
 
-    update(frameState) {
-        if (!this._show || !defined(this._style)) {
-            return;
-        }
-
-        if (this._update && this._style) {
-            if (defined(this._graphic)) {
-                this._graphic.removeAll();
-            }
-
-            switch (this._style._type) {
-                case Style.POINTSTYLE:
-                    this._graphic = new PointPrimitiveCollection();
-                    this._graphic.add(this._style._getStyle(this._geometry.position));
-                    break;
-                default:
-                    throw new DeveloperError(`PointGraphic不支持${this._style._type}图层样式!`);
-            }
-
-            this._update = false;
-        }
-        if (defined(this._graphic)) {
-            this._graphic.update(frameState);
+    _updateGraphic() {
+        switch (this._style._type) {
+            case Style.POINTSTYLE:
+                this._graphic = new PointPrimitiveCollection();
+                this._graphic.add(this._style._getStyle(this._geometry.position));
+                break;
+            default:
+                throw new DeveloperError(`PointGraphic不支持${this._style._type}图层样式!`);
         }
     }
 }
