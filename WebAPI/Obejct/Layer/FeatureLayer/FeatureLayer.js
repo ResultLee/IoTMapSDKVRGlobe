@@ -1,13 +1,13 @@
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import defined from '../../../Source/Core/defined.js';
-import GeographicTilingScheme from '../../../Source/Core/GeographicTilingScheme.js';
-import Default from '../../Static/Default.js';
-import TopoJSON from '../../Static/Parse/TopoJSON.js';
+import Color from '../../../../Source/Core/Color.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
+import defined from '../../../../Source/Core/defined.js';
+import GeographicTilingScheme from '../../../../Source/Core/GeographicTilingScheme.js';
+import Default from '../../../Static/Default.js';
+import TopoJSON from '../../../Static/Parse/TopoJSON.js';
 import UrlTileImageryLayer from '../ImageryLayer/UrlTileImageryLayer.js';
 
 const templateRegex = /{[^}]+}/g;
-
-class VectorTileLayer extends UrlTileImageryLayer {
+class FeatureLayer extends UrlTileImageryLayer {
     constructor(url, options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
         options.tilingScheme = defaultValue(
@@ -16,11 +16,12 @@ class VectorTileLayer extends UrlTileImageryLayer {
         );
         super(url, options);
 
+        this._attributes = new Object();
         this._maximumLevel = options.maximumLevel;
         this._minimumLevel = defaultValue(options.minimumLevel, 0);
 
-        this.fillColor = defaultValue(options.fillColor, 'rgba(3, 104, 255, 1)');
-        this.strokeColor = defaultValue(options.strokeColor, 'rgba(3, 104, 255, 0)');
+        this.fillColor = defaultValue(options.fillColor, Color.BLUE.withAlpha(0.75));
+        this.strokeColor = defaultValue(options.strokeColor, Color.RED.withAlpha(0));
 
         this.ready = true;
     }
@@ -35,7 +36,7 @@ class VectorTileLayer extends UrlTileImageryLayer {
             });
         }
 
-        return new Promise(function (resolve, reject) {
+        return new Promise(resolve => {
             try {
                 const resource = that._resource;
                 const url = resource.getUrlComponent(true);
@@ -63,6 +64,7 @@ class VectorTileLayer extends UrlTileImageryLayer {
                 }
 
                 promise.then(json => {
+                    this._attributes[`${x}_${y}_${level}`] = TopoJSON.toAttributeTable(json);
                     resolve(TopoJSON.toIMG({
                         json: json,
                         width: that._tileWidth,
@@ -80,4 +82,4 @@ class VectorTileLayer extends UrlTileImageryLayer {
     }
 }
 
-export default VectorTileLayer;
+export default FeatureLayer;

@@ -3,6 +3,8 @@ import defaultValue from '../../../Source/Core/defaultValue.js';
 import defined from '../../../Source/Core/defined.js';
 import DeveloperError from '../../../Source/Core/DeveloperError.js';
 import topojson from '../../../Source/ThirdParty/topojson.js';
+import Attribute from '../../Obejct/AttributeTable/Attribute.js';
+import AttributeTable from '../../Obejct/AttributeTable/AttributeTable.js';
 import Default from '../Default.js';
 
 function drawPolygon(rectangle, coordinate, width, height, ctx, fillColor, strokeColor) {
@@ -73,6 +75,16 @@ class TopoJSON {
     }
 
     return canvas;
+  }
+
+  static toAttributeTable(topojson) {
+    const attributeTable = new AttributeTable();
+    for (const layer in topojson.objects) {
+      for (const geometry of topojson.objects[layer].geometries) {
+        attributeTable.addAttribute(new Attribute(geometry.id, geometry.properties));
+      }
+    }
+    return attributeTable;
   }
 }
 

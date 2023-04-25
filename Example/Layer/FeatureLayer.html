@@ -40,9 +40,37 @@
             window.Space_BASEURL = window.location.origin + "/Build/VRGlobe/";
             var space = new VRGlobe.Space('main');
 
+            space.__v.scene.debugShowFramesPerSecond = true;
+
             space.__v.scene.imageryLayers.addImageryProvider(
                 new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
             );
+
+            space.__v.scene.imageryLayers.addImageryProvider(
+                new VRGlobe.TileCoordinatesImageryProvider()
+            );
+
+            const featureLayer = new VRGlobe.FeatureLayer(
+                // "http://127.0.0.1:129/Data/VectorTile/EPSG_4326_{z}/{x}_{reverseY}.topojson",
+                "http://127.0.0.1:129/Data/ChongQing/TopoJson/ChongQing_All/EPSG_4326_{z}/{x}_{reverseY}.topojson",
+                {
+                    minimumLevel: 10,
+                    maximumLevel: 15,
+                    fillColor: 'rgba(3, 104, 255, 0.5)',
+                    strokeColor: 'rgba(30, 242, 220, 1)',
+                    // rectangle: VRGlobe.Rectangle.fromDegrees(97.35222138371, 26.049172693011027, 108.54237196289586, 34.31467277270987),
+                    rectangle: VRGlobe.Rectangle.fromDegrees(105.46857703157171, 28.454715693000026, 109.15871584761804, 31.568847758087273),
+                }
+            );
+            space.__v.scene.imageryLayers.addImageryProvider(featureLayer);
+
+            var points = space.__v.scene.primitives.add(new VRGlobe.PointPrimitiveCollection());
+            var point = points.add({
+                pixelSize: 10,
+                color: VRGlobe.Color.RED,
+                position: VRGlobe.Cartesian3.fromDegrees(108.40, 30.59),
+            });
+
         </script>
     </body>
 </body>
