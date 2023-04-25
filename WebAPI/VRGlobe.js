@@ -12,7 +12,6 @@ export { default as GraphicsLayer } from './Obejct/Layer/GraphicsLayer/GraphicsL
 export { default as FeatureLayer } from './Obejct/FeatureLayer/FeatureLayer.js';
 
 
-
 export { default as Format } from './Static/Format.js';
 export { default as Loader } from './Static/Loader.js';
 export { default as Mode } from './Static/Mode.js';
@@ -23,12 +22,17 @@ export { default as Position3D } from './Obejct/Units/Position3D.js';
 export { default as Annotation } from './Obejct/Units/Annotation.js';
 export { default as AnnotationStyle } from './Style/AnnotationStyle.js';
 export { default as AttributeTable } from './Obejct/AttributeTable/AttributeTable.js';
+export { default as Attribute } from './Obejct/AttributeTable/Attribute.js';
 // export { default as Geometry } from './Obejct/Geometry/Geometry.js';
 export { default as PointStyle } from './Style/PointStyle/PointStyle.js';
 export { default as LineStringStyle } from './Style/LineStringStyle/LineStringStyle.js';
 export { default as PolygonStyle } from './Style/PolygonStyle/PolygonStyle.js';
 export { default as ParticleProvider } from './Obejct/Particle/ParticleProvider.js';
 export { default as GeoJSON } from './Static/Parse/GeoJSON.js';
+export { default as MultiPolygonGeometry } from './Obejct/Geometry/MultiGeometry/MultiPolygonGeometry.js';
+export { default as SinglePolygonGeometry } from './Obejct/Geometry/SingleGeometry/SinglePolygonGeometry.js';
+
+
 
 export { default as ParticleSystem } from '../Source/Scene/ParticleSystem.js';
 export { default as ParticleBurst } from '../Source/Scene/ParticleBurst.js';

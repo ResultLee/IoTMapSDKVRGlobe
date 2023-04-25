@@ -80,7 +80,7 @@ class Geometry {
 
         }
 
-        return new Geometry(geometryType, positions);
+        return new Geometry(geometryType, positions, geojson);
     }
 }
 

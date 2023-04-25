@@ -3,6 +3,7 @@ import defaultValue from '../../../../../Source/Core/defaultValue.js';
 import defined from '../../../../../Source/Core/defined.js';
 import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
 import GeometryProvider from '../../../Geometry/GeometryProvider.js';
+import Annotation from '../../../Units/Annotation.js';
 
 class GraphicProvider {
     constructor(options) {
@@ -21,15 +22,25 @@ class GraphicProvider {
         this._name = options.name;
         this._style = options.style;
         this._geometry = options.geometry;
+        this._attribute = options.attribute;
 
         this._id = defaultValue(options.id, createGuid());
         this._show = defaultValue(options.show, true);
+        this._annotation = defaultValue(options.annotation, new Annotation({
+            id: options.id,
+            style: options.annotationStyle,
+            position: this._geometry.center
+        }));
 
+    }
+
+    get annotationStyle() {
+        return this._annotation._style;
     }
 
     setStyle(style) {
         // PointGraphic
-        // setStyle(new VRGlobe.PointStyle({
+        // graphic.setStyle(new VRGlobe.PointStyle({
         //     pixelSize: Math.round(Math.random() * 10),
         //     color: VRGlobe.Color.fromRandom({
         //         alpha: 1.0
@@ -37,28 +48,28 @@ class GraphicProvider {
         // }))
 
         // LineStringGraphic
-        // setStyle(new VRGlobe.LineStringStyle({
+        // graphic.setStyle(new VRGlobe.LineStringStyle({
         //     color: VRGlobe.Color.fromRandom({
         //         alpha: 1.0
         //     })
         // }))
 
         // MultiLineStringGraphic
-        // setStyle(new VRGlobe.LineStringStyle({
+        // graphic.setStyle(new VRGlobe.LineStringStyle({
         //     color: VRGlobe.Color.fromRandom({
         //         alpha: 1.0
         //     })
         // }))
 
         // PolygonGraphic
-        // setStyle(new VRGlobe.PolygonStyle({
+        // graphic.setStyle(new VRGlobe.PolygonStyle({
         //     fillColor: VRGlobe.Color.fromRandom({
         //         alpha: 1.0
         //     })
         // }))
 
         // MultiPolygonGraphic
-        // setStyle(new VRGlobe.PolygonStyle({
+        // graphic.setStyle(new VRGlobe.PolygonStyle({
         //     fillColor: VRGlobe.Color.fromRandom({
         //         alpha: 1.0
         //     })
@@ -68,8 +79,27 @@ class GraphicProvider {
     }
 
     resetStyle() {
+        // graphic.resetStyle();
         this._style = undefined;
         this._update = true;
+    }
+
+    setAnnotationStyle(annotationStyle) {
+        // graphic.setAnnotationStyle(new VRGlobe.AnnotationStyle({
+        //     mode: VRGlobe.Mode.LABEL
+        // }));
+        this._annotation._style = annotationStyle;
+        this._annotation._style._update = true;
+    }
+
+    resetAnnotationStyle() {
+        // graphic.resetAnnotationStyle
+        this._annotation._style = undefined;
+        this._annotation._style._update = true;
+    }
+
+    _updateAnnotation() {
+        throw DeveloperError.throwInstantiationError();
     }
 
     _updateGraphic() {
@@ -85,8 +115,13 @@ class GraphicProvider {
             this._updateGraphic();
             this._update = false;
         }
+
         if (defined(this._graphic)) {
             this._graphic.update(frameState);
+        }
+
+        if (defined(this._annotation)) {
+            this._annotation.update(frameState);
         }
     }
 }

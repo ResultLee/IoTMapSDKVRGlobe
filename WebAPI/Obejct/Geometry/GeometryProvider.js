@@ -5,7 +5,7 @@ class GeometryProvider {
     constructor(positions, options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
-        this.id = createGuid();
+        this.id = defaultValue(options.id, createGuid());
         this.name = options.name;
         this._positions = positions;
     }

@@ -8,6 +8,7 @@ import LineStringGraphic from './LineStringGraphic.js';
 import MultiLineStringGraphic from './MultiLineStringGraphic.js';
 import PolygonGraphic from './PolygonGraphic.js';
 import MultiPolygonGraphic from './MultiPolygonGraphic.js';
+import Attribute from '../../../AttributeTable/Attribute.js';
 
 class Graphic {
     constructor(type, options) {
@@ -37,7 +38,9 @@ class Graphic {
         }
 
         const options = new Object();
+        options.id = geojson.id;
         options.geometry = Geometry.fromGeoJSON(geojson);
+        options.attribute = Attribute.fromGeoJSON(geojson);
 
         return new Graphic(type, options);
     }

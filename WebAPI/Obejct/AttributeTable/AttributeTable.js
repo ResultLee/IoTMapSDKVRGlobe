@@ -27,14 +27,22 @@ class AttributeTable {
         this._table = new Table(this.attributes);
     }
 
-    addAttribute(data, fid) {
-        fid = defaultValue(fid, this.attributes.length);
-        if (!(data instanceof Attribute)) {
-            data = new Attribute(fid, data);
+    // addAttribute(data, fid) {
+    //     fid = defaultValue(fid, this.attributes.length);
+    //     if (!(data instanceof Attribute)) {
+    //         data = new Attribute(fid, data);
+    //     }
+    //     this.attributes.push(data);
+    //     this._table.addAttribute(data);
+    //     return data;
+    // }
+
+    addAttribute(attribute) {
+        if (!(attribute instanceof Attribute)) {
+            attribute = new Attribute(attribute);
         }
-        this.attributes.push(data);
-        this._table.addAttribute(data);
-        return data;
+        this.attributes.push(attribute);
+        this._table.addAttribute(attribute);
     }
 
     getAttribute(fid) {

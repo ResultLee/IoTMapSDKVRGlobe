@@ -10,7 +10,6 @@ class PointGraphic extends GraphicProvider {
         super(options);
 
         this.type = Type.GRAPHICSPOINT;
-
         this._update = true;
     }
 

@@ -11,9 +11,19 @@ import LineStringStyle from '../../../Style/LineStringStyle/LineStringStyle.js';
 import PointStyle from '../../../Style/PointStyle/PointStyle.js';
 import GraphicProvider from './Graphics/GraphicProvider.js';
 import PolygonStyle from '../../../Style/PolygonStyle/PolygonStyle.js';
+import AnnotationStyle from '../../../Style/AnnotationStyle.js';
+import AttributeTable from '../../AttributeTable/AttributeTable.js';
 
 class GraphicsLayer {
     constructor(options) {
+        // layer.annotationStyle.mode = VRGlobe.Mode.LABEL;
+
+        // layer.get(0).setAnnotationStyle(new VRGlobe.AnnotationStyle({
+        //     mode: VRGlobe.Mode.LABEL
+        // }));
+        // layer.get(0).annotationStyle.mode = VRGlobe.Mode.LABEL
+        // layer.get(0).resetAnnotationStyle();
+
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
         this._graphics = new Array();
         if (defined(options.graphics)) {
@@ -30,12 +40,16 @@ class GraphicsLayer {
         this._style = options.style;
 
         this._show = defaultValue(options.show, true);
+        this._attributeTable = defaultValue(options.attributeTable, new AttributeTable());
+        this._annotationStyle = defaultValue(options.annotationStyle, new AnnotationStyle());
 
-        // this._attributeTable = new AttributeTable();
-        // this._annotations = new Array();
+    }
 
-
-
+    /**
+     * 获取矢量图层的整体标注样式
+     */
+    get annotationStyle() {
+        return this._annotationStyle;
     }
 
     /**
@@ -76,20 +90,27 @@ class GraphicsLayer {
                 case Type.GEOJSONMULTIPOLYGON:
                     style = new PolygonStyle();
                     graphics = GeoJSON.getMultiPolygonGraphics(geojson);
+            }
 
+            const attributeTable = new AttributeTable();
+            for (let i = 0; i < graphics.length; i++) {
+                attributeTable.addAttribute(graphics[i]._attribute);
             }
 
             return new GraphicsLayer(Object.assign({
                 type: type,
                 style: style,
                 graphics: graphics,
-                format: Format.GEOJSON,
+                attributeTable: attributeTable,
             }, options));
         } catch (error) {
             throw new DeveloperError(error);
         }
     }
 
+    get(index) {
+        return this._graphics[index];
+    }
 
     update(frameState) {
         if (!this._show || !defined(this._graphics)) {
@@ -98,6 +119,7 @@ class GraphicsLayer {
 
         for (const graphic of this._graphics) {
             let isUseLayerStyle;
+            let isUseLayerAnnotationStyle;
             // Graphic渲染前手动设置Layer样式进行渲染
             if (!defined(graphic._style)) {
                 isUseLayerStyle = true;
@@ -106,14 +128,22 @@ class GraphicsLayer {
                     graphic._update = this._style._update;
                 }
             }
+            if (!defined(graphic._annotation._style)) {
+                isUseLayerAnnotationStyle = true;
+                graphic._annotation._style = this._annotationStyle.clone();
+            }
             graphic.update(frameState);
             // Graphic渲染后手动还原Graphic样式
             if (isUseLayerStyle) {
                 graphic._style = undefined;
             }
+            if (isUseLayerAnnotationStyle) {
+                graphic._annotation._style = undefined;
+            }
         }
 
         this._style._update = false;
+        this._annotationStyle._update = false;
     }
 
     isDestroyed() {

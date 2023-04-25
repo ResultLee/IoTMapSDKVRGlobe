@@ -32,7 +32,9 @@ class MultiLineStringGeometry extends MultiGeometry {
         this._geometrys.forEach(geometry => {
             centers.push(Cartesian3.fromPosition(geometry.center));
         });
-        return Cartographic.toPosition(Rectangle.center(Rectangle.fromCartesianArray(centers)));
+        return Cartographic.toPosition(
+            Rectangle.center(Rectangle.fromCartesianArray(centers))
+        );
     }
 
     get positions() {

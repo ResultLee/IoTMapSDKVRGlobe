@@ -60,6 +60,10 @@ class Attribute {
         fields.forEach(field => values.push(this[field]));
         return values;
     }
+
+    static fromGeoJSON(geojson) {
+        return new Attribute(geojson.id, geojson.properties);
+    }
 }
 
 export default Attribute;

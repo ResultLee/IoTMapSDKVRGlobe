@@ -1,3 +1,4 @@
+import createGuid from '../../../Source/Core/createGuid';
 import defined from '../../../Source/Core/defined';
 import DeveloperError from '../../../Source/Core/DeveloperError';
 import RuntimeError from '../../../Source/Core/RuntimeError';
@@ -12,9 +13,9 @@ function parseFeaturesToGraphics(type, features) {
             throw new RuntimeError(`跳过错误数据${feature}`);
         }
         if (type !== Type[`Graphics${feature.geometry.type}`.toLocaleUpperCase()]) {
-            console.log(feature.geometry.type);
             continue;
         }
+        feature.id = createGuid();
         graphics.push(Graphic.fromGeoJSON(type, feature));
     }
     return graphics;
