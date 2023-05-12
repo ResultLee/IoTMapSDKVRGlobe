@@ -180,6 +180,8 @@ function ParticleSystem(options) {
 
   this._updateParticlePool = true;
   this._particleEstimate = 0;
+
+  this._gravity = defaultValue(options.gravity, 1);
 }
 
 Object.defineProperties(ParticleSystem.prototype, {
@@ -565,6 +567,7 @@ function updateParticlePool(system) {
     particle._billboard = billboardCollection.add({
       image: image,
     });
+    particle.gravity = system._gravity;
     particlePool.push(particle);
   }
 
@@ -577,6 +580,7 @@ function getOrCreateParticle(system) {
   if (!defined(particle)) {
     // Create a new one
     particle = new Particle();
+    particle.gravity = system._gravity;
   }
   return particle;
 }

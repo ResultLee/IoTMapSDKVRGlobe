@@ -165,6 +165,49 @@ class Type {
     static GEOMETRYPOLYGON = 1000504;
     static GEOMETRYMULTIPOLYGON = 1000505;
 
+    static PARTICLE = 1000600;
+    static FIREPARTICLE = 1000601;
+    static SMOKEPARTICLE = 1000602;
+    static WATERPARTICLE = 1000603;
+    static BURSTPARTICLE = 1000604;
+
+    static EMITTER = 1000700;
+    static BOXEMITTER = 1000701;
+    static CONEEMITTER = 1000702;
+    static CIRCLEEMITTER = 1000703;
+
+    /**
+     * 属性类型
+     * @type {Number}
+     * @constant
+     */
+    static PROPERTY = 1000800;
+    /**
+     * 无类型
+     * @type {Number}
+     * @constant
+     */
+    static PROPERTYNONE = 1000801;
+    /**
+     * 特定值类型
+     * @type {Number}
+     * @constant
+     */
+    static PROPERTYSPACIAL = 1000802;
+    /**
+     * 属性字段唯一值类型
+     * @type {Number}
+     * @constant
+     */
+    static PROPERTYUNIQUE = 1000803;
+    /**
+     * 属性字段分级类型
+     * @type {Number}
+     * @constant
+     */
+    static PROPERTYGRADUATED = 1000804;
+
+
 
 
     /**

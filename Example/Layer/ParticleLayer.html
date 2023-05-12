@@ -1,0 +1,253 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8" />
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <script src="../../Build/VRGlobe/VRGlobe.js"></script>
+    <link rel="stylesheet" href="../../Build/VRGlobe/Widgets/widgets.css" />
+    <title>粒子特效图层(ParticleLayer)</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <body>
+        <div id="main"></div>
+        <script>
+            window.Space_BASEURL = window.location.origin + "/Build/VRGlobe/";
+            var space = new VRGlobe.Space('main');
+
+            space.__v.clock.shouldAnimate = true;
+            space.__v.scene.debugShowFramesPerSecond = true;
+            space.__v.scene.globe.depthTestAgainstTerrain = true;
+            space.__v.scene.imageryLayers.addImageryProvider(
+                new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
+            );
+
+            var position = VRGlobe.Position3D.fromCoordinates([108.40, 30.59]);
+            var points = space.__v.scene.primitives.add(new VRGlobe.PointPrimitiveCollection());
+            var point = points.add({
+                pixelSize: 10,
+                color: VRGlobe.Color.RED,
+                position: VRGlobe.Cartesian3.fromPosition(position),
+            });
+
+            const burst = {
+                show: true,
+                lifetime: 10,
+                loop: true,
+                hpr: [0.0, 0.0, 0.0],
+                image: "http://127.0.0.1:129/SampleData/fire.png",
+                color: VRGlobe.Color.fromBytes(238, 85, 34, 255),
+                bursts: [
+                    new VRGlobe.ParticleBurst({ time: 3.5, minimum: 1000, maximum: 5000 }),
+                    new VRGlobe.ParticleBurst({ time: 3.6, minimum: 1000, maximum: 4000 }),
+                    new VRGlobe.ParticleBurst({ time: 3.7, minimum: 1000, maximum: 3000 }),
+                    new VRGlobe.ParticleBurst({ time: 3.8, minimum: 1000, maximum: 2000 }),
+                ],
+                // particleSize: 24,
+                minimumParticleLife: 0.5,
+                maximumParticleLife: 1,
+                startScale: 1.0,
+                endScale: 8.0,
+                minimumSpeed: 0.05,
+                maximumSpeed: 1,
+                minimumImageSize: new VRGlobe.Cartesian2(12, 12),
+                maximumImageSize: new VRGlobe.Cartesian2(24, 24),
+                emitter: new VRGlobe.BoxEmitter(new VRGlobe.Cartesian3(0.03, 0.03, 0.03)),
+                // emissionRate: 0,
+                gravity: 0.1,
+                emitterRadius: 0.03,
+                direction: {
+                    heading: 0,
+                    pitch: 0,
+                    roll: 0,
+                },
+                updateCallback: (p, dt) => {
+                    const gravityScratch = new VRGlobe.Cartesian3();
+                    const position = p.position;
+
+                    VRGlobe.Cartesian3.normalize(position, gravityScratch);
+                    VRGlobe.Cartesian3.multiplyByScalar(
+                        gravityScratch,
+                        burst.gravity * dt,
+                        gravityScratch
+                    );
+
+                    p.velocity = VRGlobe.Cartesian3.add(
+                        p.velocity,
+                        gravityScratch,
+                        p.velocity
+                    );
+                },
+                modelMatrix: VRGlobe.Transforms.eastNorthUpToFixedFrame(position)
+            }
+            function createBursts(position) {
+                space.__v.scene.primitives.add(new VRGlobe.ParticleSystem(burst));
+            }
+
+            const layer = space.__v.scene.primitives.add(new VRGlobe.ParticleLayer());
+
+            // 火焰
+            const fire = layer.addParticle(VRGlobe.Type.FIREPARTICLE, VRGlobe.Position3D.fromCoordinates([108.402, 30.59]), {
+                loop: true,
+                show: true,
+                scale: [0.5, 8.0],
+                speed: [0.05, 2],
+                image: "http://127.0.0.1:129/SampleData/fire.png",
+                bursts: [{
+                    time: 5.0,
+                    minimum: 10,
+                    maximum: 100,
+                }],
+                gravity: 0.5,
+                lifetime: 6.0,
+                direction: VRGlobe.Direction.ZERO,
+                emitterType: VRGlobe.Type.CIRCLEEMITTER,
+                emissionRate: 60,
+                emitterRadius: 10,
+                particleLife: [1, 2],
+                imageSize: [6, 24],
+            });
+
+            // 烟雾
+            const smoke = layer.addParticle(VRGlobe.Type.SMOKEPARTICLE, VRGlobe.Position3D.fromCoordinates([108.401, 30.59, 1]), {
+                mass: [1, 10],
+                loop: true,
+                show: true,
+                color: [
+                    new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.25),
+                    new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.01)
+                ],
+                image: "http://127.0.0.1:129/SampleData/smoke.png",
+                scale: [1, 8],
+                speed: [0.05, 2],
+                bursts: [{
+                    time: 5.0,
+                    minimum: 10,
+                    maximum: 100,
+                }],
+                gravity: 0.1,
+                lifetime: 10,
+                position: VRGlobe.Position3D.fromCoordinates([108.40, 30.59]),
+                direction: VRGlobe.Direction.ZERO,
+                imageSize: 24,
+                particleLife: [5, 10],
+                emitterType: VRGlobe.Type.BOXEMITTER,
+                emissionRate: 100,
+                emitterRadius: 100,
+            });
+
+            // 喷泉
+            const fountain = layer.addParticle(VRGlobe.Type.WATERPARTICLE, VRGlobe.Position3D.fromCoordinates([108.40, 30.591, 1]), {
+                mass: 1.0,
+                loop: true,
+                show: true,
+                color: [
+                    new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.25),
+                    new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.01)
+                ],
+                image: "http://127.0.0.1:129/SampleData/smoke.png",
+                scale: 1.0,
+                speed: 1.0,
+                gravity: -5,
+                lifetime: 4,
+                direction: VRGlobe.Direction.ZERO,
+                imageSize: [10, 40],
+                particleLife: 5.0,
+                emitterType: VRGlobe.Type.CONEEMITTER,
+                emissionRate: 120,
+                emitterRadius: 1,
+            })
+
+            // 水柱
+            const spout = layer.addParticle(VRGlobe.Type.WATERPARTICLE, VRGlobe.Position3D.fromCoordinates([108.401, 30.591, 10]), {
+                mass: [0.5, 10],
+                loop: true,
+                show: true,
+                color: [
+                    new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.25),
+                    new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.01)
+                ],
+                image: "http://127.0.0.1:129/SampleData/smoke.png",
+                scale: [1, 2],
+                speed: [3, 4],
+                gravity: -1.5,
+                lifetime: 10,
+                direction: new VRGlobe.Direction(0, 90, 0),
+                imageSize: [10, 40],
+                particleLife: [1, 10],
+                emitterType: VRGlobe.Type.CIRCLEEMITTER,
+                emissionRate: 240,
+                emitterRadius: 1,
+            })
+
+            // 爆炸
+            layer.addParticle(VRGlobe.Type.FIREPARTICLE, position, {
+                color: VRGlobe.Color.fromCssColorString('rgba(238,85,34,0.5)'),
+                image: "http://127.0.0.1:129/SampleData/fire.png",
+                scale: [1, 8],
+                speed: [0.05, 1],
+                bursts: [
+                    { time: 4.5, minimum: 500, maximum: 800 },
+                    { time: 4.55, minimum: 100, maximum: 800 },
+                    { time: 4.6, minimum: 100, maximum: 1000 },
+                    { time: 4.65, minimum: 100, maximum: 100 },
+                    { time: 4.7, minimum: 10, maximum: 200 },
+                    { time: 4.75, minimum: 10, maximum: 200 },
+                ],
+                gravity: 0.1,
+                lifetime: 4,
+                position: VRGlobe.Position3D.fromCoordinates([108.402, 30.59]),
+                direction: VRGlobe.Direction.ZERO,
+                imageSize: [12, 24],
+                particleLife: [0.5, 1],
+                emitterType: VRGlobe.Type.BOXEMITTER,
+                emissionRate: 5,
+                emitterRadius: 0.03,
+            });
+            layer.addParticle(VRGlobe.Type.FIREPARTICLE, position, {
+                mass: [1, 10],
+                color: VRGlobe.Color.fromCssColorString('#0a0a0a'),
+                image: "http://127.0.0.1:129/SampleData/smoke.png",
+                scale: [1, 8],
+                speed: [0.05, 1],
+                gravity: 0.01,
+                lifetime: 12,
+                position: VRGlobe.Position3D.fromCoordinates([108.402, 30.59]),
+                direction: VRGlobe.Direction.ZERO,
+                imageSize: 24,
+                particleLife: [6, 12],
+                emitterType: VRGlobe.Type.BOXEMITTER,
+                emissionRate: 30,
+                emitterRadius: 0.1,
+            });
+
+        </script>
+    </body>
+</body>
+
+</html>

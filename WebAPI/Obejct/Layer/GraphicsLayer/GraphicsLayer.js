@@ -4,7 +4,6 @@ import defined from '../../../../Source/Core/defined.js';
 import destroyObject from '../../../../Source/Core/destroyObject.js';
 import DeveloperError from '../../../../Source/Core/DeveloperError.js';
 import Resource from '../../../../Source/Core/Resource.js';
-import Format from '../../../Static/Format.js';
 import Type from '../../../Static/Type.js';
 import GeoJSON from '../../../Static/Parse/GeoJSON.js';
 import LineStringStyle from '../../../Style/LineStringStyle/LineStringStyle.js';
@@ -14,6 +13,10 @@ import PolygonStyle from '../../../Style/PolygonStyle/PolygonStyle.js';
 import AnnotationStyle from '../../../Style/AnnotationStyle.js';
 import AttributeTable from '../../AttributeTable/AttributeTable.js';
 
+/**
+ * 矢量图层接口,不要直接实例化
+ * @abstract
+ */
 class GraphicsLayer {
     constructor(options) {
         // layer.annotationStyle.mode = VRGlobe.Mode.LABEL;

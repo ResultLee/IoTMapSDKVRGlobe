@@ -378,6 +378,16 @@
 
         // });
 
+
+        function getScreenSpaceError() {
+            var ray = viewer.camera.getPickRay(new Cesium.Cartesian2(viewer.scene.context.canvas.width / 2, viewer.scene.context.canvas.height / 2));
+            var intersection = viewer.scene.globe.pick(ray, viewer.scene);
+            var distance = Cesium.Cartesian3.distance(intersection, viewer.camera.position);
+            var height = viewer.scene.context.canvas.height;
+            var sseDenominator = viewer.camera.frustum._sseDenominator
+            distance * sseDenominator / height;
+        }
+
     </script>
 </body>
 

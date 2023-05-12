@@ -1,0 +1,66 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8" />
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <script src="../../Build/VRGlobe/VRGlobe.js"></script>
+    <link rel="stylesheet" href="../../Build/VRGlobe/Widgets/widgets.css" />
+    <title>3dtiles图层(TDTilesetLayer)</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <body>
+        <div id="main"></div>
+        <script>
+            window.Space_BASEURL = window.location.origin + "/Build/VRGlobe/";
+            var space = new VRGlobe.Space('main');
+
+            space.__v.scene.imageryLayers.addImageryProvider(
+                new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
+            );
+            space.__v.terrainProvider = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINSEELEVEL);
+
+            // 加载倾斜摄影
+            let photography = new VRGlobe.TDTilesetLayer("http://192.168.1.119:6006/CQEstateData/3dtiles/CQLiangJiang3DTiles/tileset.json");
+            space.__v.scene.primitives.add(photography);
+
+            // 跳转到倾斜摄影
+            // space.__v.camera.flyToBoundingSphere(photography._tileset.boundingSphere);
+
+            // 加载点云
+            let pointCloud = new VRGlobe.TDTilesetLayer("http://192.168.1.119:6006/PointCloud/TownRoad/tileset.json");
+            space.__v.scene.primitives.add(pointCloud);
+
+            // 跳转到点云
+            // space.__v.camera.flyToBoundingSphere(pointCloud._tileset.boundingSphere);
+
+        </script>
+    </body>
+</body>
+
+</html>

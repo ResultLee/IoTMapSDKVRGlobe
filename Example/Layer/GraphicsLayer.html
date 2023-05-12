@@ -65,10 +65,12 @@
             // });
 
 
+            let layer;
             VRGlobe.GraphicsLayer.fromGeojson(
                 VRGlobe.Type.GEOJSONMULTILINESTRING,
                 'http://127.0.0.1:129/SDKData/MultiLineString.json'
             ).then(graphicsLayer => {
+                layer = graphicsLayer;
                 graphicsLayer.annotationStyle.mode = mode;
                 space.__v.scene.primitives.add(graphicsLayer);
             });
@@ -83,13 +85,13 @@
             // });
 
 
-            VRGlobe.GraphicsLayer.fromGeojson(
-                VRGlobe.Type.GEOJSONMULTIPOLYGON,
-                'http://127.0.0.1:129/SDKData/MultiPolygon.json'
-            ).then(graphicsLayer => {
-                graphicsLayer.annotationStyle.mode = mode;
-                space.__v.scene.primitives.add(graphicsLayer);
-            });
+            // VRGlobe.GraphicsLayer.fromGeojson(
+            //     VRGlobe.Type.GEOJSONMULTIPOLYGON,
+            //     'http://127.0.0.1:129/SDKData/MultiPolygon.json'
+            // ).then(graphicsLayer => {
+            //     graphicsLayer.annotationStyle.mode = mode;
+            //     space.__v.scene.primitives.add(graphicsLayer);
+            // });
         </script>
     </body>
 </body>

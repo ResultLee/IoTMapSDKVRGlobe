@@ -1,4 +1,3 @@
-import defined from '../../../../../Source/Core/defined.js';
 import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
 import PointPrimitiveCollection from '../../../../../Source/Scene/PointPrimitiveCollection.js';
 import Style from '../../../../Static/Style.js';
