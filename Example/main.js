@@ -6,6 +6,7 @@ import * as VRGlobe from "../WebAPI/VRGlobe.js";
 import "../Source/Widgets/widgets.css";
 
 window.VRGlobe = VRGlobe;
+window.Space_BASEURL = "/";
 
 
 

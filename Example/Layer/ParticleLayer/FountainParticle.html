@@ -1,0 +1,75 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>喷泉粒子</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <body>
+        <div id="main"></div>
+        <script>
+            window.onload = () => {
+                var space = new VRGlobe.Space('main');
+
+                space.__v.terrainProvider = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINSEELEVEL);
+
+                space.__v.scene.imageryLayers.addImageryProvider(
+                    new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
+                );
+
+                space.__v.clock.shouldAnimate = true;
+                space.__v.scene.debugShowFramesPerSecond = true;
+
+                var position = VRGlobe.Position3D.fromCoordinates([108.40, 30.59]);
+                let layer = space.__v.scene.primitives.add(new VRGlobe.ParticleLayer());
+                layer.addParticle(VRGlobe.Type.WATERPARTICLE, VRGlobe.Position3D.fromCoordinates([108.40, 30.591, 1]), {
+                    mass: 1.0,
+                    loop: true,
+                    show: true,
+                    color: [
+                        new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.25),
+                        new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.01)
+                    ],
+                    image: "http://127.0.0.1:129/SampleData/smoke.png",
+                    scale: 1.0,
+                    speed: 1.0,
+                    gravity: -5,
+                    lifetime: 4,
+                    direction: VRGlobe.Direction.ZERO,
+                    imageSize: [10, 40],
+                    particleLife: 5.0,
+                    emitterType: VRGlobe.Type.CONEEMITTER,
+                    emissionRate: 120,
+                    emitterRadius: 1,
+                })
+
+            }
+        </script>
+    </body>
+</body>
+
+</html>

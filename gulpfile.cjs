@@ -666,3 +666,20 @@ ${source}
 function filePathToModuleId(moduleId) {
   return moduleId.substring(0, moduleId.lastIndexOf(".")).replace(/\\/g, "/");
 }
+
+gulp.task("demo", async function () {
+
+  mkdirp.sync("Build");
+  mkdirp.sync("./Build/Example");
+  fs.copyFileSync('index.html', './Build/Example/index.html');
+  fs.copyFileSync('./Example/Hello World.html', './Build/Example/Hello World.html');
+
+  const data = fs.readdirSync(path.resolve('Example/'));
+  const parentDirs = data.toString().split(',');
+  for (let i = 0; i < parentDirs.length; i++) {
+    const fileName = parentDirs[i].toString();
+    console.log(fileName);
+  }
+
+  console.log('生成demo!');
+})

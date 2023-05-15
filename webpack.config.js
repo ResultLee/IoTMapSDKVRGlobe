@@ -57,85 +57,176 @@ module.exports = {
             filename: "index.html",
             favicon: path.resolve(__dirname, 'favicon.ico')
         }),
+        // Hello World
         new HtmlWebpackPlugin({
-            template: './Example/template.html',
-            filename: "Example/template.html",
+            template: './Example/Hello World.html',
+            filename: "./Hello World.html",
             chunks: ['main'],
         }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/DataLoad/loadTileset.html',
-        //     filename: "Example/loadTileset.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/CustomShader/adjustmentColor.html',
-        //     filename: "Example/adjustmentColor.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/CustomShader/modelFlattening.html',
-        //     filename: "Example/modelFlattening.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/DataLoad/loadTilesetWithAttribute.html',
-        //     filename: "Example/loadTilesetWithAttribute.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/DataLoad/loadS3mbData.html',
-        //     filename: "Example/loadS3mbData.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/DataLoad/loadArcGisImageTileMap.html',
-        //     filename: "Example/loadArcGisImageTileMap.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/TaskProcessor/transcodeCRNToDXT.html',
-        //     filename: "Example/transcodeCRNToDXT.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/Render/deferredRender.html',
-        //     filename: "Example/deferredRender.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/CustomShader/addTextureOnTileset.html',
-        //     filename: "Example/addTextureOnTileset.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/WebAPI/ProjectManager.html',
-        //     filename: "Example/ProjectManager.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/DataLoad/loadTopoJsonTile.html',
-        //     filename: "Example/loadTopoJsonTile.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/DataLoad/loadGeojson.html',
-        //     filename: "Example/loadGeojson.html",
-        //     chunks: ['main'],
-        // }),
-        // new HtmlWebpackPlugin({
-        //     template: './Example/DataLoad/loadHexagonLayer.html',
-        //     filename: "Example/loadHexagonLayer.html",
-        //     chunks: ['main'],
-        // }),
+        // 地形图层
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TerrainLayer/SeeLevelTerrain.html',
+            filename: "./Layer/TerrainLayer/SeeLevelTerrain.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TerrainLayer/QuantizedTerrain.html',
+            filename: "./Layer/TerrainLayer/QuantizedTerrain.html",
+            chunks: ['main'],
+        }),
+        // 模型图层
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TDTilesetLayer/PhotographyLayer.html',
+            filename: "./Layer/TDTilesetLayer/PhotographyLayer.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TDTilesetLayer/PointCloudLayer.html',
+            filename: "./Layer/TDTilesetLayer/PointCloudLayer.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TDTilesetLayer/ModelBlank.html',
+            filename: "./Layer/TDTilesetLayer/ModelBlank.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TDTilesetLayer/ModelBlankSetColor.html',
+            filename: "./Layer/TDTilesetLayer/ModelBlankSetColor.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TDTilesetLayer/ModelBlankSetColorByGraduatedValue.html',
+            filename: "./Layer/TDTilesetLayer/ModelBlankSetColorByGraduatedValue.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TDTilesetLayer/ModelBlankSetColorByHeight.html',
+            filename: "./Layer/TDTilesetLayer/ModelBlankSetColorByHeight.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/TDTilesetLayer/ModelBlankSetColorByUniqueValue.html',
+            filename: "./Layer/TDTilesetLayer/ModelBlankSetColorByUniqueValue.html",
+            chunks: ['main'],
+        }),
+        // 影像图层
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/AmapCVAImagery.html',
+            filename: "./Layer/ImageryLayer/AmapCVAImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/AmapIMGImagery.html',
+            filename: "./Layer/ImageryLayer/AmapIMGImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/AmapVECImagery.html',
+            filename: "./Layer/ImageryLayer/AmapVECImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/BDCVAImagery.html',
+            filename: "./Layer/ImageryLayer/BDCVAImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/BDIMGImagery.html',
+            filename: "./Layer/ImageryLayer/BDIMGImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/BDVECImagery.html',
+            filename: "./Layer/ImageryLayer/BDVECImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/EsriIMGImagery.html',
+            filename: "./Layer/ImageryLayer/EsriIMGImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/EsriVECImagery.html',
+            filename: "./Layer/ImageryLayer/EsriVECImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/TencentIMGImagery.html',
+            filename: "./Layer/ImageryLayer/TencentIMGImagery.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ImageryLayer/TencentVECImagery.html',
+            filename: "./Layer/ImageryLayer/TencentVECImagery.html",
+            chunks: ['main'],
+        }),
+        // 矢量图层
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/GraphicsLayer/point.html',
+            filename: "Layer/GraphicsLayer/point.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/GraphicsLayer/LineString.html',
+            filename: "Layer/GraphicsLayer/LineString.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/GraphicsLayer/MultiLineString.html',
+            filename: "Layer/GraphicsLayer/MultiLineString.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/GraphicsLayer/Polygon.html',
+            filename: "Layer/GraphicsLayer/Polygon.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/GraphicsLayer/MultiPolygon.html',
+            filename: "Layer/GraphicsLayer/MultiPolygon.html",
+            chunks: ['main'],
+        }),
+        // 矢量瓦片
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/FeatureLayer/FeatureLayer.html',
+            filename: "./Layer/FeatureLayer/FeatureLayer.html",
+            chunks: ['main'],
+        }),
+        // 粒子图层
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ParticleLayer/BurstParticle.html',
+            filename: "./Layer/ParticleLayer/BurstParticle.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ParticleLayer/FireParticle.html',
+            filename: "./Layer/ParticleLayer/FireParticle.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ParticleLayer/FountainParticle.html',
+            filename: "./Layer/ParticleLayer/FountainParticle.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ParticleLayer/SmokeParticle.html',
+            filename: "./Layer/ParticleLayer/SmokeParticle.html",
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: './Example/Layer/ParticleLayer/SpoutParticle.html',
+            filename: "./Layer/ParticleLayer/SpoutParticle.html",
+            chunks: ['main'],
+        }),
         // Copy Cesium Assets, Widgets, and Workers to a static directory
         new CopyWebpackPlugin({
             patterns: [
                 { from: path.join(cesiumSource, cesiumWorkers), to: 'Workers' },
-                { from: path.join(cesiumSource, cesiumWorkers), to: 'Workers' },
                 { from: path.join(cesiumSource, 'Assets'), to: 'Assets' },
                 { from: path.join(cesiumSource, 'Widgets'), to: 'Widgets' },
                 { from: path.join(cesiumSource, 'ThirdParty'), to: 'ThirdParty' },
-                // { from: path.join('./Example', 'TaskProcessor'), to: 'TaskProcessor' }
+                { from: path.join('./Example', 'Resource'), to: 'Resource' },
             ]
         }),
         new webpack.DefinePlugin({

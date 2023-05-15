@@ -1,0 +1,87 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>白模按照唯一值设色</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <body>
+        <div id="main"></div>
+        <script>
+            window.onload = () => {
+                var space = new VRGlobe.Space('main');
+
+                space.__v.scene.imageryLayers.addImageryProvider(
+                    new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
+                );
+                space.__v.terrainProvider = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINSEELEVEL);
+
+                // 加载白模
+                let model = new VRGlobe.ModelTilesetLayer('http://192.168.1.119:6006/CDBuild3DTileset/tileset.json');
+                space.__v.scene.primitives.add(model);
+                model.readyPromise.then(tileset => {
+                    // 跳转到白模
+                    space.__v.camera.flyToBoundingSphere(tileset.boundingSphere);
+                    setColorByUniqueValue();
+                });
+
+                // 模型按照唯一值设色
+                function setColorByUniqueValue() {
+                    model.attributeName = "county";
+                    model.colorPropertyType = VRGlobe.Type.PROPERTYUNIQUE;
+                    model.colorProperty.removeAllCondition();
+                    model.colorProperty.addCondition("双流区", VRGlobe.Color.fromCssColorString('rgb(252, 202, 209)'));
+                    model.colorProperty.addCondition("大邑县", VRGlobe.Color.fromCssColorString('rgb(185, 252, 182)'));
+                    model.colorProperty.addCondition("崇州市", VRGlobe.Color.fromCssColorString('rgb(187, 240, 252)'));
+                    model.colorProperty.addCondition("彭州市", VRGlobe.Color.fromCssColorString('rgb(185, 179, 252)'));
+                    model.colorProperty.addCondition("成华区", VRGlobe.Color.fromCssColorString('rgb(252, 237, 184)'));
+                    model.colorProperty.addCondition("新津县", VRGlobe.Color.fromCssColorString('rgb(252, 179, 235)'));
+                    model.colorProperty.addCondition("新都区", VRGlobe.Color.fromCssColorString('rgb(217, 215, 252)'));
+                    model.colorProperty.addCondition("武侯区", VRGlobe.Color.fromCssColorString('rgb(202, 252, 221)'));
+                    model.colorProperty.addCondition("温江区", VRGlobe.Color.fromCssColorString('rgb(252, 207, 182)'));
+                    model.colorProperty.addCondition("简阳市", VRGlobe.Color.fromCssColorString('rgb(237, 252, 210)'));
+                    model.colorProperty.addCondition("蒲江县", VRGlobe.Color.fromCssColorString('rgb(252, 207, 245)'));
+                    model.colorProperty.addCondition("邛崃市", VRGlobe.Color.fromCssColorString('rgb(179, 210, 252)'));
+                    model.colorProperty.addCondition("郫都区", VRGlobe.Color.fromCssColorString('rgb(252, 182, 210)'));
+                    model.colorProperty.addCondition("都江堰市", VRGlobe.Color.fromCssColorString('rgb(223, 184, 252)'));
+                    model.colorProperty.addCondition("金堂县", VRGlobe.Color.fromCssColorString('rgb(228, 252, 187)'));
+                    model.colorProperty.addCondition("金牛区", VRGlobe.Color.fromCssColorString('rgb(252, 240, 215)'));
+                    model.colorProperty.addCondition("锦江区", VRGlobe.Color.fromCssColorString('rgb(202, 197, 252)'));
+                    model.colorProperty.addCondition("青白江区", VRGlobe.Color.fromCssColorString('rgb(215, 252, 243)'));
+                    model.colorProperty.addCondition("青羊区", VRGlobe.Color.fromCssColorString('rgb(252, 222, 215)'));
+                    model.colorProperty.addCondition("龙泉驿区", VRGlobe.Color.fromCssColorString('rgb(202, 252, 197)'));
+                    model.updateStyle();
+                }
+            }
+
+
+
+        </script>
+    </body>
+</body>
+
+</html>
