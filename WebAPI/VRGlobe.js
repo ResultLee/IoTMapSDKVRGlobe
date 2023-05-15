@@ -70,4 +70,5 @@ export { default as WebMercatorTilingScheme } from '../Source/Core/WebMercatorTi
 export { default as Cesium3DTileset } from '../Source/Scene/Cesium3DTileset.js';
 export { default as Cesium3DTileStyle } from '../Source/Scene/Cesium3DTileStyle.js';
 export { default as topojson } from '../Source/ThirdParty/topojson.js';
+export { default as CesiumWidget } from '../Source/Widgets/CesiumWidget/CesiumWidget.js';
 

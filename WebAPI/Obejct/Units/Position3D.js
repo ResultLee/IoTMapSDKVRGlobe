@@ -1,5 +1,5 @@
 import defaultValue from '../../../Source/Core/defaultValue.js';
-import defined from '../../../Source/Core/defined';
+import defined from '../../../Source/Core/defined.js';
 import DeveloperError from '../../../Source/Core/DeveloperError.js';
 
 class Position3D {

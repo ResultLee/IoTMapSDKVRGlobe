@@ -1,9 +1,9 @@
-import createGuid from '../../../Source/Core/createGuid';
-import defined from '../../../Source/Core/defined';
-import DeveloperError from '../../../Source/Core/DeveloperError';
-import RuntimeError from '../../../Source/Core/RuntimeError';
-import Graphic from '../../Obejct/Layer/GraphicsLayer/Graphics/Graphic';
-import Type from '../Type';
+import createGuid from '../../../Source/Core/createGuid.js';
+import defined from '../../../Source/Core/defined.js';
+import DeveloperError from '../../../Source/Core/DeveloperError.js';
+import RuntimeError from '../../../Source/Core/RuntimeError.js';
+import Graphic from '../../Obejct/Layer/GraphicsLayer/Graphics/Graphic.js';
+import Type from '../Type.js';
 
 function parseFeaturesToGraphics(type, features) {
     const graphics = new Array();

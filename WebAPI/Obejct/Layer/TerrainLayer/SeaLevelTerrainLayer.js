@@ -1,5 +1,5 @@
 import defaultValue from '../../../../Source/Core/defaultValue.js';
-import HeightmapTerrainData from '../../../../Source/Core/HeightmapTerrainData';
+import HeightmapTerrainData from '../../../../Source/Core/HeightmapTerrainData.js';
 import TerrainProvider from './TerrainProvider.js';
 
 /**

@@ -1,4 +1,4 @@
-import Cartesian2 from '../../../../../Source/Core/Cartesian2';
+import Cartesian2 from '../../../../../Source/Core/Cartesian2.js';
 import Cartographic from '../../../../../Source/Core/Cartographic.js';
 import CesiumMath from '../../../../../Source/Core/Math.js';
 import WebMercatorProjection from '../../../../../Source/Core/WebMercatorProjection.js';

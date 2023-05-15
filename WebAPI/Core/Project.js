@@ -6,8 +6,8 @@
  * @Description:
  */
 
-import Check from '../../Source/Core/Check';
-import DeveloperError from '../../Source/Core/DeveloperError';
+import Check from '../../Source/Core/Check.js';
+import DeveloperError from '../../Source/Core/DeveloperError.js';
 import Format from '../Static/Format.js';
 import Loader from '../Static/Loader.js';
 

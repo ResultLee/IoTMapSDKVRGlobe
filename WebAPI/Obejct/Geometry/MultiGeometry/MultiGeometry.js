@@ -1,4 +1,4 @@
-import GeometryProvider from '../GeometryProvider';
+import GeometryProvider from '../GeometryProvider.js';
 
 class MultiGeometry extends GeometryProvider {
     constructor(positions, options) {

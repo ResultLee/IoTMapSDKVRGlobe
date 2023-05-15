@@ -1,5 +1,5 @@
 import defaultValue from '../../../Source/Core/defaultValue.js';
-import DeveloperError from '../../../Source/Core/DeveloperError';
+import DeveloperError from '../../../Source/Core/DeveloperError.js';
 import Attribute from './Attribute.js';
 import Table from './Table.js';
 
