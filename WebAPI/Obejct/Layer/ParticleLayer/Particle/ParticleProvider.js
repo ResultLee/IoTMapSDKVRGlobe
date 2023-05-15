@@ -61,6 +61,14 @@ class ParticleProvider {
         this._update = true;
     }
 
+    get show() {
+        return this._show;
+    }
+
+    set show(value) {
+        this._show = value;
+    }
+
     update(frameState) {
         if (!this._ready || !this._show) {
             return;

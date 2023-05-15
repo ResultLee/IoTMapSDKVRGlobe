@@ -52,6 +52,23 @@
                 new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
             );
             space.__v.terrainProvider = layer;
+
+            // 设置高程为海平面
+            function setSeeLevelTerrain() {
+                // 海平面
+                let layer = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINSEELEVEL);
+                space.__v.terrainProvider = layer;
+            }
+
+            // 设置高程为地形网格
+            function setQuantizedTerrain() {
+                // 超图公网地形
+                layer = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINQUANTIZED, {
+                    url: "https://www.supermapol.com/realspace/services/3D-stk_terrain/rest/realspace/datas/info/data/path"
+                });
+                space.__v.terrainProvider = layer;
+            }
+
         </script>
     </body>
 </body>

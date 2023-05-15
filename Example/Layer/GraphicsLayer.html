@@ -37,7 +37,8 @@
     <body>
         <div id="main"></div>
         <script>
-            const mode = VRGlobe.Mode.BILLBOARD;
+            // const mode = VRGlobe.Mode.BILLBOARD;
+            const mode = VRGlobe.Mode.NONE;
             window.Space_BASEURL = window.location.origin + "/Build/VRGlobe/";
             var space = new VRGlobe.Space('main');
 
@@ -76,22 +77,22 @@
             });
 
 
-            // VRGlobe.GraphicsLayer.fromGeojson(
-            //     VRGlobe.Type.GEOJSONPOLYGON,
-            //     'http://127.0.0.1:129/SDKData/Polygon.json'
-            // ).then(graphicsLayer => {
-            // graphicsLayer.annotationStyle.mode = mode;
-            // space.__v.scene.primitives.add(graphicsLayer);
-            // });
+            VRGlobe.GraphicsLayer.fromGeojson(
+                VRGlobe.Type.GEOJSONPOLYGON,
+                'http://127.0.0.1:129/SDKData/Polygon.json'
+            ).then(graphicsLayer => {
+                graphicsLayer.annotationStyle.mode = mode;
+                space.__v.scene.primitives.add(graphicsLayer);
+            });
 
 
-            // VRGlobe.GraphicsLayer.fromGeojson(
-            //     VRGlobe.Type.GEOJSONMULTIPOLYGON,
-            //     'http://127.0.0.1:129/SDKData/MultiPolygon.json'
-            // ).then(graphicsLayer => {
-            //     graphicsLayer.annotationStyle.mode = mode;
-            //     space.__v.scene.primitives.add(graphicsLayer);
-            // });
+            VRGlobe.GraphicsLayer.fromGeojson(
+                VRGlobe.Type.GEOJSONMULTIPOLYGON,
+                'http://127.0.0.1:129/SDKData/MultiPolygon.json'
+            ).then(graphicsLayer => {
+                graphicsLayer.annotationStyle.mode = mode;
+                space.__v.scene.primitives.add(graphicsLayer);
+            });
         </script>
     </body>
 </body>

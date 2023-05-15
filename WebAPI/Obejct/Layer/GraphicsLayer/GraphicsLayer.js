@@ -48,6 +48,14 @@ class GraphicsLayer {
 
     }
 
+    get show() {
+        return this._show;
+    }
+
+    set show(value) {
+        this._show = value;
+    }
+
     /**
      * 获取矢量图层的整体标注样式
      */

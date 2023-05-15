@@ -41,38 +41,98 @@
             var space = new VRGlobe.Space('main');
 
 
+            // // 创建高德矢量注记瓦片地图
+            // let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPCVA);
+
+            // // 创建高德影像瓦片地图
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPIMG);
+
+            // // 高德矢量瓦片地图
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPVEC);
+
+            // // 创建坐标系为BD-09坐标系百度标注的地图
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDCVA);
+
+            // // 创建坐标系为BD-09坐标系百度矢量的地图
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDVEC);
+
+            // // 创建坐标系为BD-09坐标系百度影像的地图
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDIMG);
+
+            // // 创建ESRI矢量地图MapServer服务
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG);
+
+            // // 创建ESRI影像地图MapServer服务
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIVEC);
+
+            // // 创建腾讯影像瓦片地图
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYTENCENTIMG);
+
+            // // 创建腾讯矢量瓦片地图
+            // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYTENCENTVEC);
+
+            // space.__v.scene.imageryLayers.addImageryProvider(layer);
+
+            let layer;
             // 创建高德矢量注记瓦片地图
-            let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPCVA);
+            function addAMapCVAImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPCVA)
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 创建高德影像瓦片地图
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPIMG);
+            function addAMapIMGImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPIMG);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 高德矢量瓦片地图
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPVEC);
+            function addAMapVECImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYAMAPVEC);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 创建坐标系为BD-09坐标系百度标注的地图
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDCVA);
+            function addBDCVAImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDCVA);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 创建坐标系为BD-09坐标系百度矢量的地图
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDVEC);
+            function addBDCVAImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDVEC);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 创建坐标系为BD-09坐标系百度影像的地图
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDIMG);
+            function addBDCVAImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDIMG);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 创建ESRI矢量地图MapServer服务
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG);
+            function addESRIIMGImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 创建ESRI影像地图MapServer服务
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIVEC);
+            function addESRIVECImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIVEC);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 创建腾讯影像瓦片地图
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYTENCENTIMG);
+            function addTENCENTIMGImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYTENCENTIMG);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
 
             // 创建腾讯矢量瓦片地图
-            layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYTENCENTVEC);
-            
-            space.__v.scene.imageryLayers.addImageryProvider(layer);
-
+            function addTENCENTVECImageryLayer() {
+                layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYTENCENTVEC);
+                space.__v.scene.imageryLayers.addImageryProvider(layer);
+            }
         </script>
     </body>
 </body>

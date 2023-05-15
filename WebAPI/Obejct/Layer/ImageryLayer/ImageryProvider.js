@@ -22,7 +22,7 @@ class ImageryProvider {
      * @param {Number} [options.minimumLevel] WMTS服务的0级瓦片对应瓦片网格的级别
      * @param {Number} [options.maximumLevel] WMTS服务的最大级别的瓦片对应的瓦片网格的级别
      * @param {Array<String>} [options.dimensions] 一个在WMTS服务中用{s}标识的URL维度值
-    * @param {String} [options.parameters.transparent = true] WMS图层是否支持透明图层
+     * @param {String} [options.parameters.transparent = true] WMS图层是否支持透明图层
      */
     constructor(url, options) {
         if (!defined(url)) {
@@ -49,6 +49,7 @@ class ImageryProvider {
         this.errorEvent = new Event();
         this.hasAlphaChannel = true;
         this.ready = true;
+        this._update = true;
         this._readyPromise = defer();
     }
 
@@ -90,6 +91,11 @@ class ImageryProvider {
      */
     get show() {
         return this._show;
+    }
+
+    set show(value) {
+        this._show = value;
+        this._update = true;
     }
 
     /**

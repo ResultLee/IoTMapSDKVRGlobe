@@ -3,6 +3,7 @@ import Cartographic from '../../../../Source/Core/Cartographic.js';
 import createGuid from '../../../../Source/Core/createGuid.js';
 import defaultValue from '../../../../Source/Core/defaultValue.js';
 import defined from '../../../../Source/Core/defined.js';
+import destroyObject from '../../../../Source/Core/destroyObject.js';
 import DeveloperError from '../../../../Source/Core/DeveloperError.js';
 import CesiumMath from '../../../../Source/Core/Math.js';
 import Matrix3 from '../../../../Source/Core/Matrix3.js';
@@ -245,6 +246,14 @@ class TilesetProvider {
         if (defined(this._tileset) && this.ready) {
             this._tileset.postPassesUpdate(frameState);
         }
+    }
+
+    isDestroyed() {
+        return false;
+    }
+
+    destroy() {
+        destroyObject(this);
     }
 }
 

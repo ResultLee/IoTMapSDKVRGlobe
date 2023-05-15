@@ -98,34 +98,38 @@ class PolygonStyle {
     }
 
     _getStyle(positions) {
-        const appearance = new PerInstanceColorAppearance();
+        const that = this;
+        const appearance = new PerInstanceColorAppearance({
+            flat: true,
+            faceForward: false
+        });
         const polygonHierarchy = createPolygonHierarchy(positions);
         const fillStyle = this._fill ? new Primitive({
+            asynchronous: false,
             appearance: appearance,
             geometryInstances: new GeometryInstance({
-                geometry: PolygonGeometry.createGeometry(new PolygonGeometry({
-                    height: this._height,
+                geometry: new PolygonGeometry({
+                    height: that._height,
                     polygonHierarchy: polygonHierarchy,
-                    perPositionHeight: this._perPositionHeight,
-                    vertexFormat: VertexFormat.POSITION_AND_COLOR
-                })),
+                    perPositionHeight: that._perPositionHeight
+                }),
                 attributes: {
-                    color: ColorGeometryInstanceAttribute.fromColor(this._fillColor)
+                    color: ColorGeometryInstanceAttribute.fromColor(that._fillColor)
                 }
             })
         }) : undefined;
 
         const outlineStyle = this._outline ? new Primitive({
+            asynchronous: false,
             appearance: appearance,
             geometryInstances: new GeometryInstance({
-                geometry: PolygonOutlineGeometry.createGeometry(new PolygonOutlineGeometry({
-                    height: this._height,
+                geometry: new PolygonOutlineGeometry({
+                    height: that._height,
                     polygonHierarchy: polygonHierarchy,
-                    perPositionHeight: this._perPositionHeight,
-                    vertexFormat: VertexFormat.POSITION_AND_COLOR
-                })),
+                    perPositionHeight: that._perPositionHeight
+                }),
                 attributes: {
-                    color: ColorGeometryInstanceAttribute.fromColor(this._outlineColor)
+                    color: ColorGeometryInstanceAttribute.fromColor(that._outlineColor)
                 }
             })
         }) : undefined;
@@ -139,7 +143,8 @@ class PolygonStyle {
             height: this._height,
             outline: this._outline,
             fillColor: this._fillColor,
-            perPositionHeight: this._outlineColor
+            outlineColor: this._outlineColor,
+            perPositionHeight: this._perPositionHeight
         });
     }
 }

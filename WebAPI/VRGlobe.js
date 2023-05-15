@@ -26,6 +26,7 @@ export { default as WaterParticle } from './Obejct/Layer/ParticleLayer/Particle/
 
 export { default as TilesetProvider } from './Obejct/Layer/TilesetLayer/TilesetProvider.js';
 export { default as ColorProperty } from './Obejct/Property/ColorProperty.js';
+export { default as ImageryProvider } from './Obejct/Layer/ImageryLayer/ImageryProvider.js';
 
 export { default as Direction } from './Obejct/Units/Direction.js';
 export { default as Position3D } from './Obejct/Units/Position3D.js';

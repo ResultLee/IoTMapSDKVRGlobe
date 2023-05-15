@@ -6,6 +6,7 @@ import defaultValue from '../../Source/Core/defaultValue.js';
 import DeveloperError from '../../Source/Core/DeveloperError.js';
 import HorizontalOrigin from '../../Source/Scene/HorizontalOrigin.js';
 import VerticalOrigin from '../../Source/Scene/VerticalOrigin.js';
+import Default from '../Static/Default.js';
 import Mode from '../Static/Mode.js';
 
 class AnnotationStyle {
@@ -117,7 +118,7 @@ class AnnotationStyle {
     _getBillboardStyle(position) {
         return {
             mode: this._mode,
-            image: 'http://localhost:5500/favicon.ico',
+            image: Default.BILLBOARDIMG,
             scale: this._imageScale,
             verticalOrigin: VerticalOrigin.BOTTOM,
             horizontalOrigin: HorizontalOrigin.LEFT,

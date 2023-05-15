@@ -593,6 +593,11 @@ ImageryLayerCollection.prototype._update = function () {
 
     layer._layerIndex = i;
 
+    if (defined(layer.imageryProvider) && layer.imageryProvider._update) {
+      layer.show = layer.imageryProvider.show;
+      layer.imageryProvider._update = false;
+    }
+
     if (layer.show) {
       layer._isBaseLayer = isBaseLayer;
       isBaseLayer = false;

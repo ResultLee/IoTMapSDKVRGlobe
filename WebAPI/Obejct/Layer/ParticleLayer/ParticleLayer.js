@@ -19,6 +19,14 @@ class ParticleLayer {
         this._show = defaultValue(options.show, true);
     }
 
+    get show() {
+        return this._show;
+    }
+
+    set show(value) {
+        this._show = value;
+    }
+
     addParticle(type, position, options) {
         let particle;
         switch (type) {
