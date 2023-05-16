@@ -112,6 +112,9 @@ function createWorkers() {
     })
     .then(function () {
       rimraf.sync("Build/createWorkers");
+      rimraf.sync("Build/minifyShaders.state");
+      rimraf.sync("Build/package.json");
+      rimraf.sync("Build/combineOutput");
     });
 }
 
@@ -163,8 +166,7 @@ gulp.task("build", async function () {
   await buildThirdParty();
   glslToJavaScript(minifyShaders, "Build/minifyShaders.state");
   createCesiumJs();
-  // createSpecList();
-  // createJsHintOptions();
+  createWorkers();
   return Promise.join(createWorkers());
 });
 
@@ -668,18 +670,51 @@ function filePathToModuleId(moduleId) {
 }
 
 gulp.task("demo", async function () {
-
   mkdirp.sync("Build");
+  rimraf.sync("./Build/Example");
   mkdirp.sync("./Build/Example");
   fs.copyFileSync('index.html', './Build/Example/index.html');
-  fs.copyFileSync('./Example/Hello World.html', './Build/Example/Hello World.html');
+  readdirSync('Example/');
+})
 
-  const data = fs.readdirSync(path.resolve('Example/'));
+
+function readdirSync(pathString) {
+  mkdirp.sync('./Build/' + pathString);
+  const data = fs.readdirSync(pathString);
   const parentDirs = data.toString().split(',');
   for (let i = 0; i < parentDirs.length; i++) {
-    const fileName = parentDirs[i].toString();
-    console.log(fileName);
-  }
+    const fileName = parentDirs[i];
+    fs.stat(pathString + fileName, function (err, data) {
+      if (err) {
+        console.error(err);
+        return;
+      }
 
-  console.log('生成demo!');
-})
+      if (data.isDirectory()) {
+        readdirSync(pathString + "/" + fileName + "/")
+      } else {
+        const pattern = /.html/;
+        if (!pattern.test(fileName)) {
+          if (fileName !== 'main.js') {
+            fs.copyFileSync('./' + pathString.toString() + "/" + fileName, './Build/' + pathString.toString() + "/" + fileName);
+          }
+        } else {
+          let testHtml = fs.readFileSync(pathString + "/" + fileName, 'utf8')
+          let string = "";
+          const stringArray = (pathString.toString() + "/").trim().split('//')
+          for (let i = 0; i < stringArray.length; i++) {
+            if (stringArray[i]) {
+              string += "../";
+            }
+          }
+          testHtml = testHtml.replace(/\<\/title\>/, '</title>\n\
+          <link rel="stylesheet" href="'+ string + 'VRGlobe/Widgets/widgets.css">\n\
+          <script type="text/javascript" src="'+ string + 'VRGlobe/VRGlobe.js"></script>\n');
+          testHtml = testHtml.replace(/window.onload = \(\) =\> {/, 'window.Space_BASEURL = "' + string + 'VRGlobe"\n\
+          window.onload = () => {');
+          fs.writeFileSync('./Build/' + pathString.toString() + "/" + fileName, testHtml, 'utf8');
+        }
+      }
+    });
+  }
+}

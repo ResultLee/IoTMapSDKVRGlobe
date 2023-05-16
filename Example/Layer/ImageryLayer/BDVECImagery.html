@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>创建坐标系为BD-09坐标系百度影像的地图</title>
+    <title>创建坐标系为BD-09坐标系的百度矢量地图</title>
     <style>
         html,
         body,
@@ -38,7 +38,7 @@
                 space.__v.terrainProvider = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINSEELEVEL);
 
                 // 创建高德矢量注记瓦片地图
-                let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDIMG);
+                let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYBDVEC);
                 space.__v.scene.imageryLayers.addImageryProvider(layer);
 
             }
