@@ -72,4 +72,8 @@ export { default as Cesium3DTileset } from '../Source/Scene/Cesium3DTileset.js';
 export { default as Cesium3DTileStyle } from '../Source/Scene/Cesium3DTileStyle.js';
 export { default as topojson } from '../Source/ThirdParty/topojson.js';
 export { default as CesiumWidget } from '../Source/Widgets/CesiumWidget/CesiumWidget.js';
+export { default as DoublyLinkedList } from '../Source/Core/DoublyLinkedList.js';
+export { default as TreeNode } from './Obejct/ResourceTree/Tree/TreeNode.js';
+export { default as TreeItem } from './Obejct/ResourceTree/Tree/TreeItem.js';
+
 

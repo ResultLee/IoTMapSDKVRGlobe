@@ -8,8 +8,8 @@
 
 import defaultValue from '../../Source/Core/defaultValue.js';
 import CesiumWidget from '../../Source/Widgets/CesiumWidget/CesiumWidget.js';
-import Project from './Project.js';
 import ResourceTree from './ResourceTree.js';
+import Project from './Project.js';
 
 /**
  * VRGlobeSDK三维场景主入口

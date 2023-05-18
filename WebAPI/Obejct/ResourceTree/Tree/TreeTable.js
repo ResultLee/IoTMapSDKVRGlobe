@@ -5,6 +5,9 @@
  * @LastEditTime: 2023-03-08 10:56:07
  * @Description:
  */
+
+import TreeItem from './TreeItem.js';
+
 /**
  * 资源树映射表对象
  */
@@ -20,6 +23,12 @@ class TreeTable {
          * @member
          */
         this.list = new Array();
+    }
+
+    addItem(options) {
+        const item = new TreeItem(options);
+        this.list.push(item);
+        return this.addItem;
     }
 }
 

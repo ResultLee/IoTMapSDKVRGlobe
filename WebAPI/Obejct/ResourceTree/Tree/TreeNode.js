@@ -5,9 +5,8 @@
  * @LastEditTime: 2023-03-08 10:56:07
  * @Description:
  */
-import createGuid from '../../../Source/Core/createGuid.js';
-import defaultValue from '../../../Source/Core/defaultValue.js';
-import Type from '../../Static/Type.js';
+import createGuid from '../../../../Source/Core/createGuid.js';
+import defaultValue from '../../../../Source/Core/defaultValue.js';
 
 class TreeNode {
     /**

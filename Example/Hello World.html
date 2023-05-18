@@ -32,8 +32,14 @@
     <body>
         <div id="main"></div>
         <script>
+            let space;
             window.onload = () => {
-                var space = new VRGlobe.Space('main');
+                space = new VRGlobe.Space('main');
+
+                // 创建ESRI矢量地图MapServer地图服务
+                space.__v.scene.imageryLayers.addImageryProvider(
+                    new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
+                );
             }
         </script>
     </body>

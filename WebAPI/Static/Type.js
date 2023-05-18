@@ -20,7 +20,6 @@ class Type {
     //  * @type {Number}
     //  * @constant
     //  */
-    // static TREENODE = 1000001;
 
     static POINT = 1000001;
     static POLYLINE = 1000002;
@@ -207,25 +206,29 @@ class Type {
      */
     static PROPERTYGRADUATED = 1000804;
 
+    // 矢量瓦片
+    static FEATURE = 1000900;
+
+    // 3DTiles模型
+    static TILESET = 1001000;
+    static TILESETMODEL = 1001001;
+    static TILESETPOINTCLOUD = 1001003;
+    static TILESETPHOTOGRAPHY = 1001004;
+
+    // 建筑白模
+    static TILESETMODELBLANK = 1001100;
 
 
+    // 资源树节点
+    static TREE = 1001200;
+    // 树节点
+    static TREENODE = 1001201;
+    // 组节点
+    static TREEGROUP = 1001202;
 
-    /**
-     * 判断对象类型是否为影像图层类型
-     * @param {Type} type 要判断对象的类型
-     * @returns {Boolean} 若是影像图层则为true，反之则为false
-     */
-    static isImagerLayer(value) {
-        return isType(this.IMAGERY, value);
-    }
 
-    /**
-     * 判断对象类型是否为地形图层类型
-     * @param {Type} type 要判断对象的类型
-     * @returns {Boolean} 若是地形图层则为true，反之则为false
-     */
-    static isTerrrainLayer(value) {
-        return isType(this.TERRAIN, value);
+    static getType(value) {
+        return parseInt(value / 100) * 100;
     }
 
     static isGeoJSON(value) {
