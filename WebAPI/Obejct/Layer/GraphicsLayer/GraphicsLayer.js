@@ -12,6 +12,7 @@ import GraphicProvider from './Graphics/GraphicProvider.js';
 import PolygonStyle from '../../../Style/PolygonStyle/PolygonStyle.js';
 import AnnotationStyle from '../../../Style/AnnotationStyle.js';
 import AttributeTable from '../../AttributeTable/AttributeTable.js';
+import Graphic from './Graphics/Graphic.js';
 
 /**
  * 矢量图层接口,不要直接实例化
@@ -45,7 +46,6 @@ class GraphicsLayer {
         this._show = defaultValue(options.show, true);
         this._attributeTable = defaultValue(options.attributeTable, new AttributeTable());
         this._annotationStyle = defaultValue(options.annotationStyle, new AnnotationStyle());
-
     }
 
     get show() {
@@ -61,6 +61,10 @@ class GraphicsLayer {
      */
     get annotationStyle() {
         return this._annotationStyle;
+    }
+
+    add(type, options) {
+        this._graphics.push(new Graphic(type, options));
     }
 
     /**
@@ -101,6 +105,7 @@ class GraphicsLayer {
                 case Type.GEOJSONMULTIPOLYGON:
                     style = new PolygonStyle();
                     graphics = GeoJSON.getMultiPolygonGraphics(geojson);
+                    break;
             }
 
             const attributeTable = new AttributeTable();
@@ -121,6 +126,17 @@ class GraphicsLayer {
 
     get(index) {
         return this._graphics[index];
+    }
+
+    getById(id) {
+        let layer;
+        for (let i = 0; i < this._graphics.length; i++) {
+            layer = this._graphics[i];
+            if (layer._id === id) {
+                break;
+            }
+        }
+        return layer;
     }
 
     update(frameState) {
@@ -153,7 +169,9 @@ class GraphicsLayer {
             }
         }
 
-        this._style._update = false;
+        if (defined(this._style) && defined(this._style._update)) {
+            this._style._update = false;
+        }
         this._annotationStyle._update = false;
     }
 

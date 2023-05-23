@@ -109,43 +109,43 @@ class ImageryLayer {
                 // });
                 return new UrlTileImageryLayer(url, options);
             case Type.IMAGERYTENCENTVEC:
-                return new UrlTileImageryLayer(Default.TENCENTVECRUL, { subdomains });
+                return new UrlTileImageryLayer(Default.TENCENTVECRUL, Object(options, { subdomains }));
             case Type.IMAGERYTENCENTIMG:
-                return new UrlTileImageryLayer(Default.TENCENTIMGRUL, { subdomains });
+                return new UrlTileImageryLayer(Default.TENCENTIMGRUL, Object(options, { subdomains }));
             case Type.IMAGERYAMAPIMG:
-                return new UrlTileImageryLayer(Default.AMAPIMGURL, {
+                return new UrlTileImageryLayer(Default.AMAPIMGURL, Object(options, {
                     subdomains: subdomains1,
                     tilingScheme: new AmapMercatorTilingScheme()
-                });
+                }));
             case Type.IMAGERYAMAPVEC:
-                return new UrlTileImageryLayer(Default.AMAPVECURL, {
+                return new UrlTileImageryLayer(Default.AMAPVECURL, Object(options, {
                     subdomains: subdomains1,
                     tilingScheme: new AmapMercatorTilingScheme()
-                });
+                }));
             case Type.IMAGERYAMAPCVA:
-                return new UrlTileImageryLayer(Default.AMAPCVAURL, {
+                return new UrlTileImageryLayer(Default.AMAPCVAURL, Object(options, {
                     subdomains: subdomains1,
                     tilingScheme: new AmapMercatorTilingScheme()
-                });
+                }));
             case Type.IMAGERYBDIMG:
-                return new UrlTileImageryLayer(Default.BDIMGURL, {
+                return new UrlTileImageryLayer(Default.BDIMGURL, Object(options, {
                     subdomains: subdomains,
                     tilingScheme: new BDMercatorTilingScheme()
-                });
+                }));
             case Type.IMAGERYBDVEC:
-                return new UrlTileImageryLayer(Default.BDVECURL, {
+                return new UrlTileImageryLayer(Default.BDVECURL, Object(options, {
                     subdomains: subdomains,
                     tilingScheme: new BDMercatorTilingScheme()
-                });
+                }));
             case Type.IMAGERYBDCVA:
-                return new UrlTileImageryLayer(Default.BDCVAURL, {
+                return new UrlTileImageryLayer(Default.BDCVAURL, Object(options, {
                     subdomains: subdomains,
                     tilingScheme: new BDMercatorTilingScheme()
-                });
+                }));
             case Type.IMAGERYESRIIMG:
-                return new UrlTileImageryLayer(Default.ESRIIMGURL);
+                return new UrlTileImageryLayer(Default.ESRIIMGURL, options);
             case Type.IMAGERYESRIVEC:
-                return new UrlTileImageryLayer(Default.ESRIVECURL);
+                return new UrlTileImageryLayer(Default.ESRIVECURL, options);
             case Type.IMAGERYESRI:
                 // let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRI,{
                 //     url: 'http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer'

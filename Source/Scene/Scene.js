@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import BoundingRectangle from "../Core/BoundingRectangle.js";
 import BoundingSphere from "../Core/BoundingSphere.js";
 import BoxGeometry from "../Core/BoxGeometry.js";
@@ -69,6 +70,7 @@ import SunPostProcess from "./SunPostProcess.js";
 import TweenCollection from "./TweenCollection.js";
 import View from "./View.js";
 import DebugInspector from "./DebugInspector.js";
+import ResourceTree from "../../WebAPI/Core/ResourceTree.js";
 
 const requestRenderAfterFrame = function (scene) {
   return function () {
@@ -208,6 +210,7 @@ function Scene(options) {
   this._globeTranslucencyState = new GlobeTranslucencyState();
   this._primitives = new PrimitiveCollection();
   this._groundPrimitives = new PrimitiveCollection();
+  this._resourceTree = new ResourceTree();
 
   this._globeHeight = undefined;
   this._cameraUnderground = false;
@@ -2565,7 +2568,7 @@ function executeCommands(scene, passState) {
       us.updatePass(Pass.CESIUM_3D_TILE_CLASSIFICATION_IGNORE_SHOW);
       commands =
         frustumCommands.commands[
-          Pass.CESIUM_3D_TILE_CLASSIFICATION_IGNORE_SHOW
+        Pass.CESIUM_3D_TILE_CLASSIFICATION_IGNORE_SHOW
         ];
       length =
         frustumCommands.indices[Pass.CESIUM_3D_TILE_CLASSIFICATION_IGNORE_SHOW];
@@ -3240,7 +3243,7 @@ Scene.prototype.updateEnvironment = function () {
 
   const occluder =
     frameState.mode === SceneMode.SCENE3D &&
-    !globeTranslucencyState.sunVisibleThroughGlobe
+      !globeTranslucencyState.sunVisibleThroughGlobe
       ? frameState.occluder
       : undefined;
   let cullingVolume = frameState.cullingVolume;
@@ -3360,6 +3363,17 @@ function updateAndRenderPrimitives(scene) {
 
   scene._groundPrimitives.update(frameState);
   scene._primitives.update(frameState);
+
+  const resourceTree = scene._resourceTree;
+
+  const imageryLayers = resourceTree.dataManager.imageryLayers;
+  while (imageryLayers._addLayers.length > 0) {
+    const imageryLayer = imageryLayers._addLayers.pop();
+    imageryLayers._layers.push(imageryLayer);
+    scene.imageryLayers.addImageryProvider(imageryLayer);
+  }
+
+  resourceTree.update(frameState);
 
   updateDebugFrustumPlanes(scene);
   updateShadowMaps(scene);
@@ -3694,6 +3708,9 @@ function prePassesUpdate(scene) {
   const primitives = scene.primitives;
   primitives.prePassesUpdate(frameState);
 
+  const resourceTree = scene._resourceTree;
+  resourceTree.prePassesUpdate(frameState);
+
   if (defined(scene.globe)) {
     scene.globe.update(frameState);
   }
@@ -3706,6 +3723,9 @@ function postPassesUpdate(scene) {
   const frameState = scene._frameState;
   const primitives = scene.primitives;
   primitives.postPassesUpdate(frameState);
+
+  const resourceTree = scene._resourceTree;
+  resourceTree.postPassesUpdate(frameState);
 
   RequestScheduler.update();
 }
@@ -4448,6 +4468,7 @@ Scene.prototype.destroy = function () {
     !this._deviceOrientationCameraController.isDestroyed() &&
     this._deviceOrientationCameraController.destroy();
   this._primitives = this._primitives && this._primitives.destroy();
+  this._resourceTree && this._resourceTree.isDestroyed() && this._resourceTree.destroy();
   this._groundPrimitives =
     this._groundPrimitives && this._groundPrimitives.destroy();
   this._globe = this._globe && this._globe.destroy();

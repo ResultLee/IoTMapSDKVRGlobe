@@ -1,12 +1,20 @@
+import defaultValue from '../../../../../Source/Core/defaultValue.js';
 import defined from '../../../../../Source/Core/defined.js';
 import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
 import PrimitiveCollection from '../../../../../Source/Scene/PrimitiveCollection.js';
 import Style from '../../../../Static/Style.js';
 import Type from '../../../../Static/Type.js';
+import SinglePolygonGeometry from '../../../Geometry/SingleGeometry/SinglePolygonGeometry.js';
 import GraphicProvider from './GraphicProvider.js';
 
 class PolygonGraphic extends GraphicProvider {
     constructor(options) {
+        options = defaultValue(options, defaultValue.EMPTY_OBJECT);
+
+        if (!defined(options.geometry)) {
+            options.geometry = new SinglePolygonGeometry(options.positions, options);
+        }
+
         super(options);
 
         this.type = Type.GRAPHICSPOLYGON;

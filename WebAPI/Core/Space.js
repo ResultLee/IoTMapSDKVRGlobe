@@ -8,7 +8,7 @@
 
 import defaultValue from '../../Source/Core/defaultValue.js';
 import CesiumWidget from '../../Source/Widgets/CesiumWidget/CesiumWidget.js';
-import ResourceTree from './ResourceTree.js';
+// import ResourceTree from './ResourceTree.js';
 import Project from './Project.js';
 
 /**
@@ -32,7 +32,11 @@ class Space {
          * 场景资源树对象
          * @type {ResourceTree}
          */
-        this.resourceTree = new ResourceTree();
+        // this.resourceTree = new ResourceTree();
+    }
+
+    get resourceTree() {
+        return this.__v._scene._resourceTree;
     }
 
     /**

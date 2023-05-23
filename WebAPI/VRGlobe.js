@@ -27,6 +27,8 @@ export { default as WaterParticle } from './Obejct/Layer/ParticleLayer/Particle/
 export { default as TilesetProvider } from './Obejct/Layer/TilesetLayer/TilesetProvider.js';
 export { default as ColorProperty } from './Obejct/Property/ColorProperty.js';
 export { default as ImageryProvider } from './Obejct/Layer/ImageryLayer/ImageryProvider.js';
+export { default as TreeNode } from './Obejct/ResourceTree/Tree/TreeNode.js';
+export { default as TreeItem } from './Obejct/ResourceTree/Tree/TreeItem.js';
 
 export { default as Direction } from './Obejct/Units/Direction.js';
 export { default as Position3D } from './Obejct/Units/Position3D.js';
@@ -73,7 +75,6 @@ export { default as Cesium3DTileStyle } from '../Source/Scene/Cesium3DTileStyle.
 export { default as topojson } from '../Source/ThirdParty/topojson.js';
 export { default as CesiumWidget } from '../Source/Widgets/CesiumWidget/CesiumWidget.js';
 export { default as DoublyLinkedList } from '../Source/Core/DoublyLinkedList.js';
-export { default as TreeNode } from './Obejct/ResourceTree/Tree/TreeNode.js';
-export { default as TreeItem } from './Obejct/ResourceTree/Tree/TreeItem.js';
+
 
 

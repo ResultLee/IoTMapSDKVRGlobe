@@ -1,11 +1,19 @@
+import defaultValue from '../../../../../Source/Core/defaultValue.js';
 import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
 import PolylineCollection from '../../../../../Source/Scene/PolylineCollection.js';
 import Style from '../../../../Static/Style.js';
 import Type from '../../../../Static/Type.js';
+import SingleLineStringGeometry from '../../../Geometry/SingleGeometry/SingleLineStringGeometry.js';
 import GraphicProvider from './GraphicProvider.js';
 
 class LineStringGraphic extends GraphicProvider {
     constructor(options) {
+        options = defaultValue(options, defaultValue.EMPTY_OBJECT);
+
+        options.geometry = defaultValue(
+            options.geometry,
+            new SingleLineStringGeometry(options.positions, options)
+        );
         super(options);
 
         this.type = Type.GRAPHICSLINESTRING;

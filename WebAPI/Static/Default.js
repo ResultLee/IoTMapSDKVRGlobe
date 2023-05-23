@@ -34,7 +34,9 @@ const Default = {
     // 默认Billboard的img
     BILLBOARDIMG: defaultICO,
     // 默认的透明底图
-    TRANSPARENTIMAGE: defaultIMG
+    TRANSPARENTIMAGE: defaultIMG,
+    // 资源树根节点名称
+    ROOTNODENAME: 10001
 
 };
 

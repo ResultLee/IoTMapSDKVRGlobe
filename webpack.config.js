@@ -63,6 +63,12 @@ module.exports = {
             filename: "./Hello World.html",
             chunks: ['main'],
         }),
+        // 资源树
+        new HtmlWebpackPlugin({
+            template: './Example/ResourceTree/ResourceTree.html',
+            filename: "./ResourceTree/ResourceTree.html",
+            chunks: ['main'],
+        }),
         // 地形图层
         new HtmlWebpackPlugin({
             template: './Example/Layer/TerrainLayer/SeeLevelTerrain.html',

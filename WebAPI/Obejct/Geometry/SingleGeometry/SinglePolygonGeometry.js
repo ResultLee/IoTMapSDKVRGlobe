@@ -6,6 +6,7 @@ import SingleLinearRingGeometry from './SingleLinearRingGeometry.js';
 
 class SinglePolygonGeometry extends SingleGeometry {
     constructor(positions, options) {
+
         super(positions, options);
 
         const geometry = new Array();

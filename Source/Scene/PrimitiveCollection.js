@@ -361,6 +361,17 @@ PrimitiveCollection.prototype.get = function (index) {
   return this._primitives[index];
 };
 
+PrimitiveCollection.prototype.getById = function (id) {
+  let layer;
+  for (let i = 0; i < this._primitives.length; i++) {
+    layer = this._primitives[i];
+    if (layer._id === id) {
+      break;
+    }
+  }
+  return layer;
+}
+
 /**
  * @private
  */

@@ -7,6 +7,7 @@
  */
 import createGuid from '../../../../Source/Core/createGuid.js';
 import defaultValue from '../../../../Source/Core/defaultValue.js';
+import Type from '../../../Static/Type.js';
 
 class TreeNode {
     /**
@@ -16,12 +17,10 @@ class TreeNode {
      */
     constructor(options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
+        this.type = Type.TREENODE;
         this.id = defaultValue(options.id, createGuid());
-        // this.type = Type.TREENODE;
         this.name = defaultValue(options.name, '');
-        this.parentId = defaultValue(options.parentId, undefined);
-        this.children = defaultValue(options.children, new Array());
-        this.visibility = defaultValue(options.visibility, true);
+        this.parentId = defaultValue(options.parentId, 'Root');
     }
 }
 

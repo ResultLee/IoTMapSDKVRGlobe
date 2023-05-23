@@ -27,8 +27,10 @@ class ParticleLayer {
         this._show = value;
     }
 
-    addParticle(type, position, options) {
+    addParticle(type, options) {
+        options = defaultValue(options, defaultValue.EMPTY_OBJECT);
         let particle;
+        const position = options.position;
         switch (type) {
             case Type.FIREPARTICLE:
                 particle = new FireParticle(position, options);
@@ -55,6 +57,17 @@ class ParticleLayer {
             }
         }
         return false;
+    }
+
+    get(id) {
+        let particle;
+        for (let i = 0; i < this._particle.length; i++) {
+            particle = this._particle[i];
+            if (particle._id === id) {
+                break;
+            }
+        }
+        return particle;
     }
 
     removeAll() {

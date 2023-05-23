@@ -1,0 +1,690 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>资源树</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <body>
+        <div id="main"></div>
+        <script>
+            let space, layer;
+            window.onload = () => {
+                space = new VRGlobe.Space('main');
+
+                space.__v.clock.shouldAnimate = true;
+                space.__v.scene.debugShowFramesPerSecond = true;
+
+                // // 创建ESRI矢量地图MapServer地图服务
+                // layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG);
+                // space.__v.scene.imageryLayers.addImageryProvider(layer);
+
+                // 资源树节点
+                const thematicData = space.resourceTree.addGroup({
+                    name: "专题数据"
+                });
+
+                // 矢量图层父节点
+                const vectorDatas = space.resourceTree.addGroup({
+                    name: "矢量数据",
+                    parentId: thematicData.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "矢量点",
+                    show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONPOINT,
+                    url: 'http://127.0.0.1:129/SDKData/point.json'
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "矢量线",
+                    show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONLINESTRING,
+                    url: 'http://127.0.0.1:129/SDKData/LineString.json'
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "矢量多线",
+                    show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONMULTILINESTRING,
+                    url: 'http://127.0.0.1:129/SDKData/MultiLineString.json'
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "矢量面",
+                    show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONPOLYGON,
+                    url: 'http://127.0.0.1:129/SDKData/Polygon.json'
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "矢量多面",
+                    show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONMULTIPOLYGON,
+                    url: 'http://127.0.0.1:129/SDKData/MultiPolygon.json'
+                });
+
+                // 矢量瓦片图层父节点
+                const vectorTileDatas = space.resourceTree.addGroup({
+                    name: "矢量瓦片",
+                    parentId: thematicData.id,
+                    // dataType: VRGlobe.Type.FEATURE,
+                    // url: "http://127.0.0.1:129/Data/ChongQing/TopoJson/ChongQing_All/EPSG_4326_{z}/{x}_{reverseY}.topojson",
+                    // minimumLevel: 10,
+                    // maximumLevel: 15,
+                    // fillColor: 'rgba(3, 104, 255, 0.5)',
+                    // strokeColor: 'rgba(30, 242, 220, 1)',
+                    // rectangle: VRGlobe.Rectangle.fromDegrees(105.46857703157171, 28.454715693000026, 109.15871584761804, 31.568847758087273),
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "测试瓦片",
+                    parentId: vectorTileDatas.id,
+                    dataType: VRGlobe.Type.FEATURE,
+                    show: false,
+                    minimumLevel: 10,
+                    maximumLevel: 15,
+                    fillColor: 'rgba(3, 104, 255, 0.5)',
+                    strokeColor: 'rgba(30, 242, 220, 1)',
+                    rectangle: VRGlobe.Rectangle.fromDegrees(105.46857703157171, 28.454715693000026, 109.15871584761804, 31.568847758087273),
+                    url: "http://127.0.0.1:129/Data/ChongQing/TopoJson/ChongQing_All/EPSG_4326_{z}/{x}_{reverseY}.topojson",
+                });
+
+                // 三维模型图层父节点
+                const modeData = space.resourceTree.addGroup({
+                    name: "三维模型"
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "三维倾斜摄影",
+                    parentId: modeData.id,
+                    dataType: VRGlobe.Type.TILESETPHOTOGRAPHY,
+                    url: "http://192.168.1.119:6006/CQEstateData/3dtiles/CQLiangJiang3DTiles/tileset.json"
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "三维激光点云",
+                    parentId: modeData.id,
+                    dataType: VRGlobe.Type.TILESETPOINTCLOUD,
+                    url: "http://192.168.1.119:6006/PointCloud/TownRoad/tileset.json"
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "三维矢量白模",
+                    parentId: modeData.id,
+                    dataType: VRGlobe.Type.TILESETMODELBLANK,
+                    url: 'http://192.168.1.119:6006/CDBuild3DTileset/tileset.json'
+                });
+
+                // 基底数据图层父节点
+                const layerData = space.resourceTree.addGroup({
+                    name: "基底数据"
+                });
+
+                // 地形图层父节点
+                const terrainLayer = space.resourceTree.addGroup({
+                    name: "地形图层",
+                    parentId: layerData.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "海平面",
+                    parentId: terrainLayer.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "网格地形",
+                    parentId: terrainLayer.id
+                });
+
+                // 影像图层父节点
+                const imageryLayers = space.resourceTree.addGroup({
+                    name: "影像图层",
+                    parentId: layerData.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "高德注记",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYAMAPCVA
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "高德影像",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYAMAPIMG
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "高德矢量",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYAMAPVEC
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "百度注记",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYBDCVA
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "百度影像",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYBDIMG
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "百度矢量",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYBDVEC
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "ESRI影像",
+                    // show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYESRIIMG
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "ESRI矢量",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYESRIVEC
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "腾讯影像",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYTENCENTIMG
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "腾讯矢量",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYTENCENTVEC
+                });
+
+                // 操作图层父节点
+                const graphicData = space.resourceTree.addGroup({
+                    name: "操作数据"
+                });
+
+                // 粒子特效图层父节点
+                const particleData = space.resourceTree.addGroup({
+                    name: "粒子特效",
+                    parentId: graphicData.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "火焰",
+                    parentId: particleData.id,
+                    dataType: VRGlobe.Type.FIREPARTICLE,
+                    position: VRGlobe.Position3D.fromCoordinates([108.402, 30.59]),
+                    loop: true,
+                    show: false,
+                    scale: [0.5, 8.0],
+                    speed: [0.05, 2],
+                    image: "http://127.0.0.1:129/SampleData/fire.png",
+                    bursts: [{
+                        time: 5.0,
+                        minimum: 10,
+                        maximum: 100,
+                    }],
+                    gravity: 0.5,
+                    lifetime: 6.0,
+                    direction: VRGlobe.Direction.ZERO,
+                    emitterType: VRGlobe.Type.CIRCLEEMITTER,
+                    emissionRate: 60,
+                    emitterRadius: 10,
+                    particleLife: [1, 2],
+                    imageSize: [6, 24]
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "喷泉",
+                    parentId: particleData.id,
+                    dataType: VRGlobe.Type.WATERPARTICLE,
+                    position: VRGlobe.Position3D.fromCoordinates([108.40, 30.591, 1]),
+                    mass: 1.0,
+                    loop: true,
+                    show: false,
+                    color: [
+                        new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.25),
+                        new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.01)
+                    ],
+                    image: "http://127.0.0.1:129/SampleData/smoke.png",
+                    scale: 1.0,
+                    speed: 1.0,
+                    gravity: -5,
+                    lifetime: 4,
+                    direction: VRGlobe.Direction.ZERO,
+                    imageSize: [10, 40],
+                    particleLife: 5.0,
+                    emitterType: VRGlobe.Type.CONEEMITTER,
+                    emissionRate: 120,
+                    emitterRadius: 1
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "烟雾",
+                    parentId: particleData.id,
+                    dataType: VRGlobe.Type.SMOKEPARTICLE,
+                    position: VRGlobe.Position3D.fromCoordinates([108.401, 30.59, 1]),
+                    mass: [1, 10],
+                    loop: true,
+                    show: false,
+                    color: [
+                        new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.25),
+                        new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.01)
+                    ],
+                    image: "http://127.0.0.1:129/SampleData/smoke.png",
+                    scale: [1, 8],
+                    speed: [0.05, 2],
+                    bursts: [{
+                        time: 5.0,
+                        minimum: 10,
+                        maximum: 100,
+                    }],
+                    gravity: 0.1,
+                    lifetime: 10,
+                    position: VRGlobe.Position3D.fromCoordinates([108.40, 30.59]),
+                    direction: VRGlobe.Direction.ZERO,
+                    imageSize: 24,
+                    particleLife: [5, 10],
+                    emitterType: VRGlobe.Type.BOXEMITTER,
+                    emissionRate: 100,
+                    emitterRadius: 100
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "水柱",
+                    parentId: particleData.id,
+                    dataType: VRGlobe.Type.SMOKEPARTICLE,
+                    position: VRGlobe.Position3D.fromCoordinates([108.401, 30.591, 10]),
+                    mass: [0.5, 10],
+                    loop: true,
+                    show: false,
+                    color: [
+                        new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.25),
+                        new VRGlobe.Color(0.9607843137254902, 0.9607843137254902, 0.9607843137254902, 0.01)
+                    ],
+                    image: "http://127.0.0.1:129/SampleData/smoke.png",
+                    scale: [1, 2],
+                    speed: [3, 4],
+                    gravity: -1.5,
+                    lifetime: 10,
+                    direction: new VRGlobe.Direction(0, 90, 0),
+                    imageSize: [10, 40],
+                    particleLife: [1, 10],
+                    emitterType: VRGlobe.Type.CIRCLEEMITTER,
+                    emissionRate: 240,
+                    emitterRadius: 1
+                });
+
+                // 绘制数据父节点
+                const drawDatas = space.resourceTree.addGroup({
+                    name: "绘制数据",
+                    parentId: graphicData.id,
+
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "绘制点",
+                    parentId: drawDatas.id,
+                    dataType: VRGlobe.Type.GRAPHICSPOINT,
+                    style: new VRGlobe.PointStyle({
+                        color: VRGlobe.Color.RED
+                    }),
+                    position: VRGlobe.Position3D.fromCoordinates([108.402, 30.59])
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "绘制线",
+                    parentId: drawDatas.id,
+                    dataType: VRGlobe.Type.GRAPHICSLINESTRING,
+                    positions: [
+                        VRGlobe.Position3D.fromCoordinates([108.402, 30.59]),
+                        VRGlobe.Position3D.fromCoordinates([108.44, 30.9])
+                    ],
+                    style: new VRGlobe.LineStringStyle({
+                        width: 5,
+                        color: VRGlobe.Color.ORANGE
+                    })
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "绘制面",
+                    parentId: drawDatas.id,
+                    dataType: VRGlobe.Type.GRAPHICSPOLYGON,
+                    positions: [[
+                        VRGlobe.Position3D.fromCoordinates([108.402, 30.59]),
+                        VRGlobe.Position3D.fromCoordinates([108.41, 30.39]),
+                        VRGlobe.Position3D.fromCoordinates([108.49, 30.4]),
+                        VRGlobe.Position3D.fromCoordinates([108.46, 30.7]),
+                        VRGlobe.Position3D.fromCoordinates([108.402, 30.59])
+                    ]],
+                    style: new VRGlobe.PolygonStyle({
+                        fillColor: VRGlobe.Color.CYAN
+                    })
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "绘制体",
+                    parentId: drawDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "绘制模型",
+                    parentId: drawDatas.id
+                });
+
+                const markDatas = space.resourceTree.addGroup({
+                    name: "标注数据",
+                    parentId: graphicData.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "图片标注",
+                    parentId: markDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "文字标注",
+                    parentId: markDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "图片&文字标注",
+                    parentId: markDatas.id
+                });
+
+                // 分析结果图层
+                const analysisDatas = space.resourceTree.addGroup({
+                    name: "分析数据",
+                    parentId: graphicData.id
+                });
+
+                // 缓冲区分析结果图层
+                const bufferAnalysis = space.resourceTree.addGroup({
+                    name: "缓冲区分析",
+                    parentId: analysisDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "点缓冲",
+                    parentId: bufferAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "线缓冲",
+                    parentId: bufferAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "面缓冲",
+                    parentId: bufferAnalysis.id
+                });
+
+                // 剖面分析结果图层
+                const profileAnalysis = space.resourceTree.addGroup({
+                    name: "剖面分析",
+                    parentId: analysisDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "剖切线1",
+                    parentId: profileAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "剖切线2",
+                    parentId: profileAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "剖切线3",
+                    parentId: profileAnalysis.id
+                });
+
+                // 量算分析结果图层
+                const measureAnalysis = space.resourceTree.addGroup({
+                    name: "量算分析",
+                    parentId: analysisDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "垂直量算",
+                    parentId: measureAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "水平量算",
+                    parentId: measureAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "斜距量算",
+                    parentId: measureAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "面积量算",
+                    parentId: measureAnalysis.id
+                });
+
+                // 通视分析结果图层
+                const sightlineAnalysis = space.resourceTree.addGroup({
+                    name: "通视线分析",
+                    parentId: analysisDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "通视线1",
+                    parentId: sightlineAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "通视线2",
+                    parentId: sightlineAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "通视线3",
+                    parentId: sightlineAnalysis.id
+                });
+
+                // 地形裁切区域图层
+                const terrainClipAnalysis = space.resourceTree.addGroup({
+                    name: "地形裁切",
+                    parentId: analysisDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "裁切区域1",
+                    parentId: terrainClipAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "裁切区域2",
+                    parentId: terrainClipAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "裁切区域3",
+                    parentId: terrainClipAnalysis.id
+                });
+
+                // 可视域分析结果图层
+                const viewshed3DAnalysis = space.resourceTree.addGroup({
+                    name: "可视域分析",
+                    parentId: analysisDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "可视区域1",
+                    parentId: terrainClipAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "可视区域2",
+                    parentId: terrainClipAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "可视区域3",
+                    parentId: terrainClipAnalysis.id
+                });
+
+                // 填挖方结果图层
+                const volume3DAnalysis = space.resourceTree.addGroup({
+                    name: "填挖方分析",
+                    parentId: analysisDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "填挖方区域1",
+                    parentId: volume3DAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "填挖方区域2",
+                    parentId: volume3DAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "填挖方区域3",
+                    parentId: volume3DAnalysis.id
+                });
+
+                // 地形压平区域结果图层
+                const terrainPushAnalysis = space.resourceTree.addGroup({
+                    name: "地形压平",
+                    parentId: analysisDatas.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "压平区域1",
+                    parentId: terrainPushAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "压平区域2",
+                    parentId: terrainPushAnalysis.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "压平区域3",
+                    parentId: terrainPushAnalysis.id
+                });
+
+                // 视角结果图层
+                const locations = space.resourceTree.addGroup({
+                    name: "视角管理",
+                    parentId: graphicData.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "视角1",
+                    parentId: locations.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "视角2",
+                    parentId: locations.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "初始视角",
+                    parentId: locations.id
+                });
+
+                // 飞行路径结果图层
+                const flyRoute = space.resourceTree.addGroup({
+                    name: "飞行路径",
+                    parentId: graphicData.id
+                });
+
+                const route1 = space.resourceTree.addGroup({
+                    name: "路径1",
+                    parentId: flyRoute.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "站点1",
+                    parentId: route1.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "站点2",
+                    parentId: route1.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "站点3",
+                    parentId: route1.id
+                });
+
+                const route2 = space.resourceTree.addGroup({
+                    name: "路径2",
+                    parentId: flyRoute.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "站点1",
+                    parentId: route2.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "站点2",
+                    parentId: route2.id
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "站点3",
+                    parentId: route2.id
+                });
+            }
+        </script>
+    </body>
+</body>
+
+</html>

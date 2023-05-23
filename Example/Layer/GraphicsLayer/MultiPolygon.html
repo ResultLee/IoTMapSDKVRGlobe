@@ -46,7 +46,7 @@
                 // 加载矢量多面数据
                 VRGlobe.GraphicsLayer.fromGeojson(
                     VRGlobe.Type.GEOJSONMULTIPOLYGON,
-                    'http://127.0.0.1:129/SDKData/Polygon.json'
+                    'http://127.0.0.1:129/SDKData/MultiPolygon.json'
                 ).then(graphicsLayer => {
                     // graphicsLayer.annotationStyle.mode = mode;
                     space.__v.scene.primitives.add(graphicsLayer);
