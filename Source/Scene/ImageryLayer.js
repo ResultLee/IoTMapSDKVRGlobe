@@ -1,5 +1,6 @@
 import Cartesian2 from "../Core/Cartesian2.js";
 import Cartesian4 from "../Core/Cartesian4.js";
+import createGuid from "../Core/createGuid.js";
 import defaultValue from "../Core/defaultValue.js";
 import defined from "../Core/defined.js";
 import destroyObject from "../Core/destroyObject.js";
@@ -129,6 +130,8 @@ function ImageryLayer(imageryProvider, options) {
   this._imageryProvider = imageryProvider;
 
   options = defaultValue(options, defaultValue.EMPTY_OBJECT);
+
+  this._id = defaultValue(imageryProvider.id, createGuid());
 
   /**
    * The alpha blending value of this layer, with 0.0 representing fully transparent and

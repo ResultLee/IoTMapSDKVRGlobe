@@ -76,7 +76,7 @@ class TilesetProvider {
         this._tileset = new Cesium3DTileset(options);
 
         this.name = options.name;
-        this.id = defaultValue(options.id, createGuid());
+        this._id = defaultValue(options.id, createGuid());
 
         this._rotateX = 0;
         this._rotateY = 0;

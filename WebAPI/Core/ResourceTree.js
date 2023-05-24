@@ -116,7 +116,8 @@ class ResourceTree {
     removeNode(id) {
         const node = removeNode(this.root, id);
         const items = this.treeTable.removeItem(id);
-        return { node, items };
+        const layer = this.dataManager.removeLayer(id);
+        return { node, items, layer };
     }
 
     update(frameState) {

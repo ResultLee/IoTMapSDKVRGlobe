@@ -52,8 +52,7 @@ class ParticleLayer {
     removeParticle(particle) {
         for (let i = 0; i < this._particle.length; i++) {
             if (particle.id === this._particle[i].id) {
-                this._particle.splice(i, 1);
-                return true;
+                return this._particle.splice(i, 1);
             }
         }
         return false;
@@ -72,6 +71,11 @@ class ParticleLayer {
 
     removeAll() {
         this._particle = new Array();
+    }
+
+    removeById(id) {
+        const particle = this.get(id);
+        return this.removeParticle(particle);
     }
 
     update(frameState) {

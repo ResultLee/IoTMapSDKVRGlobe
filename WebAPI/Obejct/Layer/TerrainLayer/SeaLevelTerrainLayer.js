@@ -1,5 +1,6 @@
 import defaultValue from '../../../../Source/Core/defaultValue.js';
 import HeightmapTerrainData from '../../../../Source/Core/HeightmapTerrainData.js';
+import Type from '../../../Static/Type.js';
 import TerrainProvider from './TerrainProvider.js';
 
 /**
@@ -18,6 +19,7 @@ class SeaLevelTerrainLayer extends TerrainProvider {
 
         super(options);
 
+        this.type = Type.TERRAINSEELEVEL;
         this.ready = true;
     }
 

@@ -3,6 +3,7 @@ import defaultValue from '../../../../../Source/Core/defaultValue.js';
 import defined from '../../../../../Source/Core/defined.js';
 import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
 import Cesium3DTileStyle from '../../../../../Source/Scene/Cesium3DTileStyle.js';
+import Type from '../../../../Static/Type.js';
 import ColorProperty from '../../../Property/ColorProperty.js';
 import TilesetProvider from '../TilesetProvider.js';
 
@@ -12,6 +13,7 @@ class ModelTilesetLayer extends TilesetProvider {
 
         this._tileset.style = new Cesium3DTileStyle();
         this._colorProperty = new ColorProperty(options);
+        this.type = defaultValue(options.type, Type.TILESETMODELBLANK);
     }
 
     get color() {

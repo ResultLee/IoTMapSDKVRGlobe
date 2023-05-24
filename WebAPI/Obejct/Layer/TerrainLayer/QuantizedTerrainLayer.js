@@ -16,6 +16,7 @@ import RuntimeError from '../../../../Source/Core/RuntimeError.js';
 import TileAvailability from '../../../../Source/Core/TileAvailability.js';
 import TileProviderError from '../../../../Source/Core/TileProviderError.js';
 import WebMercatorTilingScheme from '../../../../Source/Core/WebMercatorTilingScheme.js';
+import Type from '../../../Static/Type.js';
 import TerrainProvider from './TerrainProvider.js';
 
 const QuantizedMeshExtensionIds = {
@@ -499,6 +500,8 @@ class QuantizedTerrainLayer extends TerrainProvider {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
         super(options);
+
+        this.type = Type.TERRAINQUANTIZED;
 
         this._heightmapWidth = 65;
         this._hasWaterMask = false;

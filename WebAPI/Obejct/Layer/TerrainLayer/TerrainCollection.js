@@ -1,11 +1,11 @@
 
-class ImageryCollection {
+class TerrainCollection {
     constructor() {
         this._layers = new Array();
         this._addLayers = new Array();
         this._removeLayers = new Array();
 
-        this._update = true;
+        this._update = false;
     }
 
     add(layer) {
@@ -25,12 +25,12 @@ class ImageryCollection {
     }
 
     remove(id) {
-        let layer;
         for (let i = 0; i < this._layers.length; i++) {
-            layer = this._layers[i];
+            const layer = this._layers[i];
             if (layer._id === id) {
                 this._layers.splice(i, 1);
                 this._removeLayers.push(layer);
+                this._update = true;
                 return layer;
             }
         }
@@ -38,4 +38,4 @@ class ImageryCollection {
     }
 }
 
-export default ImageryCollection;
+export default TerrainCollection;

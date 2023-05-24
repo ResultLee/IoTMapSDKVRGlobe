@@ -31,7 +31,7 @@ class ImageryProvider {
 
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
-        this._id = createGuid();
+        this._id = defaultValue(options.id, createGuid());
         this._url = url;
         this._type = options.type;
         this._name = options.name;

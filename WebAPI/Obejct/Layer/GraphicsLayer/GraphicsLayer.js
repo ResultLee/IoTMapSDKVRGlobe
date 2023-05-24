@@ -39,13 +39,15 @@ class GraphicsLayer {
             }
         }
 
-        this._id = createGuid();
+        this._id = defaultValue(options.id, createGuid());
         this._name = options.name;
         this._style = options.style;
 
         this._show = defaultValue(options.show, true);
         this._attributeTable = defaultValue(options.attributeTable, new AttributeTable());
         this._annotationStyle = defaultValue(options.annotationStyle, new AnnotationStyle());
+
+        this.type = defaultValue(options.type, Type.GRAPHICS);
     }
 
     get show() {
@@ -129,14 +131,23 @@ class GraphicsLayer {
     }
 
     getById(id) {
-        let layer;
         for (let i = 0; i < this._graphics.length; i++) {
-            layer = this._graphics[i];
+            const layer = this._graphics[i];
             if (layer._id === id) {
-                break;
+                return layer;
             }
         }
-        return layer;
+        return undefined;
+    }
+
+    removeById(id) {
+        for (let i = 0; i < this._graphics.length; i++) {
+            const layer = this._graphics[i];
+            if (layer._id === id) {
+                this._graphics.splice(i, 1);
+                return layer;
+            }
+        }
     }
 
     update(frameState) {

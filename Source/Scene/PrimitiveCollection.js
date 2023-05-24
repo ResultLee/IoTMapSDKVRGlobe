@@ -362,14 +362,18 @@ PrimitiveCollection.prototype.get = function (index) {
 };
 
 PrimitiveCollection.prototype.getById = function (id) {
-  let layer;
   for (let i = 0; i < this._primitives.length; i++) {
-    layer = this._primitives[i];
+    const layer = this._primitives[i];
     if (layer._id === id) {
-      break;
+      return layer;
     }
   }
-  return layer;
+  return undefined;
+}
+
+PrimitiveCollection.prototype.removeById = function (id) {
+  const layer = this.getById(id);
+  return this.remove(layer) && layer;
 }
 
 /**

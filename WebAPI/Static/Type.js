@@ -212,8 +212,8 @@ class Type {
     // 3DTiles模型
     static TILESET = 1001000;
     static TILESETMODEL = 1001001;
-    static TILESETPOINTCLOUD = 1001003;
-    static TILESETPHOTOGRAPHY = 1001004;
+    static TILESETPOINTCLOUD = 1001002;
+    static TILESETPHOTOGRAPHY = 1001003;
 
     // 建筑白模
     static TILESETMODELBLANK = 1001100;

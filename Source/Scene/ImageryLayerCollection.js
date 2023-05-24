@@ -158,6 +158,16 @@ ImageryLayerCollection.prototype.remove = function (layer, destroy) {
   return false;
 };
 
+ImageryLayerCollection.prototype.removeById = function (id) {
+  for (let i = 0; i < this._layers.length; i++) {
+    const layer = this._layers[i];
+    if (layer._id === id) {
+      return this.remove(layer);
+    }
+  }
+  return false;
+}
+
 /**
  * Removes all layers from this collection.
  *

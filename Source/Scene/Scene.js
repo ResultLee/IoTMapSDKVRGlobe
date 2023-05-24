@@ -71,6 +71,9 @@ import TweenCollection from "./TweenCollection.js";
 import View from "./View.js";
 import DebugInspector from "./DebugInspector.js";
 import ResourceTree from "../../WebAPI/Core/ResourceTree.js";
+import EllipsoidTerrainProvider from "../Core/EllipsoidTerrainProvider.js";
+import TerrainProvider from "../../WebAPI/Obejct/Layer/TerrainLayer/TerrainProvider.js";
+import SeaLevelTerrainLayer from "../../WebAPI/Obejct/Layer/TerrainLayer/SeaLevelTerrainLayer.js";
 
 const requestRenderAfterFrame = function (scene) {
   return function () {
@@ -3372,6 +3375,38 @@ function updateAndRenderPrimitives(scene) {
     imageryLayers._layers.push(imageryLayer);
     scene.imageryLayers.addImageryProvider(imageryLayer);
   }
+
+  while (imageryLayers._removeLayers.length > 0) {
+    const imageryLayer = imageryLayers._removeLayers.pop();
+    scene.imageryLayers.removeById(imageryLayer._id);
+  }
+
+  const terrainLayers = resourceTree.dataManager.terrainLayers;
+  if (terrainLayers._update) {
+    while (terrainLayers._addLayers.length > 0) {
+      const terrainLayer = terrainLayers._addLayers.splice(0, 1)[0];
+      terrainLayers._layers.push(terrainLayer);
+      scene.terrainProvider = terrainLayer;
+    }
+
+    while (terrainLayers._removeLayers.length > 0) {
+      const terrainLayer = terrainLayers._removeLayers.splice(0, 1)[0];
+      if (scene.terrainProvider._id === terrainLayer._id) {
+        scene.terrainProvider = terrainLayers._layers[terrainLayer._layers.length - 1];
+      }
+    }
+
+    if (
+      terrainLayers._layers.length < 1 &&
+      !(scene.terrainProvider instanceof SeaLevelTerrainLayer)
+    ) {
+      scene.terrainProvider = new SeaLevelTerrainLayer();
+    }
+
+    terrainLayers._update = false;
+  }
+
+
 
   resourceTree.update(frameState);
 

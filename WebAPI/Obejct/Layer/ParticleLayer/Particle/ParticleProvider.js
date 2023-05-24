@@ -31,7 +31,7 @@ class ParticleProvider {
             throw new DeveloperError('用于创建Particle对象的emitter参数不能为空!');
         }
 
-        this.id = defaultValue(createGuid(), options.id);
+        this.id = defaultValue(options.id, createGuid());
         this._show = defaultValue(options.show, true);
 
         this.image = options.image;

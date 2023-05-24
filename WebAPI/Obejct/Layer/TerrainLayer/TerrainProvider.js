@@ -1,3 +1,4 @@
+import createGuid from '../../../../Source/Core/createGuid.js';
 import defaultValue from '../../../../Source/Core/defaultValue.js';
 import DeveloperError from '../../../../Source/Core/DeveloperError.js';
 import Ellipsoid from '../../../../Source/Core/Ellipsoid.js';
@@ -24,6 +25,7 @@ class TerrainProvider {
         const tilingScheme = defaultValue(options.tilingScheme,
             new GeographicTilingScheme({ ellipsoid }));
 
+        this._id = defaultValue(options.id, createGuid());
         this._maxGeometricError = this.getMaxGeometricError(ellipsoid, 64,
             tilingScheme.getNumberOfXTilesAtLevel(0));
 
