@@ -113,7 +113,15 @@ class ResourceTree {
         return { node, item, layer };
     }
 
-    removeNode(id) {
+    getTreeNode(id) {
+        return getNodeById(this.root, id);
+    }
+
+    getLayer(id) {
+        return this.dataManager.getLayer(id);
+    }
+
+    removeTreeNode(id) {
         const node = removeNode(this.root, id);
         const items = this.treeTable.removeItem(id);
         const layer = this.dataManager.removeLayer(id);
