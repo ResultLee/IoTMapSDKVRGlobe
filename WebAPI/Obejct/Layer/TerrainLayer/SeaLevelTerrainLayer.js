@@ -1,4 +1,5 @@
 import defaultValue from '../../../../Source/Core/defaultValue.js';
+import defined from '../../../../Source/Core/defined.js';
 import HeightmapTerrainData from '../../../../Source/Core/HeightmapTerrainData.js';
 import Type from '../../../Static/Type.js';
 import TerrainProvider from './TerrainProvider.js';
@@ -50,6 +51,20 @@ class SeaLevelTerrainLayer extends TerrainProvider {
 
     loadTileDataAvailability(x, y, level, request) {
         return undefined;
+    }
+
+    getProjectInfo() {
+        const info = new Object();
+        if (defined(this._id)) {
+            info.id = this._id;
+        }
+        if (defined(this._type)) {
+            info.type = this.type;
+        }
+        if (defined(this._show)) {
+            info.show = this._show;
+        }
+        return info;
     }
 }
 

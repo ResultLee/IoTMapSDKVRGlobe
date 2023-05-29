@@ -65,6 +65,12 @@ module.exports = {
         }),
         // 资源树
         new HtmlWebpackPlugin({
+            template: './Example/Project/Project.html',
+            filename: "./Project/Project.html",
+            chunks: ['main'],
+        }),
+        // 工程管理
+        new HtmlWebpackPlugin({
             template: './Example/ResourceTree/ResourceTree.html',
             filename: "./ResourceTree/ResourceTree.html",
             chunks: ['main'],

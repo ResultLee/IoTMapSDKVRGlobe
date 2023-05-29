@@ -4,6 +4,7 @@ import defer from '../../../../Source/Core/defer.js';
 import defined from '../../../../Source/Core/defined.js';
 import DeveloperError from '../../../../Source/Core/DeveloperError.js';
 import Event from '../../../../Source/Core/Event.js';
+import Rectangle from '../../../../Source/Core/Rectangle.js';
 import Resource from '../../../../Source/Core/Resource.js';
 import WebMercatorTilingScheme from '../../../../Source/Core/WebMercatorTilingScheme.js';
 import ImageryStyle from '../../../Style/ImageryStyle.js';
@@ -42,7 +43,12 @@ class ImageryProvider {
         this._tileHeight = defaultValue(options.tileHeight, 256);
         this._tilingScheme = defaultValue(options.tilingScheme, new WebMercatorTilingScheme());
         // 验证范围
-        this._rectangle = defaultValue(options.rectangle, this._tilingScheme.rectangle);
+        // this._rectangle = defaultValue(options.rectangle, this._tilingScheme.rectangle);
+        this._rectangle = this._tilingScheme.rectangle;
+        // TODO: 需要兼容WKS中保存的瓦片范围
+        if (defined(options.rectangle) && options.rectangle instanceof Rectangle) {
+            this._rectangle = options.rectangle;
+        }
 
         this._resource = Resource.createIfNeeded(url);
 

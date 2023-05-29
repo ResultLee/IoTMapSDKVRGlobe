@@ -111,6 +111,7 @@ class ResourceTree {
         const layer = this.dataManager.addLayer(options);
 
         return { node, item, layer };
+        // return { node, item };
     }
 
     getTreeNode(id) {
@@ -138,6 +139,16 @@ class ResourceTree {
 
     postPassesUpdate(frameState) {
         this.dataManager.postPassesUpdate(frameState);
+    }
+
+    reset() {
+        this.root = new TreeGroup({
+            name: 'ROOT',
+            parentId: -1,
+            id: Default.ROOTNODENAME
+        });
+        this.treeTable = new TreeTable();
+        this.dataManager = new DataManager();
     }
 
     isDestroyed() {

@@ -71,9 +71,10 @@ import TweenCollection from "./TweenCollection.js";
 import View from "./View.js";
 import DebugInspector from "./DebugInspector.js";
 import ResourceTree from "../../WebAPI/Core/ResourceTree.js";
-import EllipsoidTerrainProvider from "../Core/EllipsoidTerrainProvider.js";
-import TerrainProvider from "../../WebAPI/Obejct/Layer/TerrainLayer/TerrainProvider.js";
 import SeaLevelTerrainLayer from "../../WebAPI/Obejct/Layer/TerrainLayer/SeaLevelTerrainLayer.js";
+import Project from "../../WebAPI/Core/Project.js";
+import WKS_1 from "../../WebAPI/Static/Parse/WKS_1.js";
+import Type from "../../WebAPI/Static/Type.js";
 
 const requestRenderAfterFrame = function (scene) {
   return function () {
@@ -214,6 +215,7 @@ function Scene(options) {
   this._primitives = new PrimitiveCollection();
   this._groundPrimitives = new PrimitiveCollection();
   this._resourceTree = new ResourceTree();
+  this._project = new Project();
 
   this._globeHeight = undefined;
   this._cameraUnderground = false;
@@ -3361,6 +3363,35 @@ function updateShadowMaps(scene) {
   }
 }
 
+function getStyleById(styles, id) {
+  for (let i = 0; i < styles.length; i++) {
+    const style = styles[i];
+    if (style.nodeId === id) {
+      return style;
+    }
+  }
+  throw new DeveloperError("WKS文件格式错误!");
+}
+
+function addTreeNode(tree, nodes, parentId, style) {
+  const id = nodes.id;
+  const type = WKS_1[nodes.type];
+  const option = getStyleById(style, id);
+  option.id = id;
+  option.name = nodes.name;
+  option.parentId = parentId;
+  if (type === Type.TREEGROUP) {
+    tree.addGroup(option);
+    for (let i = 0; i < nodes.children.length; i++) {
+      const node = nodes.children[i];
+      addTreeNode(tree, node, nodes.id, style);
+    }
+  } else {
+    option.dataType = type;
+    tree.addTreeNode(option)
+  }
+}
+
 function updateAndRenderPrimitives(scene) {
   const frameState = scene._frameState;
 
@@ -3368,6 +3399,19 @@ function updateAndRenderPrimitives(scene) {
   scene._primitives.update(frameState);
 
   const resourceTree = scene._resourceTree;
+
+  // TODO: 解析Project对象的VRStyles属性
+  const project = scene._project;
+  if (project._update) {
+    resourceTree.reset();
+    const treeNodes = project.treeNodes;
+    const style = project.style;
+    for (let i = 0; i < treeNodes.length; i++) {
+      const treeNode = treeNodes[i];
+      addTreeNode(resourceTree, treeNode, resourceTree.root.id, style);
+    }
+    project._update = false;
+  }
 
   const imageryLayers = resourceTree.dataManager.imageryLayers;
   while (imageryLayers._addLayers.length > 0) {

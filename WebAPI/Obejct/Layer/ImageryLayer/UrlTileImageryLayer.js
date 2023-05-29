@@ -264,6 +264,44 @@ class UrlTileImageryLayer extends ImageryProvider {
             flipY: true
         });
     }
+
+    getProjectInfo() {
+        const info = new Object();
+        if (defined(this._id)) {
+            info.id = this._id;
+        }
+        if (defined(this._name)) {
+            info.name = this._name;
+        }
+        if (defined(this._url)) {
+            info.url = this._url;
+        }
+        if (defined(this._type)) {
+            info.type = this._type;
+        }
+        if (defined(this._show)) {
+            info.show = this._show;
+        }
+        if (defined(this._style)) {
+            info.style = this._style;
+        }
+        if (defined(this._rectangle)) {
+            info.rectangle = this._rectangle;
+        }
+        if (defined(this._minimumLevel)) {
+            info.minimumLevel = this._minimumLevel;
+        }
+        if (defined(this._maximumLevel)) {
+            info.maximumLevel = this._maximumLevel;
+        }
+        if (defined(this.fillColor)) {
+            info.fillColor = this.fillColor;
+        }
+        if (defined(this.strokeColor)) {
+            info.strokeColor = this.strokeColor;
+        }
+        return info;
+    }
 }
 
 export default UrlTileImageryLayer;

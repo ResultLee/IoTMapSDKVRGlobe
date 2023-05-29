@@ -52,7 +52,6 @@ function objectToLowercase(obj) {
 }
 
 function requestImage(imageryProvider, col, row, level, request, interval) {
-    console.log(col, row, level);
     const dynamicIntervalData = defined(interval) ? interval.data : undefined;
 
     if (defined(dynamicIntervalData)) {
@@ -247,6 +246,38 @@ class WMSImageryLayer extends ImageryProvider {
         }
 
         return result;
+    }
+
+    getProjectInfo() {
+        const info = new Object();
+        if (defined(this._id)) {
+            info.id = this._id;
+        }
+        if (defined(this._url)) {
+            info.url = this._url;
+        }
+        if (defined(this._name)) {
+            info.name = this._name;
+        }
+        if (defined(this._type)) {
+            info.type = this._type;
+        }
+        if (defined(this._show)) {
+            info.show = this._show;
+        }
+        if (defined(this._style)) {
+            info.style = this._style;
+        }
+        if (defined(this._layers)) {
+            info.layers = this._layers;
+        }
+        if (defined(this._rectangle)) {
+            info.rectangle = this._rectangle;
+        }
+        if (defined(this._parameters)) {
+            info.parameters = this._parameters;
+        }
+        return info;
     }
 }
 

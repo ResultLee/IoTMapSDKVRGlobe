@@ -5,11 +5,8 @@
  * @LastEditTime: 2023-03-08 18:15:48
  * @Description:
  */
-
 import defaultValue from '../../Source/Core/defaultValue.js';
 import CesiumWidget from '../../Source/Widgets/CesiumWidget/CesiumWidget.js';
-// import ResourceTree from './ResourceTree.js';
-import Project from './Project.js';
 
 /**
  * VRGlobeSDK三维场景主入口
@@ -23,16 +20,20 @@ class Space {
     constructor(container, options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
         this.__v = new CesiumWidget(container, options);
-        /**
-         * 场景工程对象
-         * @type {Project}
-         */
-        this.project = new Project();
-        /**
-         * 场景资源树对象
-         * @type {ResourceTree}
-         */
+        // /**
+        //  * 场景工程对象
+        //  * @type {Project}
+        //  */
+        // this.project = new Project();
+        // /**
+        //  * 场景资源树对象
+        //  * @type {ResourceTree}
+        //  */
         // this.resourceTree = new ResourceTree();
+    }
+
+    get project() {
+        return this.__v._scene._project;
     }
 
     get resourceTree() {

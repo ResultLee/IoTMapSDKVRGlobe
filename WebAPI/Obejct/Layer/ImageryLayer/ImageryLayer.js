@@ -103,7 +103,7 @@ class ImageryLayer {
         const url = options.url;
 
         switch (type) {
-            case Type.IMAGERY:
+            case Type.IMAGERYURL:
                 // let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERY,{
                 //     url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}"
                 // });
@@ -162,15 +162,16 @@ class ImageryLayer {
                 // });
                 return new WMTSImageryLayer(url, options);
             case Type.IMAGERYWMS:
-                // let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYWMS,{
-                //     url : 'https://basemap.nationalmap.gov/arcgis/services/USGSImageryTopo/MapServer/WMSServer',
-                //     layers : '0',
-                //     parameters : {
-                //         transparent : true,
-                //         format : 'image/png',
-                //         srs: 'EPSG:4326',
+                // let layer = new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYWMS, {
+                //     layers: 'topp:states',
+                //     parameters: {
+                //         version: "1.3.0",
+                //         transparent: true,
+                //         format: 'image/png',
+                //         srs: 'EPSG:3857',
                 //         styles: ''
-                //     }
+                //     },
+                //     url: 'https://ahocevar.com/geoserver/wms?SERVICE=WMS'
                 // });
                 return new WMSImageryLayer(url, options);
             case Type.IMAGERYSINGLE:

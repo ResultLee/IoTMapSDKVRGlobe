@@ -14,8 +14,6 @@ export { default as ParticleLayer } from './Obejct/Layer/ParticleLayer/ParticleL
 export { default as TDTilesetLayer } from './Obejct/Layer/TilesetLayer/Tileset/TDTilesetLayer.js';
 export { default as ModelTilesetLayer } from './Obejct/Layer/TilesetLayer/Tileset/ModelTilesetLayer.js';
 
-export { default as Format } from './Static/Format.js';
-export { default as Loader } from './Static/Loader.js';
 export { default as Mode } from './Static/Mode.js';
 export { default as Type } from './Static/Type.js';
 
@@ -76,5 +74,5 @@ export { default as topojson } from '../Source/ThirdParty/topojson.js';
 export { default as CesiumWidget } from '../Source/Widgets/CesiumWidget/CesiumWidget.js';
 export { default as DoublyLinkedList } from '../Source/Core/DoublyLinkedList.js';
 
-
+export { default as SingleTileImageryProvider } from '../Source/Scene/SingleTileImageryProvider.js';
 

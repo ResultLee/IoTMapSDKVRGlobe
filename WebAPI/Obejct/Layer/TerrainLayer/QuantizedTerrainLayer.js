@@ -924,6 +924,19 @@ class QuantizedTerrainLayer extends TerrainProvider {
         }
     }
 
+    getProjectInfo() {
+        const info = new Object();
+        if (defined(this._id)) {
+            info.id = this._id;
+        }
+        if (defined(this.type)) {
+            info.type = this.type;
+        }
+        if (defined(this._show)) {
+            info.show = this._show;
+        }
+        return info;
+    }
 }
 
 export default QuantizedTerrainLayer;

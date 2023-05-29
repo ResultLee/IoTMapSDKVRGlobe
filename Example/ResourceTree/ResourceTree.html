@@ -54,45 +54,45 @@
                     parentId: thematicData.id
                 });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "矢量点",
-                //     // show: false,
-                //     parentId: vectorDatas.id,
-                //     dataType: VRGlobe.Type.GEOJSONPOINT,
-                //     url: 'http://127.0.0.1:129/SDKData/point.json'
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "矢量点",
+                    // show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONPOINT,
+                    url: 'http://127.0.0.1:129/SDKData/point.json'
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "矢量线",
-                //     // show: false,
-                //     parentId: vectorDatas.id,
-                //     dataType: VRGlobe.Type.GEOJSONLINESTRING,
-                //     url: 'http://127.0.0.1:129/SDKData/LineString.json'
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "矢量线",
+                    // show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONLINESTRING,
+                    url: 'http://127.0.0.1:129/SDKData/LineString.json'
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "矢量多线",
-                //     // show: false,
-                //     parentId: vectorDatas.id,
-                //     dataType: VRGlobe.Type.GEOJSONMULTILINESTRING,
-                //     url: 'http://127.0.0.1:129/SDKData/MultiLineString.json'
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "矢量多线",
+                    // show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONMULTILINESTRING,
+                    url: 'http://127.0.0.1:129/SDKData/MultiLineString.json'
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "矢量面",
-                //     // show: false,
-                //     parentId: vectorDatas.id,
-                //     dataType: VRGlobe.Type.GEOJSONPOLYGON,
-                //     url: 'http://127.0.0.1:129/SDKData/Polygon.json'
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "矢量面",
+                    // show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONPOLYGON,
+                    url: 'http://127.0.0.1:129/SDKData/Polygon.json'
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "矢量多面",
-                //     // show: false,
-                //     parentId: vectorDatas.id,
-                //     dataType: VRGlobe.Type.GEOJSONMULTIPOLYGON,
-                //     url: 'http://127.0.0.1:129/SDKData/MultiPolygon.json'
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "矢量多面",
+                    // show: false,
+                    parentId: vectorDatas.id,
+                    dataType: VRGlobe.Type.GEOJSONMULTIPOLYGON,
+                    url: 'http://127.0.0.1:129/SDKData/MultiPolygon.json'
+                });
 
                 // 矢量瓦片图层父节点
 
@@ -101,44 +101,44 @@
                     parentId: thematicData.id,
                 });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "测试瓦片",
-                //     parentId: vectorTileDatas.id,
-                //     dataType: VRGlobe.Type.FEATURE,
-                //     // show: false,
-                //     minimumLevel: 10,
-                //     maximumLevel: 15,
-                //     fillColor: 'rgba(3, 104, 255, 0.5)',
-                //     strokeColor: 'rgba(30, 242, 220, 1)',
-                //     rectangle: VRGlobe.Rectangle.fromDegrees(105.46857703157171, 28.454715693000026, 109.15871584761804, 31.568847758087273),
-                //     url: "http://127.0.0.1:129/Data/ChongQing/TopoJson/ChongQing_All/EPSG_4326_{z}/{x}_{reverseY}.topojson",
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "测试瓦片",
+                    parentId: vectorTileDatas.id,
+                    dataType: VRGlobe.Type.FEATURE,
+                    show: false,
+                    minimumLevel: 10,
+                    maximumLevel: 15,
+                    fillColor: 'rgba(3, 104, 255, 0.5)',
+                    strokeColor: 'rgba(30, 242, 220, 1)',
+                    rectangle: VRGlobe.Rectangle.fromDegrees(105.46857703157171, 28.454715693000026, 109.15871584761804, 31.568847758087273),
+                    url: "http://127.0.0.1:129/Data/ChongQing/TopoJson/ChongQing_All/EPSG_4326_{z}/{x}_{reverseY}.topojson",
+                });
 
                 // 三维模型图层父节点
                 const modeData = space.resourceTree.addGroup({
                     name: "三维模型"
                 });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "三维倾斜摄影",
-                //     parentId: modeData.id,
-                //     dataType: VRGlobe.Type.TILESETPHOTOGRAPHY,
-                //     url: "http://192.168.1.119:6006/CQEstateData/3dtiles/CQLiangJiang3DTiles/tileset.json"
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "三维倾斜摄影",
+                    parentId: modeData.id,
+                    dataType: VRGlobe.Type.TILESETPHOTOGRAPHY,
+                    url: "http://192.168.1.119:6006/CQEstateData/3dtiles/CQLiangJiang3DTiles/tileset.json"
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "三维激光点云",
-                //     parentId: modeData.id,
-                //     dataType: VRGlobe.Type.TILESETPOINTCLOUD,
-                //     url: "http://192.168.1.119:6006/PointCloud/TownRoad/tileset.json"
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "三维激光点云",
+                    parentId: modeData.id,
+                    dataType: VRGlobe.Type.TILESETPOINTCLOUD,
+                    url: "http://192.168.1.119:6006/PointCloud/TownRoad/tileset.json"
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "三维矢量白模",
-                //     parentId: modeData.id,
-                //     dataType: VRGlobe.Type.TILESETMODELBLANK,
-                //     url: 'http://192.168.1.119:6006/CDBuild3DTileset/tileset.json'
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "三维矢量白模",
+                    parentId: modeData.id,
+                    dataType: VRGlobe.Type.TILESETMODELBLANK,
+                    url: 'http://192.168.1.119:6006/CDBuild3DTileset/tileset.json'
+                });
 
                 // 基底数据图层父节点
                 const layerData = space.resourceTree.addGroup({
@@ -170,47 +170,47 @@
                     parentId: layerData.id
                 });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "高德注记",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYAMAPCVA
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "高德注记",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYAMAPCVA
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "高德影像",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYAMAPIMG
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "高德影像",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYAMAPIMG
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "高德矢量",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYAMAPVEC
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "高德矢量",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYAMAPVEC
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "百度注记",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYBDCVA
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "百度注记",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYBDCVA
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "百度影像",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYBDIMG
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "百度影像",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYBDIMG
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "百度矢量",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYBDVEC
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "百度矢量",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYBDVEC
+                });
 
                 space.resourceTree.addTreeNode({
                     name: "ESRI影像",
@@ -219,26 +219,65 @@
                     dataType: VRGlobe.Type.IMAGERYESRIIMG
                 });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "ESRI矢量",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYESRIVEC
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "ESRI矢量",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYESRIVEC
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "腾讯影像",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYTENCENTIMG
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "腾讯影像",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYTENCENTIMG
+                });
 
-                // space.resourceTree.addTreeNode({
-                //     name: "腾讯矢量",
-                //     show: false,
-                //     parentId: imageryLayers.id,
-                //     dataType: VRGlobe.Type.IMAGERYTENCENTVEC
-                // });
+                space.resourceTree.addTreeNode({
+                    name: "腾讯矢量",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYTENCENTVEC
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "WMS图层",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYWMS,
+                    layers: 'topp:states',
+                    parameters: {
+                        version: "1.3.0",
+                        transparent: true,
+                        format: 'image/png',
+                        srs: 'EPSG:3857',
+                        styles: ''
+                    },
+                    url: 'https://ahocevar.com/geoserver/wms?SERVICE=WMS'
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "WMTS图层",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYWMTS,
+                    style: 'default',
+                    maximumLevel: 18,
+                    format: 'image/png',
+                    tileMatrixSetID: 'default028mm',
+                    layer: 'ChinaOnlineStreetPurplishBlue',
+                    url: 'http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/WMTS/tile/1.0.0/ChinaOnlineStreetPurplishBlue/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png',
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "单张图片",
+                    show: false,
+                    parentId: imageryLayers.id,
+                    dataType: VRGlobe.Type.IMAGERYSINGLE,
+                    url: 'http://127.0.0.1:129/SDKData/IMG/world.jpg'
+                });
+
+
 
                 // 操作图层父节点
                 const graphicData = space.resourceTree.addGroup({

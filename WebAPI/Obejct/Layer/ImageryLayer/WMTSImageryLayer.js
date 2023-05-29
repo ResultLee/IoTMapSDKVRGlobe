@@ -187,6 +187,47 @@ class WMTSImageryLayer extends UrlTileImageryLayer {
 
         return result;
     }
+
+    getProjectInfo() {
+        const info = new Object();
+        if (defined(this._id)) {
+            info.id = this._id;
+        }
+        if (defined(this._url)) {
+            info.url = this._url;
+        }
+        if (defined(this._name)) {
+            info.name = this._name;
+        }
+        if (defined(this._type)) {
+            info.type = this._type;
+        }
+        if (defined(this._show)) {
+            info.show = this._show;
+        }
+        if (defined(this._style)) {
+            info.style = this._style;
+        }
+        if (defined(this._format)) {
+            info.format = this._format;
+        }
+        if (defined(this._rectangle)) {
+            info.rectangle = this._rectangle;
+        }
+        if (defined(this._minimumLevel)) {
+            info.minimumLevel = this._minimumLevel;
+        }
+        if (defined(this._maximumLevel)) {
+            info.maximumLevel = this._maximumLevel;
+        }
+        if (defined(this._tileMatrixSetID)) {
+            info.tileMatrixSetID = this._tileMatrixSetID;
+        }
+        if (defined(this._tileMatrixLabels)) {
+            info.tileMatrixLabels = this._tileMatrixLabels;
+        }
+        return info;
+    }
 }
 
 export default WMTSImageryLayer;

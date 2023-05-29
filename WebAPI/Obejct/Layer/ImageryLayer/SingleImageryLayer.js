@@ -1,6 +1,7 @@
 import Check from '../../../../Source/Core/Check.js';
 import defaultValue from '../../../../Source/Core/defaultValue.js';
 import defined from '../../../../Source/Core/defined.js';
+import DeveloperError from '../../../../Source/Core/DeveloperError.js';
 import GeographicTilingScheme from '../../../../Source/Core/GeographicTilingScheme.js';
 import loadKTX2 from '../../../../Source/Core/loadKTX2.js';
 import Rectangle from '../../../../Source/Core/Rectangle.js';
@@ -57,7 +58,7 @@ class SingleImageryLayer extends ImageryProvider {
             that._image = image;
             that._tileWidth = image.width;
             that._tileHeight = image.height;
-            that._ready = true;
+            that.ready = true;
             TileProviderError.reportSuccess(that._errorEvent);
             return Promise.resolve(true);
         }
@@ -88,12 +89,77 @@ class SingleImageryLayer extends ImageryProvider {
         this._readyPromise = doRequest();
     }
 
+    get tileWidth() {
+        if (!this.ready) {
+            throw new DeveloperError('在图像提供程序准备就绪之前,不得调用tileWidth!');
+        }
+        return this._tileWidth;
+    }
+
+    get tileHeight() {
+        if (!this.ready) {
+            throw new DeveloperError('在图像提供程序准备就绪之前,不得调用tileHeight');
+        }
+        return this._tileHeight;
+    }
+
+    get minimumLevel() {
+        if (!this.ready) {
+            throw new DeveloperError('在图像提供商准备就绪之前,不得调用minimumLevel');
+        }
+        return 0;
+    }
+
+    get maximumLevel() {
+        if (!this.ready) {
+            throw new DeveloperError('在图像提供商准备就绪之前,不得调用maximumLevel');
+        }
+        return 0;
+    }
+
+    get rectangle() {
+        return this._tilingScheme.rectangle;
+    }
+
+    get tilingScheme() {
+        if (!this.ready) {
+            throw new DeveloperError('在图像提供商准备就绪之前，不得调用tilingScheme.');
+        }
+        return this._tilingScheme;
+    }
+
     requestImage(x, y, level, request) {
         if (!defined(this._image)) {
             return;
         }
 
         return Promise.resolve(this._image);
+    }
+
+    getProjectInfo() {
+        const info = new Object();
+        if (defined(this._id)) {
+            info.id = this._id;
+        }
+        if (defined(this._name)) {
+            info.name = this._name;
+        }
+        if (defined(this._url)) {
+            info.url = this._url;
+        }
+        if (defined(this._type)) {
+            info.type = this._type;
+        }
+        if (defined(this._show)) {
+            info.show = this._show;
+        }
+        if (defined(this._style)) {
+            info.style = this._style;
+        }
+        if (defined(this._rectangle)) {
+            info.rectangle = this._rectangle;
+        }
+        return info;
     }
 }
 

@@ -1,0 +1,66 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>工程管理</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <body>
+        <div id="main"></div>
+        <script>
+            let space;
+            window.onload = () => {
+                space = new VRGlobe.Space('main');
+
+                // 创建ESRI矢量地图MapServer地图服务
+                // space.__v.scene.imageryLayers.addImageryProvider(
+                //     new VRGlobe.ImageryLayer(VRGlobe.Type.IMAGERYESRIIMG)
+                // );
+
+                space.resourceTree.addTreeNode({
+                    name: "ESRI影像",
+                    dataType: VRGlobe.Type.IMAGERYESRIIMG
+                });
+
+                space.project.openProject("http://127.0.0.1:129/SDKData/project.wks")
+                    .then(data => {
+                        console.log(data);
+                        space.resourceTree.addTreeNode({
+                            name: "绘制点",
+                            dataType: VRGlobe.Type.GRAPHICSPOINT,
+                            style: new VRGlobe.PointStyle({
+                                color: VRGlobe.Color.RED
+                            }),
+                            position: VRGlobe.Position3D.fromCoordinates([103.87445229, 31.12134206])
+                        });
+                    });
+            }
+        </script>
+    </body>
+</body>
+
+</html>

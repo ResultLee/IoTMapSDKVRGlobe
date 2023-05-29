@@ -71,7 +71,7 @@ class Type {
      */
     static IMAGERYBDIMG = 1000106;
     /**
-     * 百度影像瓦片地图
+     * 百度矢量瓦片地图
      * @type {Number}
      * @constant
      * @description 该地图使用的坐标系为BD-09坐标系
@@ -120,6 +120,12 @@ class Type {
      * @constant
      */
     static IMAGERYSINGLE = 1000114;
+    /**
+     * URL影像
+     * @type {Number}
+     * @constant
+     */
+    static IMAGERYURL = 1000115;
 
     /**
      * 地形服务图层

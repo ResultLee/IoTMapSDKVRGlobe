@@ -1,77 +1,28 @@
-/*
- * @Author: SnotlingLiu<snotlingliu@gmail.com/>
- * @Date: 2023-03-08 10:27:15
- * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
- * @LastEditTime: 2023-04-25 16:19:59
- * @Description:
- */
-
 import Check from '../../Source/Core/Check.js';
-import DeveloperError from '../../Source/Core/DeveloperError.js';
-import Format from '../Static/Format.js';
-import Loader from '../Static/Loader.js';
+import Resource from '../../Source/Core/Resource.js';
+import WKS from '../Static/Parse/WKS.js';
 
 class Project {
-    /**
-     * 场景工程对象
-     * @protected
-     */
     constructor() {
-        /**
-         * 工程名称
-         * @name name
-         * @type {String}
-         */
-        this.name = '';
-        /**
-         * 工程描述信息
-         * @name description
-         * @type {String}
-         */
         this.description = '';
-        this.styles = new Array();
-        this.treeNodes = new Array();
+        this._update = false;
     }
 
-    /**
-     * 打开WKS工程文件
-     * @param {String} url WKS工程文件地址
-     */
     openProject(url) {
-        Check.typeOf.string('WKS工程文件地址', url);
-        // TODO: 完善WKS加载相关方法
-        // Loader.loadJson(url, Format.WKS).then(data => {
-        //     this.info = data;
-        //     // TODO: 根据WKS中保存的节点数据依次向场景中添加图层
-        // });
-    }
-
-    // TODO: 添加保存场景信息到工程文件方法
-    saveProject() {
-
-    }
-
-    /**
-     * 将场景工程信息导出为WKS文件
-     */
-    exportProject() {
-        // TODO: 使用保存的场景信息替换固定的对象
-        if (!this.info) {
-            throw new DeveloperError('请先添加场景信息!');
-        }
-        const xml = Loader.parseJsonTo(this.info, Format.WKS);
-        this.xml = xml;
-        const blob = new Blob([xml], {
-            type: 'text/xml;charset=utf-8'
+        return new Promise((resolve, reject) => {
+            Check.typeOf.string('WKS工程文件地址', url);
+            Resource.fetch({ url })
+                .then(xml => {
+                    const json = WKS.toJson(xml);
+                    this.style = json.VRGlobe.VRStyles;
+                    this.terrain = json.VRGlobe.VRTerrain;
+                    this.baseLayer = json.VRGlobe.VRBaseLayer;
+                    this.treeNodes = json.VRGlobe.VRTreeNodes;
+                    this.description = json.VRGlobe.VRDescription;
+                    this._update = true;
+                    resolve(this);
+                }).catch(error => reject(error));
         });
-        const objectURL = URL.createObjectURL(blob);
-        const anchor = document.createElement('a');
-        anchor.href = objectURL;
-        anchor.download = 'Project.wks';
-        anchor.click();
-        URL.revokeObjectURL(objectURL);
-        console.log(xml);
     }
 }
-
 export default Project;

@@ -186,6 +186,32 @@ class GraphicsLayer {
         this._annotationStyle._update = false;
     }
 
+    getProjectInfo() {
+        const info = new Object();
+        if (defined(this._id)) {
+            info.id = this._id;
+        }
+        if (defined(this.type)) {
+            info.type = this.type;
+        }
+        if (defined(this._show)) {
+            info.show = this._show;
+        }
+        if (defined(this._style)) {
+            info.style = this._style;
+        }
+        if (defined(this._attributeTable)) {
+            info.attributeTable = this._attributeTable;
+        }
+        if (defined(this._annotationStyle)) {
+            info.annotationStyle = this._annotationStyle;
+        }
+        if (defined(this._graphics)) {
+            info.graphics = this._graphics;
+        }
+        return info;
+    }
+
     isDestroyed() {
         return false;
     }
