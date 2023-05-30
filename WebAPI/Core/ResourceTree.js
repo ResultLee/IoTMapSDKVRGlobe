@@ -58,9 +58,15 @@ function removeNode(parentNode, id) {
 class ResourceTree {
     constructor() {
         this.root = new TreeGroup({
-            name: 'ROOT',
             parentId: -1,
-            id: Default.ROOTNODENAME
+            id: Default.ROOTNODEID,
+            name: Default.ROOTNODENAME
+        });
+
+        this.temporary = new TreeGroup({
+            parentId: -2,
+            id: Default.TEMPORARYNODEID,
+            name: Default.TEMPORARYNODENAME
         });
         this.treeTable = new TreeTable();
         this.dataManager = new DataManager();
@@ -68,7 +74,7 @@ class ResourceTree {
 
     addGroup(options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
-        options.parentId = defaultValue(options.parentId, Default.ROOTNODENAME);
+        options.parentId = defaultValue(options.parentId, Default.ROOTNODEID);
         const parentNode = getNodeById(this.root, options.parentId);
         if (!defined(parentNode) || parentNode.type === Type.TREENODE) {
             throw new DeveloperError('父节点不存在或父节点不为group!');
@@ -86,9 +92,29 @@ class ResourceTree {
         return node;
     }
 
+    addTemporary(type, options) {
+        options = defaultValue(options, defaultValue.EMPTY_OBJECT);
+
+        const node = new TreeNode(options);
+        node.parentId = Default.TEMPORARYNODEID;
+        this.temporary.children.push(node);
+
+        const item = new Object();
+        item.id = node.id;
+        item.name = node.name;
+        item.layerType = type;
+        item.parentId = Default.TEMPORARYNODEID;
+        this.treeTable.addItem(item);
+
+        options.id = item.id;
+        const layer = this.dataManager.addTemporaryGraphic(type, options);
+
+        return { node, item, layer };
+    }
+
     addTreeNode(options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
-        options.parentId = defaultValue(options.parentId, Default.ROOTNODENAME);
+        options.parentId = defaultValue(options.parentId, Default.ROOTNODEID);
         const parentNode = getNodeById(this.root, options.parentId);
         if (!defined(parentNode) || parentNode.type === Type.TREENODE) {
             throw new DeveloperError('父节点不存在或父节点不为group!');

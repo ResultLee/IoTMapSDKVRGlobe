@@ -3,6 +3,7 @@ import defined from '../../../../Source/Core/defined.js';
 import PrimitiveCollection from '../../../../Source/Scene/PrimitiveCollection.js';
 import Type from '../../../Static/Type.js';
 import FeatureLayer from '../../Layer/FeatureLayer/FeatureLayer.js';
+import Graphic from '../../Layer/GraphicsLayer/Graphics/Graphic.js';
 import GraphicsLayer from '../../Layer/GraphicsLayer/GraphicsLayer.js';
 import ImageryCollection from '../../Layer/ImageryLayer/ImageryCollection.js';
 import ImageryLayer from '../../Layer/ImageryLayer/ImageryLayer.js';
@@ -22,6 +23,7 @@ class DataManager {
         this.graphicsLayers = this.layers.add(new PrimitiveCollection());
         this.particleLayers = this.layers.add(new ParticleLayer());
         this.tilesetLayers = this.layers.add(new PrimitiveCollection());
+        this.temporaryLayers = this.layers.add(new GraphicsLayer());
     }
 
     async addLayer(options) {
@@ -56,6 +58,15 @@ class DataManager {
                 break;
         }
         return layer;
+    }
+
+    addTemporaryGraphic(type, options) {
+        const graphic = new Graphic(options);
+        if (!defined(graphic)) {
+            return false;
+        }
+        this.temporaryLayers.add(type, options);
+        return true;
     }
 
     getLayer(id) {

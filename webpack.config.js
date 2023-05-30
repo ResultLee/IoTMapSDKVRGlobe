@@ -231,6 +231,12 @@ module.exports = {
             filename: "./Layer/ParticleLayer/SpoutParticle.html",
             chunks: ['main'],
         }),
+        // 图形绘制
+        new HtmlWebpackPlugin({
+            template: './Example/Draw/Draw.html',
+            filename: "./Draw/Draw.html",
+            chunks: ['main'],
+        }),
         // Copy Cesium Assets, Widgets, and Workers to a static directory
         new CopyWebpackPlugin({
             patterns: [

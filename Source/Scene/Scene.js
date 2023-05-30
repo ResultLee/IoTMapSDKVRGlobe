@@ -75,6 +75,8 @@ import SeaLevelTerrainLayer from "../../WebAPI/Obejct/Layer/TerrainLayer/SeaLeve
 import Project from "../../WebAPI/Core/Project.js";
 import WKS_1 from "../../WebAPI/Static/Parse/WKS_1.js";
 import Type from "../../WebAPI/Static/Type.js";
+import Draw from "../../WebAPI/Obejct/Draw/Draw.js";
+import Default from "../../WebAPI/Static/Default.js";
 
 const requestRenderAfterFrame = function (scene) {
   return function () {
@@ -214,8 +216,6 @@ function Scene(options) {
   this._globeTranslucencyState = new GlobeTranslucencyState();
   this._primitives = new PrimitiveCollection();
   this._groundPrimitives = new PrimitiveCollection();
-  this._resourceTree = new ResourceTree();
-  this._project = new Project();
 
   this._globeHeight = undefined;
   this._cameraUnderground = false;
@@ -748,6 +748,11 @@ function Scene(options) {
    * @type {Light}
    */
   this.light = new SunLight();
+
+  // SDK中的Space链接对象
+  this._draw = new Draw();
+  this._project = new Project();
+  this._resourceTree = new ResourceTree();
 
   // Give frameState, camera, and screen space camera controller initial state before rendering
   updateFrameNumber(this, 0.0, JulianDate.now());
@@ -3450,7 +3455,30 @@ function updateAndRenderPrimitives(scene) {
     terrainLayers._update = false;
   }
 
+  const draw = scene._draw;
+  if (draw._update) {
+    if (defined(draw._drewEvent)) {
+      draw._drewEvent.addEventListener((type, data) => {
+        const point = scene.pickPosition(data);
 
+        if (defined(point)) {
+          const cartographic = Cartographic.fromCartesian(point);
+          const position = Cartographic.toPosition(cartographic);
+
+          switch (type) {
+            case Type.GRAPHICSPOINT:
+              resourceTree.addTemporary(type, {
+                name: "绘制点",
+                position: position,
+                style: Default.DRAWPOINTSTYLE
+              });
+              break;
+          }
+        }
+      });
+    }
+    draw._update = false;
+  }
 
   resourceTree.update(frameState);
 

@@ -32,6 +32,10 @@ class Space {
         // this.resourceTree = new ResourceTree();
     }
 
+    get draw(){
+        return this.__v._scene._draw;
+    }
+
     get project() {
         return this.__v._scene._project;
     }

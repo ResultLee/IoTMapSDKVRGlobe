@@ -187,9 +187,9 @@ Cartographic.toCartesian = function (cartographic, ellipsoid, result) {
 Cartographic.toPosition = function (cartographic) {
   return new Position3D(
     CesiumMath.toDegrees(cartographic.longitude),
-      CesiumMath.toDegrees(cartographic.latitude), 
-      CesiumMath.toDegrees(cartographic.height)
-    );
+    CesiumMath.toDegrees(cartographic.latitude),
+    cartographic.height
+  );
 }
 
 /**

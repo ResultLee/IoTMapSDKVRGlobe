@@ -75,4 +75,8 @@ export { default as CesiumWidget } from '../Source/Widgets/CesiumWidget/CesiumWi
 export { default as DoublyLinkedList } from '../Source/Core/DoublyLinkedList.js';
 
 export { default as SingleTileImageryProvider } from '../Source/Scene/SingleTileImageryProvider.js';
+export { default as Cartographic } from '../Source/Core/Cartographic.js';
+export { default as createWorldTerrain } from '../Source/Core/createWorldTerrain.js';
+export { default as ScreenSpaceEventType } from '../Source/Core/ScreenSpaceEventType.js';
+export { default as ScreenSpaceEventHandler } from '../Source/Core/ScreenSpaceEventHandler.js';
 

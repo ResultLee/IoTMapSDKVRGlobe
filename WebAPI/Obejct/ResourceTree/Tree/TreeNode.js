@@ -7,6 +7,7 @@
  */
 import createGuid from '../../../../Source/Core/createGuid.js';
 import defaultValue from '../../../../Source/Core/defaultValue.js';
+import Default from '../../../Static/Default.js';
 import Type from '../../../Static/Type.js';
 
 class TreeNode {
@@ -20,7 +21,7 @@ class TreeNode {
         this.type = Type.TREENODE;
         this.id = defaultValue(options.id, createGuid());
         this.name = defaultValue(options.name, '');
-        this.parentId = defaultValue(options.parentId, 'Root');
+        this.parentId = defaultValue(options.parentId, Default.ROOTNODEID);
     }
 }
 
