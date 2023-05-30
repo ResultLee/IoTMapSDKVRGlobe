@@ -155,6 +155,13 @@ class ResourceTree {
         return { node, items, layer };
     }
 
+    removeTemporary(id) {
+        const node = removeNode(this.temporary, id);
+        const items = this.treeTable.removeItem(id);
+        const layer = this.dataManager.removeTemporaryGraphic(id);
+        return { node, items, layer };
+    }
+
     update(frameState) {
         this.dataManager.update(frameState);
     }

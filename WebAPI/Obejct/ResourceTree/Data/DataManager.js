@@ -114,6 +114,10 @@ class DataManager {
         return layer;
     }
 
+    removeTemporaryGraphic(id) {
+        return this.temporaryLayers.removeById(id);
+    }
+
     update(frameState) {
         this.layers.update(frameState);
     }
