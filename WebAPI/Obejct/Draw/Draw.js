@@ -3,6 +3,7 @@ import DeveloperError from '../../../Source/Core/DeveloperError.js';
 import Event from '../../../Source/Core/Event.js';
 import Mode from '../../Static/Mode.js';
 import DrawPointHandler from './Hander/DrawPointHandler.js';
+import DrawPolylineHandler from './Hander/DrawPolylineHandler.js';
 
 class Draw {
     constructor() {
@@ -17,7 +18,6 @@ class Draw {
         //     console.log(type, data);
         // });
 
-        this._activeEvent = new Event();
         this._anchorEvent = new Event();
         this._movingEvent = new Event();
         this._drewEvent = new Event();
@@ -40,14 +40,16 @@ class Draw {
     activate(mode, options) {
         options = defaultValue(options, new Object);
 
-        options._activeEvent = this._activeEvent;
         options._anchorEvent = this._anchorEvent;
         options._movingEvent = this._movingEvent;
         options._drewEvent = this._drewEvent;
 
         switch (mode) {
             case Mode.DRAWPOINT:
-                this._handler = new DrawPointHandler(this._scene, options);
+                this._handler = new DrawPointHandler(options);
+                break;
+            case Mode.DRAWPOLYLINE:
+                this._handler = new DrawPolylineHandler(options);
                 break;
             default:
                 throw new DeveloperError('不支持的绘制类型!');

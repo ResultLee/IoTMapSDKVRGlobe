@@ -3,14 +3,13 @@ import ScreenSpaceEventType from '../../../../Source/Core/ScreenSpaceEventType.j
 import Type from '../../../Static/Type.js';
 
 class DrawPointHandler {
-    constructor(scene, options) {
-        this._activeEvent = options._activeEvent;
+    constructor(options) {
         this._anchorEvent = options._anchorEvent;
         this._drewEvent = options._drewEvent;
 
         this._handler = new ScreenSpaceEventHandler();
 
-        this._init(scene);
+        this._init();
         this._activate = false;
     }
 
@@ -31,7 +30,6 @@ class DrawPointHandler {
 
             that._drewEvent.raiseEvent(Type.GRAPHICSPOINT, movement.position);
             that._anchorEvent.raiseEvent(movement.position);
-            that._activeEvent.raiseEvent(movement.position);
 
         }, ScreenSpaceEventType.LEFT_CLICK);
     }

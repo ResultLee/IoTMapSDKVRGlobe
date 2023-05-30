@@ -77,6 +77,9 @@ import WKS_1 from "../../WebAPI/Static/Parse/WKS_1.js";
 import Type from "../../WebAPI/Static/Type.js";
 import Draw from "../../WebAPI/Obejct/Draw/Draw.js";
 import Default from "../../WebAPI/Static/Default.js";
+import PointPrimitiveCollection from "./PointPrimitiveCollection.js";
+import PolylineCollection from "./PolylineCollection.js";
+import Material from "./Material.js";
 
 const requestRenderAfterFrame = function (scene) {
   return function () {
@@ -3457,26 +3460,87 @@ function updateAndRenderPrimitives(scene) {
 
   const draw = scene._draw;
   if (draw._update) {
+    const points = scene.primitives.add(new PointPrimitiveCollection());
+    const polylines = scene.primitives.add(new PolylineCollection());
+
     if (defined(draw._drewEvent)) {
       draw._drewEvent.addEventListener((type, data) => {
         const point = scene.pickPosition(data);
-
-        if (defined(point)) {
-          const cartographic = Cartographic.fromCartesian(point);
-          const position = Cartographic.toPosition(cartographic);
-
-          switch (type) {
-            case Type.GRAPHICSPOINT:
+        // 绘制结束，在资源树的临时图层中添加几何对象
+        switch (type) {
+          case Type.GRAPHICSPOINT:
+            if (defined(point)) {
+              const position = Cartographic.toPosition(Cartographic.fromCartesian(point));
               resourceTree.addTemporary(type, {
                 name: "绘制点",
                 position: position,
                 style: Default.DRAWPOINTSTYLE
               });
-              break;
-          }
+            }
+            break;
+          case Type.GRAPHICSLINESTRING:
+            if (draw._handler._positions.length > 1) {
+              const positions = new Array();
+              for (let i = 0; i < draw._handler._positions.length; i++) {
+                positions.push(
+                  Cartographic.toPosition(Cartographic.fromCartesian(draw._handler._positions[i]))
+                );
+              }
+              resourceTree.addTemporary(type, {
+                name: "绘制线",
+                style: Default.DRAWPOLYLINESTYLE,
+                positions: positions,
+              });
+              polylines.removeAll();
+            }
+            draw._handler._state = 0;
+            draw._handler._positions = new Array();
+            break;
         }
       });
     }
+
+    if (defined(draw._anchorEvent)) {
+      draw._anchorEvent.addEventListener((type, data) => {
+        const point = scene.pickPosition(data);
+        switch (type) {
+          case Type.GRAPHICSLINESTRING:
+            if (point) {
+              draw._handler._state = 1;
+              draw._handler._positions.push(point);
+            }
+            break;
+        }
+      });
+    }
+
+    if (defined(draw._movingEvent)) {
+      draw._movingEvent.addEventListener((type, data) => {
+        let array;
+        const point = scene.pickPosition(data);
+        switch (type) {
+          case Type.GRAPHICSLINESTRING:
+            if (point) {
+              array = draw._handler._positions.slice();
+              array.push(point);
+
+              if (!draw._handler._polyline) {
+                draw._handler._polyline = polylines.add({
+                  width: 5,
+                  positions: array,
+                  material: Material.fromType('Color', {
+                    color: new Color(1.0, 0.0, 0.0, 1.0)
+                  })
+                });
+              } else {
+                draw._handler._polyline.positions = array;
+              }
+            }
+            break;
+        }
+      });
+    }
+
     draw._update = false;
   }
 

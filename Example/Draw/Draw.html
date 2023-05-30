@@ -32,7 +32,7 @@
     <body>
         <div id="main"></div>
         <script>
-            let space;
+            let space, polyline;
             window.onload = () => {
                 space = new VRGlobe.Space('main');
 
@@ -56,21 +56,57 @@
                     destination: new VRGlobe.Cartesian3(-4184332.222806461, 16475847.537608635, 11905380.14312665)
                 });
 
-                // const points = space.__v.scene.primitives.add(new VRGlobe.PointPrimitiveCollection());
+                // space.draw.activate(VRGlobe.Mode.DRAWPOINT);
+                // space.draw.activate(VRGlobe.Mode.DRAWPOLYLINE);
 
+                const points = space.__v.scene.primitives.add(new VRGlobe.PointPrimitiveCollection());
+                const polylines = space.__v.scene.primitives.add(new VRGlobe.PolylineCollection());
+
+
+                // let state = 0;
+                // let polyline;
+                // let positions = new Array();
                 // let handler = new VRGlobe.ScreenSpaceEventHandler(space.__v.scene.canvas);
                 // handler.setInputAction(function (event) {
-                //     let pick = space.__v.scene.pickPosition(event.position);
-                //     if (pick) {
+                //     const point = space.__v.scene.pickPosition(event.position);
+                //     if (point) {
                 //         points.add({
-                //             color: VRGlobe.Color.YELLOW,
-                //             position: pick,
+                //             position: point,
+                //             color: VRGlobe.Color.YELLOW
                 //         });
-                //         console.log(event.position, VRGlobe.Cartographic.fromCartesian(pick));
+                //         positions.push(point);
+                //         state = 1;
                 //     }
                 // }, VRGlobe.ScreenSpaceEventType.LEFT_CLICK);
 
-                space.draw.activate(VRGlobe.Mode.DRAWPOINT);
+                // handler.setInputAction(function (event) {
+                //     if (state !== 1) {
+                //         return;
+                //     }
+                //     const point = space.__v.scene.pickPosition(event.endPosition);
+                //     if (point) {
+                //         const array = positions.slice();
+                //         array.push(point);
+
+                //         if (!polyline) {
+                //             polyline = polylines.add({
+                //                 width: 5,
+                //                 positions: array,
+                //                 material: VRGlobe.Material.fromType('Color', {
+                //                     color: new VRGlobe.Color(1.0, 0.0, 0.0, 1.0)
+                //                 })
+                //             });
+                //         } else {
+                //             polyline.positions = array;
+                //         }
+                //     }
+                // }, VRGlobe.ScreenSpaceEventType.MOUSE_MOVE);
+
+                // handler.setInputAction(function (event) {
+                //     state = 0;
+                //     polyline = undefined;
+                //     positions = new Array();
+                // }, VRGlobe.ScreenSpaceEventType.RIGHT_CLICK);
             }
         </script>
     </body>

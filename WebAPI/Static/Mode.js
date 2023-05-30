@@ -6,5 +6,6 @@ class Mode {
     static LABEL = 10003;
     static BILLBOARD = 10004;
     static DRAWPOINT = 10005;
+    static DRAWPOLYLINE = 10006;
 }
 export default Mode;
