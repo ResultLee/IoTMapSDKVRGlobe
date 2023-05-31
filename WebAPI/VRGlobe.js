@@ -79,4 +79,4 @@ export { default as Cartographic } from '../Source/Core/Cartographic.js';
 export { default as createWorldTerrain } from '../Source/Core/createWorldTerrain.js';
 export { default as ScreenSpaceEventType } from '../Source/Core/ScreenSpaceEventType.js';
 export { default as ScreenSpaceEventHandler } from '../Source/Core/ScreenSpaceEventHandler.js';
-
+export { default as PrimitiveCollection } from '../Source/Scene/PrimitiveCollection.js';

@@ -21,6 +21,11 @@ class LineStringGraphic extends GraphicProvider {
         this._update = true;
     }
 
+    _setPosition(positions) {
+        this._geometry = new SingleLineStringGeometry(positions, this._geometry);
+        this._update = true;
+    }
+
     _updateGraphic() {
         switch (this._style._type) {
             case Style.LINESTRINGSTYLE:

@@ -8,7 +8,6 @@ import GeometryInstance from '../../../Source/Core/GeometryInstance.js';
 import PolygonGeometry from '../../../Source/Core/PolygonGeometry.js';
 import PolygonHierarchy from '../../../Source/Core/PolygonHierarchy.js';
 import PolygonOutlineGeometry from '../../../Source/Core/PolygonOutlineGeometry.js';
-import VertexFormat from '../../../Source/Core/VertexFormat.js';
 import PerInstanceColorAppearance from '../../../Source/Scene/PerInstanceColorAppearance.js';
 import Primitive from '../../../Source/Scene/Primitive.js';
 import Style from '../../Static/Style.js';

@@ -34,6 +34,14 @@ class GraphicProvider {
 
     }
 
+    get show() {
+        return this._show;
+    }
+
+    set show(value) {
+        this._show = value;
+    }
+
     get annotationStyle() {
         return this._annotation._style;
     }

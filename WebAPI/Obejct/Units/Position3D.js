@@ -1,6 +1,8 @@
+import Cartographic from '../../../Source/Core/Cartographic.js';
 import defaultValue from '../../../Source/Core/defaultValue.js';
 import defined from '../../../Source/Core/defined.js';
 import DeveloperError from '../../../Source/Core/DeveloperError.js';
+import CesiumMath from '../../../Source/Core/Math.js';
 
 class Position3D {
     constructor(longitude, latitude, altitude) {
@@ -34,6 +36,15 @@ class Position3D {
             positions.push(Position3D.fromCoordinates(coordinate));
         }
         return positions;
+    }
+
+    static fromCartesian3(cartesian3) {
+        const cartographic = Cartographic.fromCartesian(cartesian3);
+        return new Position3D(
+            CesiumMath.toDegrees(cartographic.longitude),
+            CesiumMath.toDegrees(cartographic.latitude),
+            cartesian3.altitude
+        );
     }
 }
 

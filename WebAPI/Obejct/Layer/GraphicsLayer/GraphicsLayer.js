@@ -66,7 +66,12 @@ class GraphicsLayer {
     }
 
     add(type, options) {
-        this._graphics.push(new Graphic(type, options));
+        const graphic = new Graphic(type, options);
+        if (!defined(graphic)) {
+            return false
+        }
+        this._graphics.push(graphic);
+        return graphic;
     }
 
     /**
@@ -148,6 +153,12 @@ class GraphicsLayer {
                 return layer;
             }
         }
+    }
+
+    removeAll() {
+        this._graphics = new Array();
+        this._attributeTable = new AttributeTable();
+        this._annotationStyle = new AnnotationStyle();
     }
 
     update(frameState) {

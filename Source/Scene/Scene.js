@@ -80,6 +80,8 @@ import Default from "../../WebAPI/Static/Default.js";
 import PointPrimitiveCollection from "./PointPrimitiveCollection.js";
 import PolylineCollection from "./PolylineCollection.js";
 import Material from "./Material.js";
+import GraphicsLayer from "../../WebAPI/Obejct/Layer/GraphicsLayer/GraphicsLayer.js";
+import Position3D from "../../WebAPI/Obejct/Units/Position3D.js";
 
 const requestRenderAfterFrame = function (scene) {
   return function () {
@@ -755,6 +757,7 @@ function Scene(options) {
   // SDK中的Space链接对象
   this._draw = new Draw();
   this._project = new Project();
+  this._graphics = new GraphicsLayer();
   this._resourceTree = new ResourceTree();
 
   // Give frameState, camera, and screen space camera controller initial state before rendering
@@ -3460,83 +3463,67 @@ function updateAndRenderPrimitives(scene) {
 
   const draw = scene._draw;
   if (draw._update) {
-    const points = scene.primitives.add(new PointPrimitiveCollection());
-    const polylines = scene.primitives.add(new PolylineCollection());
-
-    if (defined(draw._drewEvent)) {
-      draw._drewEvent.addEventListener((type, data) => {
+    if (defined(draw._handler)) {
+      draw._handler._anchorEvent.addEventListener((type, data) => {
         const point = scene.pickPosition(data);
-        // 绘制结束，在资源树的临时图层中添加几何对象
-        switch (type) {
-          case Type.GRAPHICSPOINT:
-            if (defined(point)) {
-              const position = Cartographic.toPosition(Cartographic.fromCartesian(point));
+        if (defined(point)) {
+          const position = Position3D.fromCartesian3(point);
+          switch (type) {
+            case Type.GRAPHICSLINESTRING:
+              draw._handler._positions.push(position);
+              break;
+          }
+          draw._anchorEvent.raiseEvent(position);
+        }
+      });
+
+      draw._handler._movingEvent.addEventListener((type, data) => {
+        const point = scene.pickPosition(data);
+        if (defined(point)) {
+          const position = Position3D.fromCartesian3(point);
+          switch (type) {
+            case Type.GRAPHICSLINESTRING:
+              // eslint-disable-next-line no-case-declarations
+              const array = draw._handler._positions.slice();
+              array.push(position);
+
+              if (!draw._handler._polyline) {
+                draw._handler._polyline = scene._graphics.add(type, {
+                  positions: array,
+                  style: Default.DRAWPOLYLINESTYLE
+                });
+              } else {
+                draw._handler._polyline._setPosition(array);
+              }
+              break;
+          }
+          draw._movingEvent.raiseEvent(position);
+        }
+      });
+
+      draw._handler._drewEvent.addEventListener((type, data, positions) => {
+        const point = scene.pickPosition(data);
+        if (defined(point)) {
+          const position = Position3D.fromCartesian3(point);
+          switch (type) {
+            case Type.GRAPHICSPOINT:
               resourceTree.addTemporary(type, {
-                name: "绘制点",
+                name: "矢量点",
                 position: position,
                 style: Default.DRAWPOINTSTYLE
               });
-            }
-            break;
-          case Type.GRAPHICSLINESTRING:
-            if (draw._handler._positions.length > 1) {
-              const positions = new Array();
-              for (let i = 0; i < draw._handler._positions.length; i++) {
-                positions.push(
-                  Cartographic.toPosition(Cartographic.fromCartesian(draw._handler._positions[i]))
-                );
-              }
+              break;
+            case Type.GRAPHICSLINESTRING:
               resourceTree.addTemporary(type, {
-                name: "绘制线",
+                name: "矢量线",
                 style: Default.DRAWPOLYLINESTYLE,
-                positions: positions,
+                positions: positions.slice(),
               });
-              polylines.removeAll();
-            }
-            draw._handler._state = 0;
-            draw._handler._positions = new Array();
-            break;
-        }
-      });
-    }
-
-    if (defined(draw._anchorEvent)) {
-      draw._anchorEvent.addEventListener((type, data) => {
-        const point = scene.pickPosition(data);
-        switch (type) {
-          case Type.GRAPHICSLINESTRING:
-            if (point) {
-              draw._handler._state = 1;
-              draw._handler._positions.push(point);
-            }
-            break;
-        }
-      });
-    }
-
-    if (defined(draw._movingEvent)) {
-      draw._movingEvent.addEventListener((type, data) => {
-        let array;
-        const point = scene.pickPosition(data);
-        switch (type) {
-          case Type.GRAPHICSLINESTRING:
-            if (point) {
-              array = draw._handler._positions.slice();
-              array.push(point);
-
-              if (!draw._handler._polyline) {
-                draw._handler._polyline = polylines.add({
-                  width: 5,
-                  positions: array,
-                  material: Material.fromType('Color', {
-                    color: new Color(1.0, 0.0, 0.0, 1.0)
-                  })
-                });
-              } else {
-                draw._handler._polyline.positions = array;
-              }
-            }
-            break;
+              break;
+          }
+          scene._graphics.removeAll();
+          draw._drewEvent.raiseEvent(position);
+          draw._anchorEvent.raiseEvent(position);
         }
       });
     }
@@ -3545,6 +3532,7 @@ function updateAndRenderPrimitives(scene) {
   }
 
   resourceTree.update(frameState);
+  scene._graphics.update(frameState);
 
   updateDebugFrustumPlanes(scene);
   updateShadowMaps(scene);

@@ -32,7 +32,7 @@
     <body>
         <div id="main"></div>
         <script>
-            let space, polyline;
+            let space, graphics, positions, point, polyline, polygon;
             window.onload = () => {
                 space = new VRGlobe.Space('main');
 
@@ -44,17 +44,17 @@
                     dataType: VRGlobe.Type.IMAGERYESRIIMG
                 });
 
-                space.__v.scene.terrainProvider = new VRGlobe.createWorldTerrain();
+                // space.__v.scene.terrainProvider = new VRGlobe.createWorldTerrain();
+
+                space.resourceTree.addTreeNode({
+                    name: "海平面",
+                    dataType: VRGlobe.Type.TERRAINSEELEVEL
+                });
                 // space.resourceTree.addTreeNode({
                 //     name: "网格地形",
                 //     dataType: VRGlobe.Type.TERRAINQUANTIZED,
                 //     url: "https://www.supermapol.com/realspace/services/3D-stk_terrain/rest/realspace/datas/info/data/path"
                 // });
-
-                space.__v.camera.setView({
-                    orientation: VRGlobe.HeadingPitchRoll(0, -1.569089809280206, 0),
-                    destination: new VRGlobe.Cartesian3(-4184332.222806461, 16475847.537608635, 11905380.14312665)
-                });
 
                 // space.draw.activate(VRGlobe.Mode.DRAWPOINT);
                 // space.draw.activate(VRGlobe.Mode.DRAWPOLYLINE);
@@ -62,6 +62,20 @@
                 const points = space.__v.scene.primitives.add(new VRGlobe.PointPrimitiveCollection());
                 const polylines = space.__v.scene.primitives.add(new VRGlobe.PolylineCollection());
 
+                // space.resourceTree.addTreeNode({
+                //     name: "绘制面",
+                //     dataType: VRGlobe.Type.GRAPHICSPOLYGON,
+                //     positions: [[
+                //         VRGlobe.Position3D.fromCoordinates([108.402, 30.59]),
+                //         VRGlobe.Position3D.fromCoordinates([108.41, 30.39]),
+                //         VRGlobe.Position3D.fromCoordinates([108.49, 30.4]),
+                //         VRGlobe.Position3D.fromCoordinates([108.46, 30.7]),
+                //         VRGlobe.Position3D.fromCoordinates([108.402, 30.59])
+                //     ]],
+                //     style: new VRGlobe.PolygonStyle({
+                //         fillColor: VRGlobe.Color.CYAN
+                //     })
+                // });
 
                 // let state = 0;
                 // let polyline;
@@ -107,6 +121,88 @@
                 //     polyline = undefined;
                 //     positions = new Array();
                 // }, VRGlobe.ScreenSpaceEventType.RIGHT_CLICK);
+
+                // let state = 0;
+                // positions = new Array();
+                // graphics = space.__v.scene.primitives.add(new VRGlobe.GraphicsLayer());
+
+                // let handler = new VRGlobe.ScreenSpaceEventHandler();
+                // handler.setInputAction(function (event) {
+                //     const point = space.__v.scene.pickPosition(event.position);
+                //     if (point) {
+                //         let position = VRGlobe.Position3D.fromCartesian3(point);
+                //         positions.push(position.clone());
+                //         graphics.add(VRGlobe.Type.GRAPHICSPOINT, {
+                //             style: new VRGlobe.PointStyle({
+                //                 color: VRGlobe.Color.RED
+                //             }),
+                //             position: VRGlobe.Position3D.fromCartesian3(point)
+                //         })
+                //         if (state === 0) {
+                //             state = 3;
+                //         } else if (state === 3) {
+                //             polyline.show = false;
+                //             state = 4;
+                //         }
+
+                //     }
+                // }, VRGlobe.ScreenSpaceEventType.LEFT_CLICK);
+
+                // handler.setInputAction(function (event) {
+                //     if (state < 3) {
+                //         return;
+                //     }
+                //     const point = space.__v.scene.pickPosition(event.endPosition);
+                //     if (point) {
+                //         const array = positions.slice();
+                //         array.push(VRGlobe.Position3D.fromCartesian3(point));
+
+                //         if (state === 3) {
+                //             if (!polyline) {
+                //                 polyline = graphics.add(VRGlobe.Type.GRAPHICSLINESTRING, {
+                //                     positions: array,
+                //                     style: new VRGlobe.LineStringStyle({
+                //                         width: 5,
+                //                         color: VRGlobe.Color.ORANGE
+                //                     })
+                //                 });
+                //             } else {
+                //                 polyline._setPosition(array);
+                //             }
+                //         } else if (state === 4) {
+                //             if (!polygon) {
+                //                 polygon = graphics.add(VRGlobe.Type.GRAPHICSPOLYGON, {
+                //                     positions: [array],
+                //                     style: new VRGlobe.PolygonStyle({
+                //                         fillColor: VRGlobe.Color.CYAN
+                //                     })
+                //                 })
+                //             } else {
+                //                 polygon._setPosition([array]);
+                //             }
+                //         }
+                //     }
+                // }, VRGlobe.ScreenSpaceEventType.MOUSE_MOVE);
+
+                // handler.setInputAction(function (event) {
+                //     state = 0;
+                //     // polygon = undefined;
+                //     // polyline = undefined;
+                //     positions = new Array();
+                // }, VRGlobe.ScreenSpaceEventType.RIGHT_CLICK);
+
+                space.draw._anchorEvent.addEventListener(position => {
+                    console.log("anchorEvent", position);
+                });
+
+                space.draw._movingEvent.addEventListener(position => {
+                    console.log("movingEvent", position);
+                });
+
+                space.draw._drewEvent.addEventListener(position => {
+                    console.log("drewEvent", position);
+                    space.draw.enable = true;
+                });
             }
         </script>
     </body>

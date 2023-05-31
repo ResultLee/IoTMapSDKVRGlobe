@@ -1,4 +1,5 @@
 import defaultValue from '../../../Source/Core/defaultValue.js';
+import defined from '../../../Source/Core/defined.js';
 import DeveloperError from '../../../Source/Core/DeveloperError.js';
 import Event from '../../../Source/Core/Event.js';
 import Mode from '../../Static/Mode.js';
@@ -27,6 +28,16 @@ class Draw {
 
         this._ready = false;
         this._update = false;
+    }
+
+    get enable() {
+        return this._handler && this._handler._activate;
+    }
+
+    set enable(value) {
+        if (defined(this._handler)) {
+            this._handler._activate = value;
+        }
     }
 
     get mode() {

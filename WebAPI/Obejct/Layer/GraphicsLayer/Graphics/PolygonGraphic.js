@@ -22,6 +22,11 @@ class PolygonGraphic extends GraphicProvider {
         this._update = true;
     }
 
+    _setPosition(positions) {
+        this._geometry = new SinglePolygonGeometry(positions, this._geometry);
+        this._update = true;
+    }
+
     _updateGraphic() {
         let styles;
         switch (this._style._type) {

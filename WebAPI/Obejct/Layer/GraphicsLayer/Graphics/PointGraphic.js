@@ -23,6 +23,11 @@ class PointGraphic extends GraphicProvider {
         this._update = true;
     }
 
+    _setPosition(position) {
+        this._geometry = new SinglePointGeometry(position, this._geometry);
+        this._update = true;
+    }
+
     _updateGraphic() {
         switch (this._style._type) {
             case Style.POINTSTYLE:
