@@ -1,3 +1,4 @@
+import destroyObject from '../../../../Source/Core/destroyObject.js';
 import Event from '../../../../Source/Core/Event.js';
 import ScreenSpaceEventHandler from '../../../../Source/Core/ScreenSpaceEventHandler.js';
 import ScreenSpaceEventType from '../../../../Source/Core/ScreenSpaceEventType.js';
@@ -51,6 +52,17 @@ class DrawPolylineHandler {
             that._positions = new Array();
             that._polyline = undefined;
         }, ScreenSpaceEventType.RIGHT_CLICK);
+    }
+
+    _destory() {
+        this._state = 0;
+        this._activate = false;
+        this._polyline = undefined;
+        this._positions = new Array();
+        this._handler.removeInputAction(ScreenSpaceEventType.LEFT_CLICK);
+        this._handler.removeInputAction(ScreenSpaceEventType.MOUSE_MOVE);
+        this._handler.removeInputAction(ScreenSpaceEventType.RIGHT_CLICK);
+        destroyObject(this);
     }
 }
 

@@ -1,3 +1,4 @@
+import destroyObject from '../../../../Source/Core/destroyObject.js';
 import Event from '../../../../Source/Core/Event.js';
 import ScreenSpaceEventHandler from '../../../../Source/Core/ScreenSpaceEventHandler.js';
 import ScreenSpaceEventType from '../../../../Source/Core/ScreenSpaceEventType.js';
@@ -32,6 +33,12 @@ class DrawPointHandler {
             that._drewEvent.raiseEvent(Type.GRAPHICSPOINT, movement.position);
             that._anchorEvent.raiseEvent(Type.GRAPHICSPOINT, movement.position);
         }, ScreenSpaceEventType.LEFT_CLICK);
+    }
+
+    _destory() {
+        this._activate = false;
+        this._handler.removeInputAction(ScreenSpaceEventType.LEFT_CLICK);
+        destroyObject(this);
     }
 }
 

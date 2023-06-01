@@ -4,6 +4,7 @@ import DeveloperError from '../../../Source/Core/DeveloperError.js';
 import Event from '../../../Source/Core/Event.js';
 import Mode from '../../Static/Mode.js';
 import DrawPointHandler from './Hander/DrawPointHandler.js';
+import DrawPolygonHandler from './Hander/DrawPolygonHandler.js';
 import DrawPolylineHandler from './Hander/DrawPolylineHandler.js';
 
 class Draw {
@@ -24,7 +25,6 @@ class Draw {
         this._drewEvent = new Event();
 
         this._results = new Array();
-        this._addResults = new Array();
 
         this._ready = false;
         this._update = false;
@@ -51,16 +51,23 @@ class Draw {
     activate(mode, options) {
         options = defaultValue(options, new Object);
 
+        options._drewEvent = this._drewEvent;
         options._anchorEvent = this._anchorEvent;
         options._movingEvent = this._movingEvent;
-        options._drewEvent = this._drewEvent;
+
+        if (defined(this._handler)) {
+            this._handler._destory();
+        }
 
         switch (mode) {
             case Mode.DRAWPOINT:
-                this._handler = new DrawPointHandler(options);
+                this._handler = new DrawPointHandler();
                 break;
             case Mode.DRAWPOLYLINE:
-                this._handler = new DrawPolylineHandler(options);
+                this._handler = new DrawPolylineHandler();
+                break;
+            case Mode.DRAWPOLYGON:
+                this._handler = new DrawPolygonHandler();
                 break;
             default:
                 throw new DeveloperError('不支持的绘制类型!');
@@ -68,6 +75,12 @@ class Draw {
 
         this._handler._activate = true;
         this._update = true;
+    }
+
+    unActivate() {
+        if (defined(this._handler)) {
+            this._handler._destory();
+        }
     }
 }
 

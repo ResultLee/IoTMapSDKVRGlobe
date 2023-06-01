@@ -137,7 +137,6 @@ class ResourceTree {
         const layer = this.dataManager.addLayer(options);
 
         return { node, item, layer };
-        // return { node, item };
     }
 
     getTreeNode(id) {

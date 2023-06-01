@@ -77,9 +77,6 @@ import WKS_1 from "../../WebAPI/Static/Parse/WKS_1.js";
 import Type from "../../WebAPI/Static/Type.js";
 import Draw from "../../WebAPI/Obejct/Draw/Draw.js";
 import Default from "../../WebAPI/Static/Default.js";
-import PointPrimitiveCollection from "./PointPrimitiveCollection.js";
-import PolylineCollection from "./PolylineCollection.js";
-import Material from "./Material.js";
 import GraphicsLayer from "../../WebAPI/Obejct/Layer/GraphicsLayer/GraphicsLayer.js";
 import Position3D from "../../WebAPI/Obejct/Units/Position3D.js";
 
@@ -3472,34 +3469,57 @@ function updateAndRenderPrimitives(scene) {
             case Type.GRAPHICSLINESTRING:
               draw._handler._positions.push(position);
               break;
+            case Type.GRAPHICSPOLYGON:
+              draw._handler._positions.push(position);
+              break;
           }
           draw._anchorEvent.raiseEvent(position);
         }
       });
 
-      draw._handler._movingEvent.addEventListener((type, data) => {
-        const point = scene.pickPosition(data);
-        if (defined(point)) {
-          const position = Position3D.fromCartesian3(point);
-          switch (type) {
-            case Type.GRAPHICSLINESTRING:
-              // eslint-disable-next-line no-case-declarations
-              const array = draw._handler._positions.slice();
-              array.push(position);
+      if (defined(draw._handler._movingEvent)) {
+        draw._handler._movingEvent.addEventListener((type, data) => {
+          const point = scene.pickPosition(data);
+          if (defined(point)) {
+            const position = Position3D.fromCartesian3(point);
+            switch (type) {
+              case Type.GRAPHICSLINESTRING:
+                // eslint-disable-next-line no-case-declarations
+                const array1 = draw._handler._positions.slice();
+                array1.push(position);
 
-              if (!draw._handler._polyline) {
-                draw._handler._polyline = scene._graphics.add(type, {
-                  positions: array,
-                  style: Default.DRAWPOLYLINESTYLE
-                });
-              } else {
-                draw._handler._polyline._setPosition(array);
-              }
-              break;
+                if (!draw._handler._polyline) {
+                  draw._handler._polyline = scene._graphics.add(type, {
+                    positions: array1,
+                    style: Default.DRAWPOLYLINESTYLE
+                  });
+                } else {
+                  draw._handler._polyline._setPosition(array1);
+                }
+                break;
+              case Type.GRAPHICSPOLYGON:
+                // eslint-disable-next-line no-case-declarations
+                const array2 = draw._handler._positions.slice();
+                array2.push(position);
+                // scene._graphics.removeAll();
+
+                if (!draw._handler._polygon) {
+                  if (defined(draw._handler._polyline)) {
+                    draw._handler._polyline.show = false;
+                  }
+                  draw._handler._polygon = scene._graphics.add(type, {
+                    positions: [array2],
+                    style: Default.DRAWPOLYGONSTYLE
+                  })
+                } else {
+                  draw._handler._polygon._setPosition([array2]);
+                }
+                break;
+            }
+            draw._movingEvent.raiseEvent(position);
           }
-          draw._movingEvent.raiseEvent(position);
-        }
-      });
+        });
+      }
 
       draw._handler._drewEvent.addEventListener((type, data, positions) => {
         const point = scene.pickPosition(data);
@@ -3512,6 +3532,7 @@ function updateAndRenderPrimitives(scene) {
                 position: position,
                 style: Default.DRAWPOINTSTYLE
               });
+              draw._drewEvent.raiseEvent(position);
               break;
             case Type.GRAPHICSLINESTRING:
               resourceTree.addTemporary(type, {
@@ -3519,10 +3540,18 @@ function updateAndRenderPrimitives(scene) {
                 style: Default.DRAWPOLYLINESTYLE,
                 positions: positions.slice(),
               });
+              draw._drewEvent.raiseEvent(positions.slice());
+              break;
+            case Type.GRAPHICSPOLYGON:
+              resourceTree.addTemporary(type, {
+                name: "矢量面",
+                style: Default.DRAWPOLYGONSTYLE,
+                positions: [positions.slice()],
+              });
+              draw._drewEvent.raiseEvent(positions.slice());
               break;
           }
           scene._graphics.removeAll();
-          draw._drewEvent.raiseEvent(position);
           draw._anchorEvent.raiseEvent(position);
         }
       });
