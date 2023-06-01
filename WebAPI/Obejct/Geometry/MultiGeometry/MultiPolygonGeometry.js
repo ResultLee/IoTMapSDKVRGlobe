@@ -1,6 +1,6 @@
 import Cartesian3 from '../../../../Source/Core/Cartesian3.js';
-import Cartographic from '../../../../Source/Core/Cartographic.js';
 import Rectangle from '../../../../Source/Core/Rectangle.js';
+import Position3D from '../../Units/Position3D.js';
 import SinglePolygonGeometry from '../SingleGeometry/SinglePolygonGeometry.js';
 import MultiGeometry from './MultiGeometry.js';
 
@@ -25,7 +25,7 @@ class MultiPolygonGeometry extends MultiGeometry {
         const point = Rectangle.center(
             Rectangle.fromCartesianArray(Cartesian3.fromPositions(centers))
         );
-        return Cartographic.toPosition(point);
+        return Position3D.fromCartographic(point);
     }
 
     get positions() {

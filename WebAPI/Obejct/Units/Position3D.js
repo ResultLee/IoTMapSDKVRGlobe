@@ -46,6 +46,14 @@ class Position3D {
             cartesian3.altitude
         );
     }
+
+    static fromCartographic(cartographic) {
+        return new Position3D(
+            CesiumMath.toDegrees(cartographic.longitude),
+            CesiumMath.toDegrees(cartographic.latitude),
+            cartographic.height
+        );
+    }
 }
 
 export default Position3D;
