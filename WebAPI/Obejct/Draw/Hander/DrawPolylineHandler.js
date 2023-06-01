@@ -54,7 +54,7 @@ class DrawPolylineHandler {
         }, ScreenSpaceEventType.RIGHT_CLICK);
     }
 
-    _destory() {
+    _destroy() {
         this._state = 0;
         this._activate = false;
         this._polyline = undefined;

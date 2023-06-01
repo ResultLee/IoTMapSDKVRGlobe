@@ -35,7 +35,7 @@ class DrawPointHandler {
         }, ScreenSpaceEventType.LEFT_CLICK);
     }
 
-    _destory() {
+    _destroy() {
         this._activate = false;
         this._handler.removeInputAction(ScreenSpaceEventType.LEFT_CLICK);
         destroyObject(this);

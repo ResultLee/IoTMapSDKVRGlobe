@@ -56,7 +56,7 @@ class Draw {
         options._movingEvent = this._movingEvent;
 
         if (defined(this._handler)) {
-            this._handler._destory();
+            this._handler._destroy();
         }
 
         switch (mode) {
@@ -79,7 +79,8 @@ class Draw {
 
     unActivate() {
         if (defined(this._handler)) {
-            this._handler._destory();
+            this._handler._destroy();
+            this._handler = undefined;
         }
     }
 }

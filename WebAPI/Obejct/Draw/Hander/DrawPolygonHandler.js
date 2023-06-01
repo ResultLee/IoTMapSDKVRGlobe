@@ -1,3 +1,4 @@
+import destroyObject from '../../../../Source/Core/destroyObject.js';
 import Event from '../../../../Source/Core/Event.js';
 import ScreenSpaceEventHandler from '../../../../Source/Core/ScreenSpaceEventHandler.js';
 import ScreenSpaceEventType from '../../../../Source/Core/ScreenSpaceEventType.js';
@@ -9,12 +10,9 @@ class DrawPolygonHandler {
         this._movingEvent = new Event();
         this._drewEvent = new Event();
 
-        this._handler = new ScreenSpaceEventHandler();
-        // this._polygon
-        // this._polyline
-
         this._state = 0;
         this._positions = new Array();
+        this._handler = new ScreenSpaceEventHandler();
 
         this._init();
         this._activate = false;
@@ -56,8 +54,16 @@ class DrawPolygonHandler {
         }, ScreenSpaceEventType.RIGHT_CLICK);
     }
 
-    _update(frameState) {
-        this._graphics.update(frameState);
+    _destroy() {
+        this._state = 0;
+        this._activate = false;
+        this._polygon = undefined;
+        this._polyline = undefined;
+        this._positions = new Array();
+        this._handler.removeInputAction(ScreenSpaceEventType.LEFT_CLICK);
+        this._handler.removeInputAction(ScreenSpaceEventType.MOUSE_MOVE);
+        this._handler.removeInputAction(ScreenSpaceEventType.RIGHT_CLICK);
+        destroyObject(this);
     }
 }
 
