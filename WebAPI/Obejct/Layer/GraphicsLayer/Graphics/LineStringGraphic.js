@@ -30,7 +30,10 @@ class LineStringGraphic extends GraphicProvider {
         switch (this._style._type) {
             case Style.LINESTRINGSTYLE:
                 this._graphic = new PolylineCollection();
-                this._graphic.add(this._style._getStyle(this._geometry._positions));
+                // eslint-disable-next-line no-case-declarations
+                const options = this._style._getStyle(this._geometry._positions);
+                options.id = this._id;
+                this._graphic.add(options);
                 break;
             default:
                 throw new DeveloperError(`LineStringGraphic不支持${this._style._type}图层样式!`);

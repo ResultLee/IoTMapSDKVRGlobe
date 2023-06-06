@@ -9,6 +9,10 @@ class PointStyle {
     constructor(options) {
         options = defaultValue(options, defaultValue.EMPTY_OBJECT);
 
+        if (options.id) {
+            this.id = options.id;
+        }
+
         this._type = Style.POINTSTYLE;
         this._color = Color.clone(defaultValue(options.color, Color.YELLOW));
         this._pixelSize = defaultValue(options.pixelSize, 10.0);
@@ -64,6 +68,7 @@ class PointStyle {
 
     _getStyle(position) {
         return {
+            id: this.id,
             type: this._type,
             color: this._color,
             pixelSize: this._pixelSize,
@@ -75,6 +80,7 @@ class PointStyle {
 
     clone() {
         return new PointStyle({
+            id: this.id,
             color: this._color,
             pixelSize: this._pixelSize,
             outlineColor: this._outlineColor,

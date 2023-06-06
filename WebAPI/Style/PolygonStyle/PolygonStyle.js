@@ -27,7 +27,7 @@ class PolygonStyle {
 
         this._type = Style.POLYGONSTYLE;
         this._fill = defaultValue(options.fill, true);
-        this._outline = defaultValue(options.outline, true);
+        this._outline = defaultValue(options.outline, false);
         this._perPositionHeight = defaultValue(options.perPositionHeight, false);
         this._fillColor = Color.clone(defaultValue(options.fillColor, Color.YELLOW));
         this._outlineColor = Color.clone(
@@ -97,7 +97,7 @@ class PolygonStyle {
         this._update = true;
     }
 
-    _getStyle(positions) {
+    _getStyle(positions, id) {
         const that = this;
         const appearance = new PerInstanceColorAppearance({
             flat: true,
@@ -105,6 +105,7 @@ class PolygonStyle {
         });
         const polygonHierarchy = createPolygonHierarchy(positions);
         const fillStyle = this._fill ? new Primitive({
+            id: id,
             asynchronous: false,
             appearance: appearance,
             geometryInstances: new GeometryInstance({
@@ -120,6 +121,7 @@ class PolygonStyle {
         }) : undefined;
 
         const outlineStyle = this._outline ? new Primitive({
+            id: id,
             asynchronous: false,
             appearance: appearance,
             geometryInstances: new GeometryInstance({

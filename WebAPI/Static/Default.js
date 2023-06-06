@@ -54,8 +54,15 @@ const Default = {
     }),
     DRAWPOLYGONSTYLE: new PolygonStyle({
         fillColor: Color.CYAN
-    })
-
+    }),
+    EDITORPOINTINDEX: 'EDITORPOINTINDEX',
+    EDITOROUTCOLOR: Color.YELLOW,
+    EDITORFILLCOLOR: Color.YELLOW.withAlpha(0.5),
+    EDITORPOINTCOLOR: Color.YELLOW,
+    EDITORANCHORPOINT: Color.ORANGE,
+    EDITORPOLYLINCOLOR: Color.YELLOW.withAlpha(0.5),
+    EDITORANCHORSIZE: 12,
+    EDITORPOLYLINEWIDTH: 5
 };
 
 export default Default;

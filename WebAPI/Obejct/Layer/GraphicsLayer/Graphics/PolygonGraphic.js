@@ -32,7 +32,7 @@ class PolygonGraphic extends GraphicProvider {
         switch (this._style._type) {
             case Style.POLYGONSTYLE:
                 this._graphic = new PrimitiveCollection();
-                styles = this._style._getStyle(this._geometry._positions);
+                styles = this._style._getStyle(this._geometry._positions, this._id);
                 for (const index in styles) {
                     if (defined(styles[index])) {
                         this._graphic.add(styles[index]);

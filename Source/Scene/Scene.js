@@ -79,6 +79,7 @@ import Draw from "../../WebAPI/Obejct/Draw/Draw.js";
 import Default from "../../WebAPI/Static/Default.js";
 import GraphicsLayer from "../../WebAPI/Obejct/Layer/GraphicsLayer/GraphicsLayer.js";
 import Position3D from "../../WebAPI/Obejct/Units/Position3D.js";
+import Editor from "../../WebAPI/Obejct/Editor/Editor.js";
 
 const requestRenderAfterFrame = function (scene) {
   return function () {
@@ -753,9 +754,11 @@ function Scene(options) {
 
   // SDK中的Space链接对象
   this._draw = new Draw();
+  this._editor = new Editor();
   this._project = new Project();
   this._graphics = new GraphicsLayer();
   this._resourceTree = new ResourceTree();
+
 
   // Give frameState, camera, and screen space camera controller initial state before rendering
   updateFrameNumber(this, 0.0, JulianDate.now());
@@ -3541,6 +3544,7 @@ function updateAndRenderPrimitives(scene) {
                 positions: positions.slice(),
               });
               draw._drewEvent.raiseEvent(positions.slice());
+              draw._anchorEvent.raiseEvent(position);
               break;
             case Type.GRAPHICSPOLYGON:
               resourceTree.addTemporary(type, {
@@ -3549,10 +3553,10 @@ function updateAndRenderPrimitives(scene) {
                 positions: [positions.slice()],
               });
               draw._drewEvent.raiseEvent(positions.slice());
+              draw._anchorEvent.raiseEvent(position);
               break;
           }
           scene._graphics.removeAll();
-          draw._anchorEvent.raiseEvent(position);
         }
       });
     }
@@ -3560,6 +3564,64 @@ function updateAndRenderPrimitives(scene) {
     draw._update = false;
   }
 
+  const editor = scene._editor;
+
+  if (editor._update) {
+    editor._leftDownEvent.addEventListener((position) => {
+      const pickObject = scene.pick(position);
+      if (defined(pickObject)) {
+        const graphic = editor._layer.getById(pickObject.id);
+        const regExp = /EDITORPOINTINDEX/;
+        if (defined(graphic) && regExp.test(graphic._name)) {
+          const index = parseInt(graphic._name.replace(regExp, ''));
+          if (index > -1) {
+            scene.screenSpaceCameraController.enableInputs = false;
+            editor._anchorGraphic = graphic;
+            editor._anchorIndex = index;
+            editor._state = 1;
+
+            console.log(editor._anchorIndex);
+          }
+        }
+      }
+    });
+
+    editor._mouseMoveEvent.addEventListener((data) => {
+      const point = scene.pickPosition(data);
+      if (point) {
+        console.log('mouseMove', Position3D.fromCartesian3(point));
+        let position, positions;
+        if (defined(editor._anchorGraphic) && editor._anchorIndex > -1) {
+          position = Position3D.fromCartesian3(point);
+          editor._anchorGraphic._setPosition(position.clone());
+
+          if (defined(editor._editorGraphic)) {
+            switch (editor._editorGraphic.type) {
+              case Type.GRAPHICSLINESTRING:
+                positions = editor._editorGraphic._geometry.positions;
+                positions[editor._anchorIndex] = position.clone();
+                editor._editorGraphic._setPosition(positions);
+                break;
+              case Type.GRAPHICSPOLYGON:
+                positions = editor._editorGraphic._geometry.positions[0];
+                positions[editor._anchorIndex] = position.clone();
+                editor._editorGraphic._setPosition([positions]);
+                break;
+            }
+          }
+        }
+
+      }
+    });
+
+    editor._leftUpEvent.addEventListener((position) => {
+      scene.screenSpaceCameraController.enableInputs = true;
+      editor._state = 0;
+    });
+    editor._update = false;
+  }
+
+  editor.update(frameState);
   resourceTree.update(frameState);
   scene._graphics.update(frameState);
 

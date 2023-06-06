@@ -66,12 +66,12 @@
                     dataType: VRGlobe.Type.IMAGERYESRIIMG
                 });
 
-                // space.__v.scene.terrainProvider = new VRGlobe.createWorldTerrain();
-
                 space.resourceTree.addTreeNode({
                     name: "海平面",
                     dataType: VRGlobe.Type.TERRAINSEELEVEL
                 });
+
+                // space.__v.scene.terrainProvider = new VRGlobe.createWorldTerrain();
 
                 space.draw._anchorEvent.addEventListener(position => {
                     console.log("anchorEvent", position);
@@ -85,7 +85,7 @@
                     console.log("drewEvent", position);
                     space.draw.enable = goOn;
                 });
-                
+
                 isContinue();
             }
 

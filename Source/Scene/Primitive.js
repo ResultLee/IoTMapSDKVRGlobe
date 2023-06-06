@@ -7,6 +7,7 @@ import clone from "../Core/clone.js";
 import Color from "../Core/Color.js";
 import combine from "../Core/combine.js";
 import ComponentDatatype from "../Core/ComponentDatatype.js";
+import createGuid from "../Core/createGuid.js";
 import defaultValue from "../Core/defaultValue.js";
 import defined from "../Core/defined.js";
 import destroyObject from "../Core/destroyObject.js";
@@ -367,6 +368,7 @@ function Primitive(options) {
     };
   });
 
+  this._id = defaultValue(options.id, createGuid());
   this._batchTable = undefined;
   this._batchTableAttributeIndices = undefined;
   this._offsetInstanceExtend = undefined;
@@ -526,7 +528,7 @@ function getCommonPerInstanceAttributeNames(instances) {
           !defined(otherAttribute) ||
           attribute.componentDatatype !== otherAttribute.componentDatatype ||
           attribute.componentsPerAttribute !==
-            otherAttribute.componentsPerAttribute ||
+          otherAttribute.componentsPerAttribute ||
           attribute.normalize !== otherAttribute.normalize
         ) {
           inAllInstances = false;
@@ -664,8 +666,10 @@ function createBatchTable(primitive, context) {
       batchTable.setBatchedAttribute(i, attributeIndex, value);
     }
 
+    const object = defaultValue(instance.pickPrimitive, primitive)
     const pickObject = {
-      primitive: defaultValue(instance.pickPrimitive, primitive),
+      id: object._id,
+      primitive: object,
     };
 
     if (defined(instance.id)) {
@@ -1065,29 +1069,25 @@ function modifyForEncodedNormals(primitive, vertexShaderSource) {
 
   if (containsNormal && containsTangent && containsBitangent) {
     globalDecl += "vec3 normal;\n" + "vec3 tangent;\n" + "vec3 bitangent;\n";
-    decode += `    czm_octDecode(${attributeName}.${
-      containsSt ? "yz" : "xy"
-    }, normal, tangent, bitangent);\n`;
+    decode += `    czm_octDecode(${attributeName}.${containsSt ? "yz" : "xy"
+      }, normal, tangent, bitangent);\n`;
   } else {
     if (containsNormal) {
       globalDecl += "vec3 normal;\n";
-      decode += `    normal = czm_octDecode(${attributeName}${
-        numComponents > 1 ? `.${containsSt ? "y" : "x"}` : ""
-      });\n`;
+      decode += `    normal = czm_octDecode(${attributeName}${numComponents > 1 ? `.${containsSt ? "y" : "x"}` : ""
+        });\n`;
     }
 
     if (containsTangent) {
       globalDecl += "vec3 tangent;\n";
-      decode += `    tangent = czm_octDecode(${attributeName}.${
-        containsSt && containsNormal ? "z" : "y"
-      });\n`;
+      decode += `    tangent = czm_octDecode(${attributeName}.${containsSt && containsNormal ? "z" : "y"
+        });\n`;
     }
 
     if (containsBitangent) {
       globalDecl += "vec3 bitangent;\n";
-      decode += `    bitangent = czm_octDecode(${attributeName}.${
-        containsSt && containsNormal ? "z" : "y"
-      });\n`;
+      decode += `    bitangent = czm_octDecode(${attributeName}.${containsSt && containsNormal ? "z" : "y"
+        });\n`;
     }
   }
 
@@ -1133,11 +1133,10 @@ function depthClampFS(fragmentShaderSource) {
     "    #endif\n" +
     "#endif\n" +
     "}\n";
-  modifiedFS = `${
-    "#ifdef GL_EXT_frag_depth\n" +
+  modifiedFS = `${"#ifdef GL_EXT_frag_depth\n" +
     "#extension GL_EXT_frag_depth : enable\n" +
     "#endif\n"
-  }${modifiedFS}`;
+    }${modifiedFS}`;
   return modifiedFS;
 }
 
@@ -1441,7 +1440,7 @@ function recomputeBoundingSpheres(primitive, frameState) {
     if (
       minX > 0 ||
       BoundingSphere.intersectPlane(bs, Plane.ORIGIN_ZX_PLANE) !==
-        Intersect.INTERSECTING
+      Intersect.INTERSECTING
     ) {
       combinedBS.push(bs);
     } else {

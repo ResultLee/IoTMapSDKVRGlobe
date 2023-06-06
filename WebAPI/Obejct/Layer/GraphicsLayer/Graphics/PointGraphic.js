@@ -32,7 +32,10 @@ class PointGraphic extends GraphicProvider {
         switch (this._style._type) {
             case Style.POINTSTYLE:
                 this._graphic = new PointPrimitiveCollection();
-                this._graphic.add(this._style._getStyle(this._geometry.position));
+                // eslint-disable-next-line no-case-declarations
+                const options = this._style._getStyle(this._geometry.position);
+                options.id = this._id;
+                this._graphic.add(options);
                 break;
             default:
                 throw new DeveloperError(`PointGraphic不支持${this._style._type}图层样式!`);
