@@ -86,6 +86,9 @@ class DataManager {
         if (!defined(layer)) {
             layer = this.tilesetLayers.getById(id);
         }
+        if (!defined(layer)) {
+            layer = this.temporaryLayers.getById(id);
+        }
         return layer;
     }
 

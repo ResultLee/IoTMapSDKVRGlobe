@@ -80,6 +80,7 @@ import Default from "../../WebAPI/Static/Default.js";
 import GraphicsLayer from "../../WebAPI/Obejct/Layer/GraphicsLayer/GraphicsLayer.js";
 import Position3D from "../../WebAPI/Obejct/Units/Position3D.js";
 import Editor from "../../WebAPI/Obejct/Editor/Editor.js";
+import Measure from "../../WebAPI/Obejct/Measure/Measure.js";
 
 const requestRenderAfterFrame = function (scene) {
   return function () {
@@ -755,6 +756,7 @@ function Scene(options) {
   // SDK中的Space链接对象
   this._draw = new Draw();
   this._editor = new Editor();
+  this._measure = new Measure();
   this._project = new Project();
   this._graphics = new GraphicsLayer();
   this._resourceTree = new ResourceTree();
@@ -3565,7 +3567,6 @@ function updateAndRenderPrimitives(scene) {
   }
 
   const editor = scene._editor;
-
   if (editor._update) {
     editor._leftDownEvent.addEventListener((position) => {
       const pickObject = scene.pick(position);
@@ -3579,8 +3580,6 @@ function updateAndRenderPrimitives(scene) {
             editor._anchorGraphic = graphic;
             editor._anchorIndex = index;
             editor._state = 1;
-
-            console.log(editor._anchorIndex);
           }
         }
       }
@@ -3589,7 +3588,7 @@ function updateAndRenderPrimitives(scene) {
     editor._mouseMoveEvent.addEventListener((data) => {
       const point = scene.pickPosition(data);
       if (point) {
-        console.log('mouseMove', Position3D.fromCartesian3(point));
+        // console.log('mouseMove', Position3D.fromCartesian3(point));
         let position, positions;
         if (defined(editor._anchorGraphic) && editor._anchorIndex > -1) {
           position = Position3D.fromCartesian3(point);
@@ -3619,6 +3618,27 @@ function updateAndRenderPrimitives(scene) {
       editor._state = 0;
     });
     editor._update = false;
+  }
+
+  const measure = scene._measure;
+  if (measure._update) {
+    if (defined(measure._handler)) {
+      measure._handler._anchorEvent.addEventListener((type, data) => {
+        const point = scene.pickPosition(data);
+        console.log(Position3D.fromCartesian3(point));
+      });
+
+      measure._handler._movingEvent.addEventListener((type, data) => {
+        const point = scene.pickPosition(data);
+        // console.log(Position3D.fromCartesian3(point));
+      });
+
+      measure._handler._drewEvent.addEventListener((type, data, positions) => {
+        const point = scene.pickPosition(data);
+        console.log(Position3D.fromCartesian3(point));
+      });
+    }
+    measure._update = false;
   }
 
   editor.update(frameState);

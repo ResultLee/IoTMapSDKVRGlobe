@@ -243,6 +243,12 @@ module.exports = {
             filename: "./Editor/Editor.html",
             chunks: ['main'],
         }),
+        // 空间分析
+        new HtmlWebpackPlugin({
+            template: './Example/Analysis/Measure.html',
+            filename: "./Analysis/Measure.html",
+            chunks: ['main'],
+        }),
         // Copy Cesium Assets, Widgets, and Workers to a static directory
         new CopyWebpackPlugin({
             patterns: [

@@ -43,7 +43,7 @@ class Position3D {
         return new Position3D(
             CesiumMath.toDegrees(cartographic.longitude),
             CesiumMath.toDegrees(cartographic.latitude),
-            cartesian3.altitude
+            cartographic.height
         );
     }
 

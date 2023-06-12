@@ -28,13 +28,13 @@ class PolygonStyle {
         this._type = Style.POLYGONSTYLE;
         this._fill = defaultValue(options.fill, true);
         this._outline = defaultValue(options.outline, false);
-        this._perPositionHeight = defaultValue(options.perPositionHeight, false);
+        this._perPositionHeight = defaultValue(options.perPositionHeight, true);
         this._fillColor = Color.clone(defaultValue(options.fillColor, Color.YELLOW));
         this._outlineColor = Color.clone(
             defaultValue(options.outlineColor, Color.RED)
         );
         if (!this._perPositionHeight) {
-            this._height = defaultValue(options.height, 100);
+            this._height = defaultValue(options.height, 0);
         }
         this._update = true;
     }

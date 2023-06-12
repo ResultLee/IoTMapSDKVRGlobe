@@ -134,7 +134,12 @@ class TilesetProvider {
     }
 
     get readyPromise() {
-        return this._tileset.readyPromise;
+        const that = this;
+        return new Promise((resolve) => {
+            that._tileset.readyPromise.then(data => {
+                resolve(that);
+            });
+        });
     }
 
     get url() {

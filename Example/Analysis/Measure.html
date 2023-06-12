@@ -1,0 +1,131 @@
+<!--
+ * @Author: SnotlingLiu<snotlingliu@gmail.com/>
+ * @Date: 2023-02-14 09:34:37
+ * @LastEditors: SnotlingLiu<snotlingliu@gmail.com/>
+ * @LastEditTime: 2023-02-14 10:06:21
+ * @Description: 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>量算分析</title>
+    <style>
+        html,
+        body,
+        #main {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #group {
+            display: flex;
+            z-index: 10000;
+            flex-wrap: nowrap;
+            background-color: transparent;
+            position: absolute;
+            border-radius: 4px;
+            padding: 4px 6px;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="group">
+            <input id="A" onclick="verticalMeasure()" type="button" value="垂直量算">
+            <input id="B" onclick="horizontalMeasure()" type="button" value="水平量算">
+            <input id="C" onclick="slopeMeasure()" type="button" value="斜距量算">
+            <input id="D" onclick="AreaMeasure()" type="button" value="面积量算">
+            <input id="E" onclick="closeMeasure()" type="button" value="关闭量算">
+        </div>
+    </div>
+
+    <body>
+        <script>
+            let space, layer, handler;
+            window.onload = () => {
+                space = new VRGlobe.Space('main');
+
+                space.__v.scene.globe.depthTestAgainstTerrain = true;
+
+                // 创建ESRI矢量地图MapServer地图服务
+                space.resourceTree.addTreeNode({
+                    name: "ESRI影像",
+                    dataType: VRGlobe.Type.IMAGERYESRIIMG
+                });
+
+                space.resourceTree.addTreeNode({
+                    name: "海平面",
+                    dataType: VRGlobe.Type.TERRAINSEELEVEL
+                });
+
+                // 加载倾斜摄影
+                const treeNode = space.resourceTree.addTreeNode({
+                    name: "三维倾斜摄影",
+                    dataType: VRGlobe.Type.TILESETPHOTOGRAPHY,
+                    url: "http://192.168.1.119:6006/CQEstateData/3dtiles/CQLiangJiang3DTiles/tileset.json"
+                });
+
+                treeNode.layer.then(data => {
+                    layer = data;
+                    layer.readyPromise.then(() => {
+                        space.__v.camera.flyToBoundingSphere(layer._tileset.root.boundingSphere);
+                    })
+                });
+
+                // handler = new VRGlobe.ScreenSpaceEventHandler(space.__v._canvas);
+                // handler.setInputAction((movement) => {
+                //     console.log(movement);
+                // }, VRGlobe.ScreenSpaceEventType.LEFT_CLICK);
+
+                // space.draw._anchorEvent.addEventListener(data => {
+                //     console.log('锚点', data);
+                // });
+
+                // space.draw._movingEvent.addEventListener(data => {
+                //     console.log('移动', data);
+                // });
+
+                // space.draw._drewEvent.addEventListener(data => {
+                //     console.log('完成', data);
+                // });
+            }
+
+            function verticalMeasure() {
+                space.measure.activate(VRGlobe.Mode.MEASUREVERTICAL);
+                console.log("垂直测量");
+            }
+
+            function horizontalMeasure() {
+                space.measure.activate(VRGlobe.Mode.MEASUREHORIZONTAL);
+                console.log("水平测量");
+            }
+
+            function slopeMeasure() {
+                space.measure.activate(VRGlobe.Mode.MEASURESLOPE);
+                console.log("斜距测量");
+            }
+
+            function AreaMeasure() {
+                space.measure.activate(VRGlobe.Mode.DRAWPOLYGON);
+                console.log("面积测量");
+            }
+
+            function closeMeasure() {
+                space.measure.unActivate();
+                console.log("关闭测量");
+            }
+        </script>
+    </body>
+</body>
+
+</html>

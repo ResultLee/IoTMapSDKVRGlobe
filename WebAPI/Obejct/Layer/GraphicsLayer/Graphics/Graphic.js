@@ -9,6 +9,7 @@ import MultiLineStringGraphic from './MultiLineStringGraphic.js';
 import PolygonGraphic from './PolygonGraphic.js';
 import MultiPolygonGraphic from './MultiPolygonGraphic.js';
 import Attribute from '../../../AttributeTable/Attribute.js';
+import MeasureVerticalGraphic from './MeasureGraphic/MeasureVerticalGraphic.js';
 
 class Graphic {
     constructor(type, options) {
@@ -25,6 +26,8 @@ class Graphic {
                 return new PolygonGraphic(options);
             case Type.GRAPHICSMULTIPOLYGON:
                 return new MultiPolygonGraphic(options);
+            case Type.GRAPHICMEASUREVERTICAL:
+                return new MeasureVerticalGraphic(options);
         }
     }
 

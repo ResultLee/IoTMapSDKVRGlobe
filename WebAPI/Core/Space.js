@@ -40,6 +40,10 @@ class Space {
         return this.__v._scene._editor;
     }
 
+    get measure() {
+        return this.__v._scene._measure;
+    }
+
     get project() {
         return this.__v._scene._project;
     }
