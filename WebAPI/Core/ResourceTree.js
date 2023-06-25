@@ -140,7 +140,7 @@ class ResourceTree {
     }
 
     getTreeNode(id) {
-        return getNodeById(this.root, id);
+        return getNodeById(this.root, id) || getNodeById(this.temporary, id);
     }
 
     getLayer(id) {
