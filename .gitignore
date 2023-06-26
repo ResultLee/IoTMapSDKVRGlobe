@@ -2,11 +2,15 @@
 node_modules
 /dist
 /Build
+/Source/Shaders/**/*.js
+
 Source/Workers
-Source/Shaders/*.js
 Source/Cesium.js
 
 package-lock.json
+
+!/Source/Workers/cesiumWorkerBootstrapper.js
+!/Source/Workers/transferTypedArrayTest.js
 
 # Editor directories and files
 .vscode
