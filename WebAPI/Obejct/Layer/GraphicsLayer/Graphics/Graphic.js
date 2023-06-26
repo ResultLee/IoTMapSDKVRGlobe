@@ -3,13 +3,14 @@ import defined from '../../../../../Source/Core/defined.js';
 import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
 import Type from '../../../../Static/Type.js';
 import Geometry from '../../../Geometry/Geometry.js';
-import PointGraphic from './PointGraphic.js';
-import LineStringGraphic from './LineStringGraphic.js';
-import MultiLineStringGraphic from './MultiLineStringGraphic.js';
-import PolygonGraphic from './PolygonGraphic.js';
-import MultiPolygonGraphic from './MultiPolygonGraphic.js';
+import PointGraphic from './BaseGraphic/PointGraphic.js';
+import LineStringGraphic from './BaseGraphic/LineStringGraphic.js';
+import MultiLineStringGraphic from './BaseGraphic/MultiLineStringGraphic.js';
+import PolygonGraphic from './BaseGraphic/PolygonGraphic.js';
+import MultiPolygonGraphic from './BaseGraphic/MultiPolygonGraphic.js';
 import Attribute from '../../../AttributeTable/Attribute.js';
-import MeasureVerticalGraphic from './MeasureGraphic/MeasureVerticalGraphic.js';
+import MeasureGraphic from './MultiGraphic/MeasureGraphic/MeasureGraphic.js';
+import MeasureVerticalGraphic from './MultiGraphic/MeasureGraphic/MeasureVerticalGraphic.js';
 
 class Graphic {
     constructor(type, options) {
@@ -26,8 +27,15 @@ class Graphic {
                 return new PolygonGraphic(options);
             case Type.GRAPHICSMULTIPOLYGON:
                 return new MultiPolygonGraphic(options);
+            // case Type.GRAPHICMEASUREVERTICAL:
+            //     return new MeasureVerticalGraphic(options);
+            // case Type.GRAPHICMEASUREHORIZONTAL:
+            //     return new MeasureGraphic(options);
+            // case Type.GRAPHICMEASURESLOPE:
+            //     return new MeasureGraphic(options);
             case Type.GRAPHICMEASUREVERTICAL:
-                return new MeasureVerticalGraphic(options);
+                return new MeasureGraphic(options);
+
         }
     }
 
@@ -48,6 +56,5 @@ class Graphic {
         return new Graphic(type, options);
     }
 }
-
 
 export default Graphic;

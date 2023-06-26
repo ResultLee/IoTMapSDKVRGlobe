@@ -18,6 +18,12 @@ class Position3D {
         this.altitude = defaultValue(altitude, 0);
     }
 
+    static ORIGIN = new Position3D(0, 0, 0);
+
+    _cloneWithAltitude(altitude) {
+        return new Position3D(this.longitude, this.latitude, altitude);
+    }
+
     clone() {
         return new Position3D(this.longitude, this.latitude, this.altitude);
     }

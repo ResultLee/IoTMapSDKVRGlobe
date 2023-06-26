@@ -1,8 +1,8 @@
-import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
-import PolylineCollection from '../../../../../Source/Scene/PolylineCollection.js';
-import Style from '../../../../Static/Style.js';
-import Type from '../../../../Static/Type.js';
-import GraphicProvider from './GraphicProvider.js';
+import DeveloperError from '../../../../../../Source/Core/DeveloperError.js';
+import PolylineCollection from '../../../../../../Source/Scene/PolylineCollection.js';
+import Style from '../../../../../Static/Style.js';
+import Type from '../../../../../Static/Type.js';
+import GraphicProvider from '../GraphicProvider.js';
 
 class MultiLineStringGraphic extends GraphicProvider {
     constructor(options) {

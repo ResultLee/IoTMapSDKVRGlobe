@@ -4,6 +4,11 @@ class Style {
     static POINTSTYLE = 100100;
     static LINESTRINGSTYLE = 100200;
     static POLYGONSTYLE = 100300;
+
+    static MEASUREAREASTYLE = 100400;
+    static MEASURESLOPESTYLE = 100401;
+    static MEASUREVERTICALSTYLE = 100402;
+    static MEASUREHORIZONTALSTYLE = 100403;
 }
 
 export default Style;

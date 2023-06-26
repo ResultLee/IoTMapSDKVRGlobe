@@ -1,11 +1,11 @@
-import defaultValue from '../../../../../Source/Core/defaultValue.js';
-import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
-import PointPrimitiveCollection from '../../../../../Source/Scene/PointPrimitiveCollection.js';
-import Style from '../../../../Static/Style.js';
-import Type from '../../../../Static/Type.js';
+import defaultValue from '../../../../../../Source/Core/defaultValue.js';
+import DeveloperError from '../../../../../../Source/Core/DeveloperError.js';
+import PointPrimitiveCollection from '../../../../../../Source/Scene/PointPrimitiveCollection.js';
+import Style from '../../../../../Static/Style.js';
+import Type from '../../../../../Static/Type.js';
 // import PointStyle from '../../../../Style/PointStyle/PointStyle.js';
-import SinglePointGeometry from '../../../Geometry/SingleGeometry/SinglePointGeometry.js';
-import GraphicProvider from './GraphicProvider.js';
+import SinglePointGeometry from '../../../../Geometry/SingleGeometry/SinglePointGeometry.js';
+import GraphicProvider from '../GraphicProvider.js';
 
 class PointGraphic extends GraphicProvider {
     constructor(options) {

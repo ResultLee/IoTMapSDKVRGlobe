@@ -65,8 +65,7 @@ class DataManager {
         if (!defined(graphic)) {
             return false;
         }
-        this.temporaryLayers.add(type, options);
-        return true;
+        return this.temporaryLayers.add(type, options);
     }
 
     getLayer(id) {

@@ -1,9 +1,9 @@
-import defined from '../../../../../Source/Core/defined.js';
-import DeveloperError from '../../../../../Source/Core/DeveloperError.js';
-import PrimitiveCollection from '../../../../../Source/Scene/PrimitiveCollection.js';
-import Style from '../../../../Static/Style.js';
-import Type from '../../../../Static/Type.js';
-import GraphicProvider from './GraphicProvider.js';
+import defined from '../../../../../../Source/Core/defined.js';
+import DeveloperError from '../../../../../../Source/Core/DeveloperError.js';
+import PrimitiveCollection from '../../../../../../Source/Scene/PrimitiveCollection.js';
+import Style from '../../../../../Static/Style.js';
+import Type from '../../../../../Static/Type.js';
+import GraphicProvider from '../GraphicProvider.js';
 
 class MultiPolygonGraphic extends GraphicProvider {
     constructor(options) {

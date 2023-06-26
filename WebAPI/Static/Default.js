@@ -62,7 +62,17 @@ const Default = {
     EDITORANCHORPOINT: Color.ORANGE,
     EDITORPOLYLINCOLOR: Color.YELLOW.withAlpha(0.5),
     EDITORANCHORSIZE: 12,
-    EDITORPOLYLINEWIDTH: 5
+    EDITORPOLYLINEWIDTH: 5,
+    MEASUREANCHORSTYLE: new PointStyle({
+        color: Color.RED,
+        pixelSize: 5,
+        outlineWidth: 2,
+        outlineColor: Color.WHITE
+    }),
+    MEASUREPOLYLINESTYLE: new LineStringStyle({
+        width: 3,
+        color: Color.RED.withAlpha(0.9)
+    })
 };
 
 export default Default;

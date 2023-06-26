@@ -51,7 +51,7 @@
 
     <body>
         <script>
-            let space, layer, handler;
+            let space, layer, handler, positions, graphic;
             window.onload = () => {
                 space = new VRGlobe.Space('main');
 
@@ -63,9 +63,13 @@
                     dataType: VRGlobe.Type.IMAGERYESRIIMG
                 });
 
-                space.resourceTree.addTreeNode({
-                    name: "海平面",
-                    dataType: VRGlobe.Type.TERRAINSEELEVEL
+                // space.resourceTree.addTreeNode({
+                //     name: "海平面",
+                //     dataType: VRGlobe.Type.TERRAINSEELEVEL
+                // });
+
+                space.__v.terrainProvider = new VRGlobe.TerrainLayer(VRGlobe.Type.TERRAINQUANTIZED, {
+                    url: "https://www.supermapol.com/realspace/services/3D-stk_terrain/rest/realspace/datas/info/data/path"
                 });
 
                 // 加载倾斜摄影
@@ -78,6 +82,7 @@
                 treeNode.layer.then(data => {
                     layer = data;
                     layer.readyPromise.then(() => {
+                        // layer.show = false;
                         space.__v.camera.flyToBoundingSphere(layer._tileset.root.boundingSphere);
                     })
                 });
@@ -98,6 +103,51 @@
                 // space.draw._drewEvent.addEventListener(data => {
                 //     console.log('完成', data);
                 // });
+                positions = [
+                    new VRGlobe.Position3D(106.58280045890558, 29.58100170075751, 200),
+                    new VRGlobe.Position3D(106.58496529375539, 29.58101345587578, 356),
+                    new VRGlobe.Position3D(106.58659658392004, 29.576681412405087, 256)
+                ];
+                // ].reverse();
+
+                const points = [];
+
+                // graphic = space.resourceTree.addTemporary(VRGlobe.Type.GRAPHICSLINESTRING, {
+                //     name: '绘制线',
+                //     positions: positions,
+                //     style: new VRGlobe.LineStringStyle()
+                // }).layer;
+
+                // graphic = space.resourceTree.addTemporary(VRGlobe.Type.GRAPHICSLINESTRING, {
+                //     show: false,
+                //     name: '垂直测量',
+                //     positions: positions,
+                //     style: new VRGlobe.MeasureVerticalStyle()
+                // }).layer;
+
+                // graphic = space.resourceTree.addTemporary(VRGlobe.Type.GRAPHICSLINESTRING, {
+                //     show: false,
+                //     name: '水平测量',
+                //     positions: positions,
+                //     style: new VRGlobe.MeasureHorizontalStyle()
+                // }).layer;
+
+                // graphic = space.resourceTree.addTemporary(VRGlobe.Type.GRAPHICSLINESTRING, {
+                //     show: false,
+                //     name: '斜距测量',
+                //     positions: positions,
+                //     style: new VRGlobe.MeasureSlopeStyle()
+                // }).layer;
+
+                // graphic = space.resourceTree.addTemporary(VRGlobe.Type.GRAPHICSLINESTRING, {
+                //     // show: false,
+                //     name: '面积测量',
+                //     positions: positions,
+                //     style: new VRGlobe.MeasureAreaStyle()
+                // }).layer;
+
+
+
             }
 
             function verticalMeasure() {
@@ -123,6 +173,46 @@
             function closeMeasure() {
                 space.measure.unActivate();
                 console.log("关闭测量");
+            }
+
+            function addPolyline() {
+                const polyline = new VRGlobe.GroundPolylinePrimitive({
+                    // asynchronous: false,
+                    appearance: new VRGlobe.PolylineColorAppearance({
+                        flat: true,
+                        faceForward: false
+                    }),
+                    geometryInstances: new VRGlobe.GeometryInstance({
+                        geometry: new VRGlobe.GroundPolylineGeometry({
+                            positions: VRGlobe.Cartesian3.fromPositions(positions)
+                        }),
+                        attributes: {
+                            color: VRGlobe.ColorGeometryInstanceAttribute.fromColor(VRGlobe.Color.RED)
+                        }
+                    })
+                });
+                space.__v.scene.primitives.add(polyline);
+            }
+
+            function addPolygon() {
+                const polygon = new VRGlobe.GroundPrimitive({
+                    // asynchronous: false,
+                    appearance: new VRGlobe.PerInstanceColorAppearance({
+                        flat: true,
+                        faceForward: false
+                    }),
+                    geometryInstances: new VRGlobe.GeometryInstance({
+                        geometry: new VRGlobe.PolygonGeometry({
+                            height: 1000,
+                            polygonHierarchy: new VRGlobe.PolygonHierarchy(VRGlobe.Cartesian3.fromPositions(positions))
+                        }),
+                        attributes: {
+                            color: VRGlobe.ColorGeometryInstanceAttribute.fromColor(VRGlobe.Color.RED.withAlpha(0.1))
+                        }
+                    })
+                });
+                console.log(polygon);
+                space.__v.scene.primitives.add(polygon);
             }
         </script>
     </body>

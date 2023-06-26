@@ -31,7 +31,6 @@ class GraphicProvider {
             style: options.annotationStyle,
             position: this._geometry.center
         }));
-
     }
 
     get show() {
@@ -47,41 +46,6 @@ class GraphicProvider {
     }
 
     setStyle(style) {
-        // PointGraphic
-        // graphic.setStyle(new VRGlobe.PointStyle({
-        //     pixelSize: Math.round(Math.random() * 10),
-        //     color: VRGlobe.Color.fromRandom({
-        //         alpha: 1.0
-        //     })
-        // }))
-
-        // LineStringGraphic
-        // graphic.setStyle(new VRGlobe.LineStringStyle({
-        //     color: VRGlobe.Color.fromRandom({
-        //         alpha: 1.0
-        //     })
-        // }))
-
-        // MultiLineStringGraphic
-        // graphic.setStyle(new VRGlobe.LineStringStyle({
-        //     color: VRGlobe.Color.fromRandom({
-        //         alpha: 1.0
-        //     })
-        // }))
-
-        // PolygonGraphic
-        // graphic.setStyle(new VRGlobe.PolygonStyle({
-        //     fillColor: VRGlobe.Color.fromRandom({
-        //         alpha: 1.0
-        //     })
-        // }))
-
-        // MultiPolygonGraphic
-        // graphic.setStyle(new VRGlobe.PolygonStyle({
-        //     fillColor: VRGlobe.Color.fromRandom({
-        //         alpha: 1.0
-        //     })
-        // }))
         this._style = style;
         this._update = true;
     }

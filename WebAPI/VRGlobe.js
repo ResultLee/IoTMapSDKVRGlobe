@@ -80,3 +80,23 @@ export { default as createWorldTerrain } from '../Source/Core/createWorldTerrain
 export { default as ScreenSpaceEventType } from '../Source/Core/ScreenSpaceEventType.js';
 export { default as ScreenSpaceEventHandler } from '../Source/Core/ScreenSpaceEventHandler.js';
 export { default as PrimitiveCollection } from '../Source/Scene/PrimitiveCollection.js';
+
+export { default as MultiGraphicProvider } from './Obejct/Layer/GraphicsLayer/Graphics/MultiGraphic/MultiGraphicProvider.js';
+export { default as MeasureGraphic } from './Obejct/Layer/GraphicsLayer/Graphics/MultiGraphic/MeasureGraphic/MeasureGraphic.js';
+export { default as SingleLineStringGeometry } from './Obejct/Geometry/SingleGeometry/SingleLineStringGeometry.js';
+export { default as MeasureVerticalGraphic } from './Obejct/Layer/GraphicsLayer/Graphics/MultiGraphic/MeasureGraphic/MeasureVerticalGraphic.js';
+export { default as MeasureVerticalStyle } from './Style/MeasureStyle/MeasureVerticalStyle.js';
+export { default as MeasureHorizontalStyle } from './Style/MeasureStyle/MeasureHorizontalStyle.js';
+export { default as MeasureSlopeStyle } from './Style/MeasureStyle/MeasureSlopeStyle.js';
+export { default as MeasureAreaStyle } from './Style/MeasureStyle/MeasureAreaStyle.js';
+export { default as GroundPrimitive } from '../Source/Scene/GroundPrimitive.js';
+export { default as GroundPolylinePrimitive } from '../Source/Scene/GroundPolylinePrimitive.js';
+export { default as GroundPolylineGeometry } from '../Source/Core/GroundPolylineGeometry.js';
+export { default as GeometryInstance } from '../Source/Core/GeometryInstance.js';
+export { default as buildModuleUrl } from '../Source/Core/buildModuleUrl.js';
+export { default as PolygonHierarchy } from '../Source/Core/PolygonHierarchy.js';
+export { default as PolygonGeometry } from '../Source/Core/PolygonGeometry.js';
+export { default as PolylineColorAppearance } from '../Source/Scene/PolylineColorAppearance.js';
+
+
+

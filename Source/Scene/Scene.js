@@ -3588,7 +3588,6 @@ function updateAndRenderPrimitives(scene) {
     editor._mouseMoveEvent.addEventListener((data) => {
       const point = scene.pickPosition(data);
       if (point) {
-        // console.log('mouseMove', Position3D.fromCartesian3(point));
         let position, positions;
         if (defined(editor._anchorGraphic) && editor._anchorIndex > -1) {
           position = Position3D.fromCartesian3(point);
