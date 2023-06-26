@@ -1,5 +1,3 @@
-import Cartesian3 from '../../../../Source/Core/Cartesian3.js';
-import Rectangle from '../../../../Source/Core/Rectangle.js';
 import Position3D from '../../Units/Position3D.js';
 import SingleLineStringGeometry from '../SingleGeometry/SingleLineStringGeometry.js';
 import MultiGeometry from './MultiGeometry.js';
@@ -30,11 +28,9 @@ class MultiLineStringGeometry extends MultiGeometry {
     get center() {
         const centers = new Array();
         this._geometrys.forEach(geometry => {
-            centers.push(Cartesian3.fromPosition(geometry.center));
+            centers.push(geometry.center);
         });
-        return Position3D.fromCartographic(
-            Rectangle.center(Rectangle.fromCartesianArray(centers))
-        );
+        return Position3D.center(centers);
     }
 
     get positions() {
